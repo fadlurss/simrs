@@ -1,0 +1,130 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Tambah Dokter</h1>
+        </div>
+
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Tambah Dokter
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="/dokter/new" method="POST" id="tambah_dokter">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama dokter</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_dokter" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Jenis Kelamin</label>
+                            <div class="col-sm-9">
+                                <input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki-laki
+                                <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tempat Lahir</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="tempat_lahir" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tanggal lahir</label>
+                            <div class="col-sm-9">
+                                <input type="date" name="tanggal_lahir" class="form-control">
+                                <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Agama</label>
+                            <div class="col-sm-9">
+                                <select name="agama" id="" class="form-control" id="">
+                                    <% data_agama.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.nama_agama %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Alamat</label>
+                            <div class="col-sm-9">
+                                <textarea name="alamat" id="" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">No HP</label>
+                            <div class="col-sm-9">
+                                <input type="number" name="no_hp" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Status menikah</label>
+                            <div class="col-sm-9">
+                                <select name="status_menikah" id="" class="form-control" id="">
+                                    <% data_status_menikah.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.status_menikah %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Spesialis</label>
+                            <div class="col-sm-9">
+                                <select name="spesialis" id="" class="form-control" id="">
+                                    <% data_spesialis.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.nama_spesialis %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">No izin praktek</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="no_izin_praktek" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Golongan darah</label>
+                            <div class="col-sm-9">
+                                <input type="radio" name="golongan_darah" value="O"> O
+                                <input type="radio" name="golongan_darah" value="AB"> AB
+                                <input type="radio" name="golongan_darah" value="A"> A
+                                <input type="radio" name="golongan_darah" value="B"> B
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Alumni</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="alumni" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <input type="submit" name="submit" class="btn btn-info btn-block">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<% include ../partials/admin/footer %>

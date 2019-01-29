@@ -1,0 +1,44 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit Spesialis</h1>
+
+        </div>
+
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Edit Spesialis
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form class="form-horizontal" action="/spesialis/<%= spesialis._id %>?_method=PUT" method="POST">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama Spesialis</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_spesialis" class="form-control" value="<%= spesialis.nama_spesialis %>">
+                                <input type="text" class="form-control" value="<%= spesialis._id %>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-info btn-block">Update</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<% include ../partials/admin/footer %>
