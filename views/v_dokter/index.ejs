@@ -25,12 +25,7 @@
                             <tr>
                                 <th>Nama dokter</th>
                                 <th>Jenis kelamin</th>
-                                <th>Tempat lahir</th>
-                                <th>Tanggal lahir</th>
-                                <th>Agama</th>
-                                <th>Alamat</th>
                                 <th>No HP</th>
-                                <th>Status menikah</th>
                                 <th>Spesialis</th>
                                 <th>No izin praktek</th>
                                 <th>Golongan darah</th>
@@ -46,24 +41,8 @@
                                 </td>
                                 <td>
                                     <%= hasil.jenis_kelamin %>
-                                </td>
-                                <td>
-                                    <%= hasil.tempat_lahir %>
-                                </td>
-                                <td>
-                                    <%= moment(hasil.tanggal_lahir).format('LL') %></a>
-                                </td>
-                                <td>
-                                    <%= hasil.agama.nama_agama %>
-                                </td>
-                                <td>
-                                    <%= hasil.alamat %>
-                                </td>
                                 <td>
                                     <%= hasil.no_hp %>
-                                </td>
-                                <td>
-                                    <%= hasil.status_menikah.status_menikah %>
                                 </td>
                                 <td>
                                     <%= hasil.spesialis.nama_spesialis %>
