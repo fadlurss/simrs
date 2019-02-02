@@ -94,7 +94,7 @@ router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.delete("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const delete_jpd = await Jpd.findByIdAndRemove(req.params.id);
+    const delete_dokter = await Dokter.findByIdAndRemove(req.params.id);
     res.redirect("/dokter");
 }))
 

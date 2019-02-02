@@ -1,0 +1,133 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Tambah Pegawai</h1>
+        </div>
+
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Tambah Pegawai
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="/pegawai/new" method="POST" id="tambah_pegawai">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">NIP</label>
+                            <div class="col-sm-9">
+                                <input type="number" name="nip" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama Pegawai</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_pegawai" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Jenis Kelamin</label>
+                            <div class="col-sm-9">
+                                <input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki-laki
+                                <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">NPWP</label>
+                            <div class="col-sm-9">
+                                <input type="number" name="npwp" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Jenjang Pendidikan</label>
+                            <div class="col-sm-9">
+                                <select name="jenjang_pendidikan" id="" class="form-control" id="">
+                                    <% data_jenjang_pendidikan.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.nama_jenjang_pendidikan %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tempat Lahir</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="tempat_lahir" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tanggal lahir</label>
+                            <div class="col-sm-9">
+                                <input type="date" name="tanggal_lahir" class="form-control">
+                                <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Jabatan</label>
+                            <div class="col-sm-9">
+                                <select name="jabatan" id="" class="form-control" id="">
+                                    <% data_jabatan.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.nama_jabatan %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Jenjang</label>
+                            <div class="col-sm-9">
+                                <select name="jenjang" id="" class="form-control" id="">
+                                    <% data_jenjang.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.nama_jenjang %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Departemen</label>
+                            <div class="col-sm-9">
+                                <select name="departemen" id="" class="form-control" id="">
+                                    <% data_departemen.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.nama_departemen %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Bidang</label>
+                            <div class="col-sm-9">
+                                <select name="bidang" id="" class="form-control" id="">
+                                    <% data_bidang.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.nama_bidang %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <input type="submit" name="submit" class="btn btn-info btn-block">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<% include ../partials/admin/footer %>
