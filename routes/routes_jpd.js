@@ -1,5 +1,6 @@
 var express = require('express')
 router = express.Router()
+Dokter = require("../models/Tbl_dokter")
 Jpd = require("../models/Tbl_jadwal_praktek_dokter") // Jpd = jadwal praktek dokter
 Poliklinik = require("../models/Tbl_poliklinik")
 middleware = require("../middleware")
@@ -13,24 +14,19 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
+    const data_dokter = await Dokter.find({});
+    console.log(data_dokter);
     const data_poliklinik = await Poliklinik.find({});
     res.render("v_jpd/new", {
-        data_poliklinik: data_poliklinik
+        data_poliklinik: data_poliklinik,
+        data_dokter: data_dokter
     });
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    const hari = req.body.hari;
-    const jam_mulai = req.body.jam_mulai;
-    const jam_selesai = req.body.jam_selesai;
-    const poliklinik = req.body.poliklinik;
-    const newJpd = {
-        hari: hari,
-        jam_mulai: jam_mulai,
-        jam_selesai: jam_selesai,
-        poliklinik: poliklinik
-    };
-    const input_Jpd_baru = await Jpd.create(newJpd);
+
+    const input_Jpd_baru = await Jpd.create({ ...req.body
+    });
     res.redirect("/jadwalpraktek")
 }))
 

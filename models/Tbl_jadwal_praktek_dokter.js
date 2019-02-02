@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var tbl_jadwal_praktek_dokterSchema = new mongoose.Schema({
-    Tbl_dokter: {
+    nama_dokter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_dokter'
     },

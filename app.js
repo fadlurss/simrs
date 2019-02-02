@@ -19,6 +19,10 @@ const express = require('express'),
     spesialisRoutes = require("./routes/routes_spesialis"),
     jpdRoutes = require("./routes/routes_jpd"),
     dokterRoutes = require("./routes/routes_dokter"),
+    jenjangRoutes = require("./routes/routes_jenjang"),
+    jabatanRoutes = require("./routes/routes_jabatan"),
+    departemenRoutes = require("./routes/routes_departemen"),
+    bidangRoutes = require("./routes/routes_bidang"),
     app = express();
 mongoose.connect(configDB.url, {
     useNewUrlParser: true
@@ -56,6 +60,10 @@ app.use("/poliklinik", poliklinikRoutes);
 app.use("/spesialis", spesialisRoutes);
 app.use("/jadwalpraktek", jpdRoutes);
 app.use("/dokter", dokterRoutes);
+app.use("/jenjang", jenjangRoutes);
+app.use("/jabatan", jabatanRoutes);
+app.use("/departemen", departemenRoutes);
+app.use("/bidang", bidangRoutes);
 
 app.get("*", function (req, res) {
     res.send("404");
