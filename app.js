@@ -24,6 +24,8 @@ const express = require('express'),
     departemenRoutes = require("./routes/routes_departemen"),
     bidangRoutes = require("./routes/routes_bidang"),
     pegawaiRoutes = require("./routes/routes_pegawai"),
+    gedungRoutes = require("./routes/routes_gedung"),
+    ruanganRoutes = require("./routes/routes_ruangan"),
     app = express();
 mongoose.connect(configDB.url, {
     useNewUrlParser: true
@@ -66,6 +68,8 @@ app.use("/jabatan", jabatanRoutes);
 app.use("/departemen", departemenRoutes);
 app.use("/bidang", bidangRoutes);
 app.use("/pegawai", pegawaiRoutes);
+app.use("/gedung", gedungRoutes);
+app.use("/ruangan", ruanganRoutes);
 
 app.get("*", function (req, res) {
     res.send("404");
