@@ -231,6 +231,89 @@
             }
         }
     });
+
+    //VALIDATION FOR POLIKLINIK
+    $("#tambah_pasien").validate({
+        rules: {
+            awal_berobat: {
+                required: true
+            },
+            tanggal_lahir: {
+                required: true
+            },
+            nama_pasien: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            },
+            no_rm: {
+                required: true,
+                number: true,
+            },
+            no_hp: {
+                required: true,
+                number: true,
+                maxlength: 12
+            },
+            umur: {
+                required: true,
+                number: true,
+                max: 80,
+                min: 1
+            },
+            alamat: {
+                required: true
+            },
+            pekerjaan: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            },
+        },
+        messages: {
+            awal_berobat: {
+                required: "Tanggal awal berobat wajib diisi dengan benar !"
+            },
+            tanggal_lahir: {
+                required: "Tanggal lahir wajib diisi dengan benar !"
+            },
+            nama_pasien: {
+                accept: "Nama harus alphabet dan tidak boleh ada angka",
+                maxlength: "Nama pasien maksimal 30 huruf"
+            },
+            no_rm: {
+                number: "Masukkan angka dengan benar !",
+                required: "No Rekamedis wajib diisi !"
+            },
+            no_hp: {
+                required: "No hp wajib diisi dengan benar !",
+                number: "Masukkan angka dengan benar !",
+                maxlength: "No hp maksimal 12 angka"
+            },
+            umur: {
+                required: "Umur wajib diisi dengan benar !",
+                max: "Minimal umur 1 tahun & maksimal 80 tahun !",
+                min: "Minimal umur 1 tahun & maksimal 80 tahun !"
+            },
+            alamat: {
+                required: "Alamat wajib diisi dengan benar !"
+            },
+            pekerjaan: {
+                required: "Pekerjaan wajib diisi dengan benar !",
+                accept: "Nama harus alphabet dan tidak boleh ada angka",
+                maxlength: "Nama pekerjaan maksimal 30 huruf"
+            },
+        }
+    });
+
+    function submitBday() {
+        var Q4A = "";
+        var Bdate = document.getElementById('tanggal_lahir').value;
+        var Bday = +new Date(Bdate);
+        Q4A += +~~((Date.now() - Bday) / (31557600000) + 1);
+        var theBday = document.getElementById('resultBday');
+        document.getElementById("umurku").value = Q4A;
+    }
 </script>
 
 <script src="/admin/js/auto-complete.js"></script>

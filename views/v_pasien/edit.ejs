@@ -1,0 +1,97 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit Pasien</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Edit Pasien
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="/pasien/<%= data_pasien._id %>?_method=PUT"
+                        method="POST" id="tambah_pasien">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Awal berobat</label>
+                            <div class="col-sm-9">
+                                <input type="date" name="awal_berobat" value="<%= data_pasien.awal_berobat %>" class="form-control">
+                                <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">No Rekamedis</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="no_rm" value="<%= data_pasien.no_rm %>" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">No Rekamedis Lama</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="no_rm_lama" value="<%= data_pasien.no_rm_lama %>" required
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama Pasien</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_pasien" value="<%= data_pasien.nama_pasien %>" required
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tanggal lahir</label>
+                            <div class="col-sm-9">
+                                <input type="date" name="tanggal_lahir" id="tanggal_lahir" value="<%= data_pasien.tanggal_lahir %>"
+                                    class="form-control" onchange="submitBday()">
+                                <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Umur</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="umur" value="<%= data_pasien.umur %>" id="umurku" min="1" max="80"
+                                    required readonly class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Alamat</label>
+                            <div class="col-sm-9">
+                                <textarea name="alamat" value="<%= data_pasien.alamat %>" class="form-control" id=""
+                                    cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Pekerjaan</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="pekerjaan" value="<%= data_pasien.pekerjaan %>" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">No HP</label>
+                            <div class="col-sm-9">
+                                <input name="no_hp" value="<%= data_pasien.no_hp %>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    type="number" maxlength="12" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-info btn-block">Update</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<% include ../partials/admin/footer %>

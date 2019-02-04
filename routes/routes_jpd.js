@@ -7,7 +7,7 @@ middleware = require("../middleware")
 asyncMiddleware = require("../middleware");
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const data_jpd = await Jpd.find({}).populate("poliklinik");
+    const data_jpd = await Jpd.find({}).populate("poliklinik").populate("nama_dokter");
     res.render('v_jpd/index', {
         data_jpd: data_jpd
     });
@@ -15,7 +15,6 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
 
 router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
     const data_dokter = await Dokter.find({});
-    console.log(data_dokter);
     const data_poliklinik = await Poliklinik.find({});
     res.render("v_jpd/new", {
         data_poliklinik: data_poliklinik,
@@ -24,7 +23,6 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
-
     const input_Jpd_baru = await Jpd.create({ ...req.body
     });
     res.redirect("/jadwalpraktek")
