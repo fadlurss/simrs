@@ -20,6 +20,7 @@
     "flash": "^1.1.0",
     "helmet": "^3.15.0",
     "joi": "^14.3.1",
+    "js-autocomplete": "^1.0.4",
     "jsonwebtoken": "^8.4.0",
     "method-override": "^3.0.0",
     "moment": "^2.24.0",

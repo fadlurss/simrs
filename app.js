@@ -28,7 +28,8 @@ const express = require('express'),
     ruanganRoutes = require("./routes/routes_ruangan"),
     tempattidurRoutes = require("./routes/routes_tempat_tidur"),
     pasienRoutes = require("./routes/routes_pasien"),
-    app = express();
+    pendaftaranRoutes = require("./routes/routes_pendaftaran")
+app = express();
 mongoose.connect(configDB.url, {
     useNewUrlParser: true
 }); // connect to our database
@@ -74,6 +75,7 @@ app.use("/gedung", gedungRoutes);
 app.use("/ruangan", ruanganRoutes);
 app.use("/tempattidur", tempattidurRoutes);
 app.use("/pasien", pasienRoutes);
+app.use("/pendaftaran", pendaftaranRoutes);
 
 app.get("*", function (req, res) {
     res.send("404");

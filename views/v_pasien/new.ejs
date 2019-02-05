@@ -17,14 +17,7 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" action="/pasien/new" method="POST" id="tambah_pasien">
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Awal berobat</label>
-                            <div class="col-sm-9">
-                                <input type="date" name="awal_berobat" class="form-control">
-                                <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-sm-3">No Rekamedis</label>
+                            <label for="" class="col-sm-3">No Rekamedis<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
                                 <input type="text" name="no_rm" required class="form-control">
                             </div>
@@ -32,17 +25,31 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3">No Rekamedis Lama</label>
                             <div class="col-sm-9">
-                                <input type="text" name="no_rm_lama" required class="form-control">
+                                <input type="text" name="no_rm_lama" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Nama Pasien</label>
+                            <label for="" class="col-sm-3">Nama Pasien <span style="color:red"> *</span></label>
                             <div class="col-sm-9">
                                 <input type="text" name="nama_pasien" required class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Tanggal lahir</label>
+                            <label for="" class="col-sm-3">No BPJS</label>
+                            <div class="col-sm-9">
+                                <input name="no_bpjs" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    type="number" maxlength="13" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Jenis Kelamin<span style="color:red"> *</span></label>
+                            <div class="col-sm-9">
+                                <input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki-laki
+                                <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tanggal lahir<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
                                 <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control"
                                     onchange="submitBday()">
@@ -53,6 +60,30 @@
                             <label for="" class="col-sm-3">Umur</label>
                             <div class="col-sm-9">
                                 <input type="text" name="umur" id="umurku" min="1" max="80" required readonly class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Agama</label>
+                            <div class="col-sm-9">
+                                <select name="agama" id="" class="form-control" id="">
+                                    <% data_agama.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.nama_agama %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Status menikah</label>
+                            <div class="col-sm-9">
+                                <select name="status_menikah" id="" class="form-control" id="">
+                                    <% data_status_menikah.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.status_menikah %>
+                                    </option>
+                                    <% }); %>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
