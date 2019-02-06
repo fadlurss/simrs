@@ -29,10 +29,12 @@ const express = require('express'),
     tempattidurRoutes = require("./routes/routes_tempat_tidur"),
     pasienRoutes = require("./routes/routes_pasien"),
     pendaftaranRoutes = require("./routes/routes_pendaftaran"),
-    kategoribarangRoutes = require("./routes/routes_kategori_barang")
-satuanbarangRoutes = require("./routes/routes_satuan_barang")
-dataobatRoutes = require("./routes/routes_obat_alkes_bhp")
-app = express();
+    kategoribarangRoutes = require("./routes/routes_kategori_barang"),
+    satuanbarangRoutes = require("./routes/routes_satuan_barang"),
+    dataobatRoutes = require("./routes/routes_obat_alkes_bhp"),
+    supplierRoutes = require("./routes/routes_supplier"),
+    pengadaanobatRoutes = require("./routes/routes_pengadaanobat"),
+    app = express();
 mongoose.connect(configDB.url, {
     useNewUrlParser: true
 }); // connect to our database
@@ -82,6 +84,8 @@ app.use("/pendaftaran", pendaftaranRoutes);
 app.use("/kategoribarang", kategoribarangRoutes);
 app.use("/satuanbarang", satuanbarangRoutes);
 app.use("/dataobat", dataobatRoutes);
+app.use("/supplier", supplierRoutes);
+app.use("/pengadaanobat", pengadaanobatRoutes);
 
 app.get("*", function (req, res) {
     res.send("404");

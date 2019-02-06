@@ -341,34 +341,12 @@
             field = document.querySelector('#date2');
         field.value = date2;
     })()
-    // document.getElementById('datePicker').value = new Date().toDateInputValue();
-    // var today = new Date();
-    // var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-    // var dd = today.getDate();
-    // var mm = today.getMonth() + 1; //January is 0!
-    // var yyyy = today.getFullYear();
-    // var tomday = tomorrow.getDate();
-    // var tommonth = tomorrow.getMonth() + 1;
-    // var tomyear = tomorrow.getFullYear();
-    // if (dd < 10) {
-    //     dd = '0' + dd
-    // }
-    // if (mm < 10) {
-    //     mm = '0' + mm
-    // }
-    // today = mm + '/' + dd + '/' + yyyy;
-    // if (tomday < 10) {
-    //     tomday = '0' + tomday
-    // }
-    // if (tommonth < 10) {
-    //     tommonth = '0' + tommonth
-    // }
-    // tomorrow = tommonth + '/' + tomday + '/' + tomyear;
-    // $('#theDate').attr('value', today);
-    // $('#tomorrowDate').attr('value', tomorrow);
 
-    // var today = moment().format('YYYY-MM-DD');
-    // document.getElementById("datePicker").value = today;
+    (function () {
+        var date3 = new Date().toISOString().substring(0, 10),
+            field = document.querySelector('#date3');
+        field.value = date3;
+    })()
 </script>
 
 <script src="/admin/js/auto-complete.js"></script>
@@ -404,6 +382,68 @@
 
         }
     });
+
+    var demo4 = new autoComplete({
+        selector: '#cari_supplier',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/pengadaanobat/cari_supplier").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+
+        }
+    });
+
+    var demo5 = new autoComplete({
+        selector: '#cari_barang',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/pengadaanobat/cari_barang").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+
+        }
+    });
+
+
+    $("#cari_supplier").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/pengadaanobat/cari_id_supplier", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_supplier").val(r[0]._id);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
+
+    $("#cari_barang").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/pengadaanobat/cari_id_barang", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_barang").val(r[0]._id);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
+
     $("#cari_dokter").on("change", function () {
         np = $(this).val();
         $.post("http://localhost:4000/pendaftaran/cari_id_dokter", {

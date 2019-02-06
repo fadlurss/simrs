@@ -1,0 +1,75 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Tambah Pengadaan Obat Alkes BHP</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Tambah Obat Alkes BHP
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="/pengadaanobat/new" method="POST" id="tambah_pengadaan_obat">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">No Faktur</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="no_faktur" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tanggal</label>
+                            <div class="col-sm-9">
+                                <input type="date" id="date" name="tanggal" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama supplier</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_supplier" id="cari_supplier" required class="form-control">
+                                <input type="text" hidden name="id_supplier" id="id_supplier" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama Barang</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_barang" id="cari_barang" required class="form-control">
+                                <input type="text" hidden name="id_barang" id="id_barang" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Harga</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp</span>
+                                    <input type="number" name="harga" required class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Qty</label>
+                            <div class="col-sm-9">
+                                <input type="number" name="qty" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-info btn-block">Save</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<% include ../partials/admin/footer %>
