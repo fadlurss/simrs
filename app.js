@@ -34,6 +34,8 @@ const express = require('express'),
     dataobatRoutes = require("./routes/routes_obat_alkes_bhp"),
     supplierRoutes = require("./routes/routes_supplier"),
     pengadaanobatRoutes = require("./routes/routes_pengadaanobat"),
+    diagnosapenyakitRoutes = require("./routes/routes_diagnosa_penyakit"),
+    kategoritindakanRoutes = require("./routes/routes_kategori_tindakan"),
     app = express();
 mongoose.connect(configDB.url, {
     useNewUrlParser: true
@@ -86,6 +88,8 @@ app.use("/satuanbarang", satuanbarangRoutes);
 app.use("/dataobat", dataobatRoutes);
 app.use("/supplier", supplierRoutes);
 app.use("/pengadaanobat", pengadaanobatRoutes);
+app.use("/diagnosapenyakit", diagnosapenyakitRoutes);
+app.use("/kategoritindakan", kategoritindakanRoutes);
 
 app.get("*", function (req, res) {
     res.send("404");

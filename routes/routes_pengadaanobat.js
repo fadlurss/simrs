@@ -23,9 +23,9 @@ const schema = Joi.object().keys({
 
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const allPengadaanobat_detail = await Pengadaanobat_detail.find({}).populate("id_barang");
+    const allPengadaanobat = await Pengadaanobat.find({}).populate("id_supplier");
     res.render('v_pengadaanobat/index', {
-        data_pengadaanobat_detail: allPengadaanobat_detail
+        data_pengadaanobat: allPengadaanobat
     });
 }))
 
@@ -71,8 +71,19 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
 
 router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
     const cari_Pengadaanobat = await Pengadaanobat.findById(req.params.id);
+    const cari_Pengadaanobat_detail = await Pengadaanobat_detail.findById(req.params.id);
     res.render("v_pengadaanobat/edit", {
-        pengadaanobat_edit_id: cari_Pengadaanobat
+        pengadaanobat_edit_id: cari_Pengadaanobat,
+        pengadaan_obat_detail: cari_Pengadaanobat_detail
+    });
+}))
+
+router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
+    const cari_pengadaanobat = await Pengadaanobat.findById(req.params.id).populate("id_supplier");
+    const pengadaanobat_detail = await Pengadaanobat_detail.find({}).populate("id_barang");
+    res.render("v_pengadaanobat/detail", {
+        data_pengadaan_obat: cari_pengadaanobat,
+        pengadaanobat_detail: pengadaanobat_detail
     });
 }))
 
