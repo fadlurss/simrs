@@ -36,6 +36,8 @@ const express = require('express'),
     pengadaanobatRoutes = require("./routes/routes_pengadaanobat"),
     diagnosapenyakitRoutes = require("./routes/routes_diagnosa_penyakit"),
     kategoritindakanRoutes = require("./routes/routes_kategori_tindakan"),
+    pemeriksaanlaboratoriumRoutes = require("./routes/routes_pemeriksaanlaboratorium"),
+    subpemeriksaanlaboratoriumRoutes = require("./routes/routes_sub_pemeriksaanlaboratorium"),
     app = express();
 mongoose.connect(configDB.url, {
     useNewUrlParser: true
@@ -90,6 +92,8 @@ app.use("/supplier", supplierRoutes);
 app.use("/pengadaanobat", pengadaanobatRoutes);
 app.use("/diagnosapenyakit", diagnosapenyakitRoutes);
 app.use("/kategoritindakan", kategoritindakanRoutes);
+app.use("/pemeriksaanlaboratorium", pemeriksaanlaboratoriumRoutes);
+app.use("/subpemeriksaanlaboratorium", subpemeriksaanlaboratoriumRoutes);
 
 app.get("*", function (req, res) {
     res.send("404");

@@ -1,0 +1,60 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit Pemeriksaan Laboratorium</h1>
+
+        </div>
+
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Edit Pemeriksaan Laboratorium
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="/pemeriksaanlaboratorium/<%= pemeriksaanlaboratorium_edit_id._id %>?_method=PUT"
+                        method="POST" id="tambah_pemeriksaanlaboratorium">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Kode Periksa</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="kode_periksa" required class="form-control" value="<%= pemeriksaanlaboratorium_edit_id.kode_periksa %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama Periksa</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_periksa" required class="form-control" value="<%= pemeriksaanlaboratorium_edit_id.nama_periksa %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tarif</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp</span>
+                                    <input type="number" name="tarif" required value="<%= pemeriksaanlaboratorium_edit_id.tarif %>"
+                                        class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-info btn-block">Update</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<% include ../partials/admin/footer %>

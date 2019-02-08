@@ -1,0 +1,72 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit Pemeriksaan Laboratorium</h1>
+        </div>
+
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Edit Sub Pemeriksaan Laboratorium
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="/subpemeriksaanlaboratorium/<%= pemeriksaanlaboratorium_edit_id._id %>?_method=PUT"
+                        method="POST" id="tambah_subpemeriksaanlaboratorium">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Kode Sub Pemeriksaan</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="kode_sub_periksa" value="<%= pemeriksaanlaboratorium_edit_id.kode_sub_periksa %>"
+                                    required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama Periksa</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_periksa" readonly value="<%= pemeriksaanlaboratorium_edit_id.kode_periksa.nama_periksa %>"
+                                    required class="form-control">
+                                <input type="text" hidden name="kode_periksa" value="<%= pemeriksaanlaboratorium_edit_id.kode_periksa._id %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama Sub Pemeriksaan</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_pemeriksaan" value="<%= pemeriksaanlaboratorium_edit_id.nama_pemeriksaan %>"
+                                    required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Satuan</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="satuan" value="<%= pemeriksaanlaboratorium_edit_id.satuan %>"
+                                    required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nilai Rujukan</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nilai_rujukan" value="<%= pemeriksaanlaboratorium_edit_id.nilai_rujukan %>"
+                                    required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-info btn-block">Update</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<% include ../partials/admin/footer %>
