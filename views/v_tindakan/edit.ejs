@@ -1,0 +1,106 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit Tindakan</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Edit Tindakan
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="/tindakan/<%= tindakan_edit_id._id %>?_method=PUT"
+                        method="POST" id="tambah_tindakan">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama Tindakan</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_tindakan" value="<%= tindakan_edit_id.nama_tindakan %>"
+                                    required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Jenis Tindakan</label>
+                            <div class="col-sm-9">
+                                <select name="jenis_tindakan" class="form-control" class="form-control" id="">
+                                    <option value="" disabled>
+                                        Pilihan sebelumnya :
+                                        <%= tindakan_edit_id.jenis_tindakan %>
+                                    </option>
+                                    <option value="Rawat inap">Rawat inap</option>
+                                    <option value="Rawat jalan">Rawat jalan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Kategori Tindakan</label>
+                            <div class="col-sm-9">
+                                <select name="kode_kategori_tindakan" class="form-control" id="">
+                                    <option value="" disabled>
+                                        Pilihan sebelumnya :
+                                        <%= tindakan_edit_id.kode_kategori_tindakan.kategori_tindakan %>
+                                    </option>
+                                    <% kategori_tindakan.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.kategori_tindakan %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tarif</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="tarif" value="<%= tindakan_edit_id.tarif %>" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tindakan oleh</label>
+                            <div class="col-sm-9">
+                                <select name="tindakan_oleh" id="" class="form-control">
+                                    <option value="" disabled>
+                                        Pilihan sebelumnya :
+                                        <%= tindakan_edit_id.tindakan_oleh %>
+                                    </option>
+                                    <option value="Dokter">Dokter</option>
+                                    <option value="Petugas">Petugas</option>
+                                    <option value="Dokter dan petugas">Dokter dan petugas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Poliklinik</label>
+                            <div class="col-sm-9">
+                                <select name="id_poliklinik" id="" class="form-control" id="">
+                                    <option value="" disabled>
+                                        Pilihan sebelumnya :
+                                        <%= tindakan_edit_id.id_poliklinik.nama_poliklinik %>
+                                    </option>
+                                    <% poliklinik.forEach(function(hasil){ %>
+                                    <option value="<%= hasil.id %>">
+                                        <%= hasil.nama_poliklinik %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-info btn-block">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<% include ../partials/admin/footer %>

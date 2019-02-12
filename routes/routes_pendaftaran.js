@@ -2,9 +2,13 @@ var express = require('express')
 router = express.Router()
 Pasien = require("../models/Tbl_pasien")
 Pendaftaran = require("../models/Tbl_pendaftaran")
+Tindakan = require("../models/Tbl_tindakan")
 Jenis_bayar = require("../models/Tbl_jenis_bayar")
 Dokter = require("../models/Tbl_dokter")
+Pegawai = require("../models/Tbl_pegawai")
 Poliklinik = require("../models/Tbl_poliklinik")
+Riwayattindakan = require("../models/Tbl_riwayattindakan")
+PJRiwayattindakan = require("../models/Tbl_pj_riwayattindakan")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
@@ -27,6 +31,27 @@ const schema = Joi.object().keys({
     hubungan_penanggung_jawab: Joi.string().required(),
     alamat_penanggung_jawab: Joi.string().required(),
     no_bpjs: Joi.number().required(),
+    submit: Joi.any()
+})
+
+const schema2 = Joi.object().keys({
+    kode_pj: Joi.any(),
+    id_detail_pendaftaran: Joi.any(),
+    id_dokter: Joi.any(),
+    id_dokter2: Joi.any(),
+    id_pegawai: Joi.any(),
+    id_pegawai2: Joi.any(),
+    nama_dokter: Joi.any(),
+    nama_dokter2: Joi.any(),
+    nama_pegawai: Joi.any(),
+    nama_pegawai2: Joi.any(),
+    nama_tindakan: Joi.any(),
+    tindakan_oleh: Joi.any(),
+    nama_petugas: Joi.any(),
+    id_tindakan: Joi.string().required(),
+    no_rawat: Joi.string().required(),
+    hasil_periksa: Joi.string().required(),
+    perkembangan: Joi.string().required(),
     submit: Joi.any()
 })
 
@@ -67,9 +92,72 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
         console.log(error);
 
     } else {
-        const input_pendaftaran_baru = await Pendaftaran.create(result.value);
-        res.redirect("/pendaftaran");
+        const result = Joi.validate({ ...req.body
+        }, schema);
+        const {
+            value,
+            error
+        } = result;
+        const valid = error == null;
+        if (!valid) { // jika tidak valid, atau salah...
+            res.status(422).json({
+                message: 'Invalid request',
+                data: 'error'
+            })
+            console.log(error);
+
+        } else {
+
+            const input_pendaftaran_baru = await Pendaftaran.create(result.value);
+            res.redirect("/pendaftaran");
+        }
     }
+}))
+
+router.post('/new_riwayattindakan', middleware.asyncMiddleware(async (req, res, next) => {
+    const result = Joi.validate({ ...req.body
+    }, schema2);
+    const {
+        value,
+        error
+    } = result;
+    const valid = error == null;
+    if (!valid) { // jika tidak valid, atau salah...
+        res.status(422).json({
+            message: 'Invalid request',
+            data: 'error'
+        })
+        console.log(error);
+
+    } else {
+        const input_pendaftaran_baru = await Riwayattindakan.create(result.value);
+        const id_detail_pendaftaran = req.body.id_detail_pendaftaran;
+        const id_riwayat_tindakan = input_pendaftaran_baru.id;
+        const id_dokter = req.body.id_dokter;
+        const id_dokter2 = req.body.id_dokter2;
+        const id_pegawai = req.body.id_pegawai;
+        const id_pegawai2 = req.body.id_pegawai2;
+        const keterangan = req.body.tindakan_oleh;
+        const new_pj_riwayat_tindakan = {
+            id_riwayat_tindakan: id_riwayat_tindakan,
+            id_dokter: id_dokter,
+            id_dokter: id_dokter2,
+            id_pegawai: id_pegawai,
+            id_pegawai: id_pegawai2,
+            keterangan: keterangan
+        }
+        console.log(new_pj_riwayat_tindakan);
+
+        const input_pj_riwayat_tindakan = await PJRiwayattindakan.create(new_pj_riwayat_tindakan);
+        res.redirect("/pendaftaran/" + id_detail_pendaftaran + "/detail");
+    }
+}))
+
+router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
+    const data_pendaftaran = await Pendaftaran.findById(req.params.id).populate("id_pasien");
+    res.render("v_pendaftaran/detail", {
+        data_pendaftaran: data_pendaftaran
+    });
 }))
 
 router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
@@ -119,11 +207,40 @@ router.post('/cariibu', (req, res) => {
     });
 });
 
+router.post('/tindakan_oleh', (req, res) => {
+    //    console.log(req.body.np);
+    Pasien.find({
+        'no_rm': req.body.np
+    }, (e, r) => {
+        res.json(r);
+    });
+});
+
 router.get('/cari_dokter', (req, res) => {
     Dokter.find({}, function (err, re) {
         d = [];
         for (let ix = 0; ix < re.length; ix++) {
             d[ix] = re[ix].nama_dokter;
+        }
+        res.json(d);
+    });
+});
+
+router.get('/cari_pegawai', (req, res) => {
+    Pegawai.find({}, function (err, re) {
+        d = [];
+        for (let ix = 0; ix < re.length; ix++) {
+            d[ix] = re[ix].nama_pegawai;
+        }
+        res.json(d);
+    });
+});
+
+router.get('/cari_tindakan', (req, res) => {
+    Tindakan.find({}, function (err, re) {
+        d = [];
+        for (let ix = 0; ix < re.length; ix++) {
+            d[ix] = re[ix].nama_tindakan;
         }
         res.json(d);
     });
@@ -137,5 +254,44 @@ router.post('/cari_id_dokter', (req, res) => {
         res.json(r);
     });
 });
+
+router.post('/cari_id_pegawai', (req, res) => {
+    //    console.log(req.body.np);
+    Pegawai.find({
+        'nama_pegawai': req.body.np
+    }, (e, r) => {
+        res.json(r);
+    });
+});
+
+router.post('/cari_id_tindakan', (req, res) => {
+    //    console.log(req.body.np);
+    Tindakan.find({
+        'nama_tindakan': req.body.np
+    }, (e, r) => {
+        res.json(r);
+    });
+});
+
+router.post('/new_riwayattindakan', middleware.asyncMiddleware(async (req, res, next) => {
+    const result = Joi.validate({ ...req.body
+    }, schema);
+    const {
+        value,
+        error
+    } = result;
+    const valid = error == null;
+    if (!valid) { // jika tidak valid, atau salah...
+        res.status(422).json({
+            message: 'Invalid request',
+            data: 'error'
+        })
+        console.log(error);
+
+    } else {
+        const input_pendaftaran_baru = await Pendaftaran.create(result.value);
+        res.redirect("/pendaftaran");
+    }
+}))
 
 module.exports = router;

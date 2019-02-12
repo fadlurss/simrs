@@ -415,6 +415,70 @@
         }
     });
 
+    var demo6 = new autoComplete({
+        selector: '#cari_dokter',
+        selector: '#cari_dokter2',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_dokter").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+
+        }
+    });
+
+    var demo7 = new autoComplete({
+        selector: '#cari_petugas',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_pegawai").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+
+        }
+    });
+
+    var demo8 = new autoComplete({
+        selector: '#cari_petugas2',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_pegawai").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+
+        }
+    });
+
+    var demo9 = new autoComplete({
+        selector: '#cari_tindakan',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_tindakan").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+
+        }
+    });
 
     $("#cari_supplier").on("change", function () {
         np = $(this).val();
@@ -451,7 +515,61 @@
         }).then((r) => {
             console.log(r);
             if (r.length > 0) {
-                $("#id_dokter_penanggung_jawab").val(r[0]._id);
+                $("#id_dokter").val(r[0]._id);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
+    $("#cari_dokter2").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/pendaftaran/cari_id_dokter", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_dokter2").val(r[0]._id);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
+    $("#cari_petugas").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/pendaftaran/cari_id_pegawai", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_petugas").val(r[0]._id);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
+
+    $("#cari_petugas2").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/pendaftaran/cari_id_pegawai", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_petugas2").val(r[0]._id);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
+
+    $("#cari_tindakan").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/pendaftaran/cari_id_tindakan", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_tindakan").val(r[0]._id);
             } else {
                 alert("Nama Tidak Ditemukan");
             }
@@ -529,6 +647,22 @@
             }
         });
     });
+
+
+    document.getElementById("tindakan_oleh_by").addEventListener('change', function () {
+        var style = this.value == "Dokter" ? '' : 'none';
+        document.getElementById('hidden_div').style.display = style;
+    })
+
+    document.getElementById("tindakan_oleh_by").addEventListener('change', function () {
+        var style = this.value == "Petugas" ? '' : 'none';
+        document.getElementById('hidden_div2').style.display = style;
+    })
+
+    document.getElementById("tindakan_oleh_by").addEventListener('change', function () {
+        var style = this.value == "Dokter dan Petugas" ? '' : 'none';
+        document.getElementById('hidden_div3').style.display = style;
+    })
 </script>
 </body>
 

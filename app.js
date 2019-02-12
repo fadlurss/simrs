@@ -36,6 +36,7 @@ const express = require('express'),
     pengadaanobatRoutes = require("./routes/routes_pengadaanobat"),
     diagnosapenyakitRoutes = require("./routes/routes_diagnosa_penyakit"),
     kategoritindakanRoutes = require("./routes/routes_kategori_tindakan"),
+    tindakanRoutes = require("./routes/routes_tindakan"),
     pemeriksaanlaboratoriumRoutes = require("./routes/routes_pemeriksaanlaboratorium"),
     subpemeriksaanlaboratoriumRoutes = require("./routes/routes_sub_pemeriksaanlaboratorium"),
     app = express();
@@ -92,6 +93,7 @@ app.use("/supplier", supplierRoutes);
 app.use("/pengadaanobat", pengadaanobatRoutes);
 app.use("/diagnosapenyakit", diagnosapenyakitRoutes);
 app.use("/kategoritindakan", kategoritindakanRoutes);
+app.use("/tindakan", tindakanRoutes);
 app.use("/pemeriksaanlaboratorium", pemeriksaanlaboratoriumRoutes);
 app.use("/subpemeriksaanlaboratorium", subpemeriksaanlaboratoriumRoutes);
 
