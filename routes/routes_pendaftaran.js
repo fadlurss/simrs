@@ -36,20 +36,21 @@ const schema = Joi.object().keys({
 
 const schema2 = Joi.object().keys({
     kode_pj: Joi.any(),
-    id_detail_pendaftaran: Joi.any(),
+    id_pendaftaran: Joi.string().required(),
     id_dokter: Joi.any(),
     id_dokter2: Joi.any(),
     id_pegawai: Joi.any(),
+    id_petugas: Joi.any(),
     id_pegawai2: Joi.any(),
     nama_dokter: Joi.any(),
     nama_dokter2: Joi.any(),
     nama_pegawai: Joi.any(),
     nama_pegawai2: Joi.any(),
     nama_tindakan: Joi.any(),
-    tindakan_oleh: Joi.any(),
+    dilakukan_oleh: Joi.any(),
     nama_petugas: Joi.any(),
     id_tindakan: Joi.string().required(),
-    no_rawat: Joi.string().required(),
+    no_rawat: Joi.any(),
     hasil_periksa: Joi.string().required(),
     perkembangan: Joi.string().required(),
     submit: Joi.any()
@@ -114,47 +115,29 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
     }
 }))
 
-router.post('/new_riwayattindakan', middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
-    }, schema2);
-    const {
-        value,
-        error
-    } = result;
-    const valid = error == null;
-    if (!valid) { // jika tidak valid, atau salah...
-        res.status(422).json({
-            message: 'Invalid request',
-            data: 'error'
-        })
-        console.log(error);
-
-    } else {
-        const input_pendaftaran_baru = await Riwayattindakan.create(result.value);
-        const id_detail_pendaftaran = req.body.id_detail_pendaftaran;
-        const id_riwayat_tindakan = input_pendaftaran_baru.id;
+router.post('/:id/new_riwayattindakan', middleware.asyncMiddleware(async (req, res, next) => {
+    Pendaftaran.findById(req.params.id, async (err, hasil_pendaftaran) => {
+        const newR = await Riwayattindakan.create(req.body);
+        hasil_pendaftaran.id_riwayattindakan.push(newR);
+        hasil_pendaftaran.save();
+        const id_riwayat_tindakan = newR.id;
         const id_dokter = req.body.id_dokter;
-        const id_dokter2 = req.body.id_dokter2;
-        const id_pegawai = req.body.id_pegawai;
-        const id_pegawai2 = req.body.id_pegawai2;
-        const keterangan = req.body.tindakan_oleh;
+        const id_petugas = req.body.id_petugas;
+        const keterangan = req.body.dilakukan_oleh;
         const new_pj_riwayat_tindakan = {
             id_riwayat_tindakan: id_riwayat_tindakan,
             id_dokter: id_dokter,
-            id_dokter: id_dokter2,
-            id_pegawai: id_pegawai,
-            id_pegawai: id_pegawai2,
+            id_pegawai: id_petugas,
             keterangan: keterangan
         }
-        console.log(new_pj_riwayat_tindakan);
-
         const input_pj_riwayat_tindakan = await PJRiwayattindakan.create(new_pj_riwayat_tindakan);
-        res.redirect("/pendaftaran/" + id_detail_pendaftaran + "/detail");
-    }
+        res.redirect("/pendaftaran/" + req.params.id + "/detail");
+    });
 }))
 
+
 router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
-    const data_pendaftaran = await Pendaftaran.findById(req.params.id).populate("id_pasien");
+    const data_pendaftaran = await Pendaftaran.findById(req.params.id).populate("id_pasien").populate({path:"id_riwayattindakan", populate:{path:"id_tindakan"}});
     res.render("v_pendaftaran/detail", {
         data_pendaftaran: data_pendaftaran
     });

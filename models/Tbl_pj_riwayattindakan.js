@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var tbl_pj_riwayattindakanSchema = mongoose.Schema({
-    id__riwayat_tindakan: {
+    id_riwayat_tindakan: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_riwayattindakan'
     },

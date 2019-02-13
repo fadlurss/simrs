@@ -37,7 +37,11 @@ var tbl_pendaftaranSchema = mongoose.Schema({
     id_jenis_bayar: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_jenis_bayar'
-    }
+    },
+    id_riwayattindakan: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tbl_riwayattindakan'
+    }]
 }, {
     timestamps: true,
     collection: 'tbl_pendaftaran',

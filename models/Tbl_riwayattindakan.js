@@ -5,9 +5,6 @@ var tbl_riwayattindakanSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_tindakan'
     },
-    no_rawat: {
-        type: String
-    },
     hasil_periksa: {
         type: String
     },
