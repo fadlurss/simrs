@@ -480,6 +480,22 @@
         }
     });
 
+    var demo10 = new autoComplete({
+        selector: '#cari_obat',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_obat").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+
+        }
+    });
+
     $("#cari_supplier").on("change", function () {
         np = $(this).val();
         $.post("http://localhost:4000/pengadaanobat/cari_id_supplier", {
@@ -521,19 +537,7 @@
             }
         });
     });
-    $("#cari_dokter2").on("change", function () {
-        np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cari_id_dokter", {
-            np: np
-        }).then((r) => {
-            console.log(r);
-            if (r.length > 0) {
-                $("#id_dokter2").val(r[0]._id);
-            } else {
-                alert("Nama Tidak Ditemukan");
-            }
-        });
-    });
+
     $("#cari_petugas").on("change", function () {
         np = $(this).val();
         $.post("http://localhost:4000/pendaftaran/cari_id_pegawai", {
@@ -548,20 +552,6 @@
         });
     });
 
-    $("#cari_petugas2").on("change", function () {
-        np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cari_id_pegawai", {
-            np: np
-        }).then((r) => {
-            console.log(r);
-            if (r.length > 0) {
-                $("#id_petugas2").val(r[0]._id);
-            } else {
-                alert("Nama Tidak Ditemukan");
-            }
-        });
-    });
-
     $("#cari_tindakan").on("change", function () {
         np = $(this).val();
         $.post("http://localhost:4000/pendaftaran/cari_id_tindakan", {
@@ -570,6 +560,20 @@
             console.log(r);
             if (r.length > 0) {
                 $("#id_tindakan").val(r[0]._id);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
+
+    $("#cari_obat").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/pendaftaran/cari_id_obat", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_obat").val(r[0]._id);
             } else {
                 alert("Nama Tidak Ditemukan");
             }

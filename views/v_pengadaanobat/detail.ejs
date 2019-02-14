@@ -3,9 +3,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Laporan Obat Alkes BHP</h1>
-
         </div>
-
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
@@ -36,6 +34,7 @@
                                 <%= data_pengadaan_obat.id_supplier.nama_supplier %>
                             </td>
                         </tr>
+
                     </table>
 
                 </div>
@@ -54,7 +53,6 @@
                                 <th>Nama Barang</th>
                                 <th>Qty</th>
                                 <th>Harga</th>
-                                <th>ID Pengadaan Obat</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,14 +67,10 @@
                                 <td>
                                     <%= hasil.id_barang.harga %>
                                 </td>
-                                <td>
-                                    <%= hasil.id_pengadaanobat %>
-                                </td>
                             </tr>
                             <% }) %>
                         </tbody>
                     </table>
-
                 </div>
                 <!-- /.panel-body -->
             </div>

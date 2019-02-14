@@ -45,10 +45,12 @@
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                 Input Tindakan
+            </button> <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">
+                Input Obat
             </button> <br><br>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Daftar riwayat tindakan
+                    Riwayat tindakan
                 </div>
                 <!-- /.panel-heading -->
 
@@ -76,10 +78,58 @@
                                     <%= comment.perkembangan %>
                                 </td>
                                 <td>
-                                    <%= comment.tanggal %>
+                                    <%= moment(comment.tanggal).format('LL') %>
+                                </td>
+                                <td id="tarif">
+                                    <%= comment.id_tindakan.tarif %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                        <tr>
+                            <td colspan="4" align="right">Total</td>
+                            <td><b>TOTALNYA </b></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Riwayat pemberian obat
+                </div>
+                <!-- /.panel-heading -->
+
+                <div class="panel-body table-responsive">
+                    <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
+                        <thead>
+                            <tr>
+                                <th>Nama Obat dan Alat Kesehatan</th>
+                                <th>Tanggal</th>
+                                <th>Qty</th>
+                                <th>Harga</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data_pendaftaran.id_riwayatberiobat.forEach(function(comment) { %>
+                            <tr>
+                                <td>
+                                    <%= comment.id_obat.nama_barang %>
                                 </td>
                                 <td>
-                                    <%= comment.id_tindakan.tarif %>
+                                    <%= moment(comment.tanggal).format('LL') %>
+                                </td>
+                                <td>
+                                    <%= comment.qty %>
+                                </td>
+                                <td>
+                                    <%= comment.id_obat.harga %>
+                                </td>
+                                <td>
+
                                 </td>
                             </tr>
                             <% }) %>
@@ -178,6 +228,45 @@
                         </div>
                     </table> -->
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal 2 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Input Obat
+                    <%= data_pendaftaran._id %>
+                </h4>
+            </div>
+            <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayatberiobat"
+                method="POST" id="tambah_pendaftaran">
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <input value="<%= data_pendaftaran.id %>" type="hidden" name="id_pendaftaran">
+                        <tr>
+                            <td>Nama Obat</td>
+                            <td>
+                                <input type="text" name="nama_obat" id="cari_obat" placeholder="Masukan Nama Obat"
+                                    class="form-control">
+                                <input type="hidden" name="id_obat" id="id_obat" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Qty</td>
+                            <td>
+                                <input type="number" name="qty" class="form-control">
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>

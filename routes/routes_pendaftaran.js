@@ -3,12 +3,14 @@ router = express.Router()
 Pasien = require("../models/Tbl_pasien")
 Pendaftaran = require("../models/Tbl_pendaftaran")
 Tindakan = require("../models/Tbl_tindakan")
+Obat = require("../models/Tbl_obat_alkes_bhp")
 Jenis_bayar = require("../models/Tbl_jenis_bayar")
 Dokter = require("../models/Tbl_dokter")
 Pegawai = require("../models/Tbl_pegawai")
 Poliklinik = require("../models/Tbl_poliklinik")
 Riwayattindakan = require("../models/Tbl_riwayattindakan")
 PJRiwayattindakan = require("../models/Tbl_pj_riwayattindakan")
+Riwayatberiobat = require("../models/Tbl_riwayatberiobat")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
@@ -57,7 +59,11 @@ const schema2 = Joi.object().keys({
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const allpendaftaran = await Pendaftaran.find({}).populate("id_pasien").populate("id_dokter_penanggung_jawab").populate("id_jenis_bayar").populate("id_poliklinik");
+    const allpendaftaran = await Pendaftaran.find({})
+        .populate("id_pasien")
+        .populate("id_dokter_penanggung_jawab")
+        .populate("id_jenis_bayar")
+        .populate("id_poliklinik");
     res.render('v_pendaftaran/index', {
         data_pendaftaran: allpendaftaran
     });
@@ -135,9 +141,31 @@ router.post('/:id/new_riwayattindakan', middleware.asyncMiddleware(async (req, r
     });
 }))
 
+router.post('/:id/new_riwayatberiobat', middleware.asyncMiddleware(async (req, res, next) => {
+    Pendaftaran.findById(req.params.id, async (err, hasil_pendaftaran) => {
+        const newR = await Riwayatberiobat.create(req.body);
+        hasil_pendaftaran.id_riwayatberiobat.push(newR);
+        hasil_pendaftaran.save();
+        res.redirect("/pendaftaran/" + req.params.id + "/detail");
+    });
+}))
+
 
 router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
-    const data_pendaftaran = await Pendaftaran.findById(req.params.id).populate("id_pasien").populate({path:"id_riwayattindakan", populate:{path:"id_tindakan"}});
+    const data_pendaftaran = await Pendaftaran.findById(req.params.id)
+        .populate("id_pasien")
+        .populate({
+            path: "id_riwayatberiobat",
+            populate: {
+                path: "id_obat"
+            }
+        })
+        .populate({
+            path: "id_riwayattindakan",
+            populate: {
+                path: "id_tindakan"
+            }
+        });
     res.render("v_pendaftaran/detail", {
         data_pendaftaran: data_pendaftaran
     });
@@ -229,6 +257,16 @@ router.get('/cari_tindakan', (req, res) => {
     });
 });
 
+router.get('/cari_obat', (req, res) => {
+    Obat.find({}, function (err, re) {
+        d = [];
+        for (let ix = 0; ix < re.length; ix++) {
+            d[ix] = re[ix].nama_barang;
+        }
+        res.json(d);
+    });
+});
+
 router.post('/cari_id_dokter', (req, res) => {
     //    console.log(req.body.np);
     Dokter.find({
@@ -256,25 +294,14 @@ router.post('/cari_id_tindakan', (req, res) => {
     });
 });
 
-router.post('/new_riwayattindakan', middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
-    }, schema);
-    const {
-        value,
-        error
-    } = result;
-    const valid = error == null;
-    if (!valid) { // jika tidak valid, atau salah...
-        res.status(422).json({
-            message: 'Invalid request',
-            data: 'error'
-        })
-        console.log(error);
+router.post('/cari_id_obat', (req, res) => {
+    //    console.log(req.body.np);
+    Obat.find({
+        'nama_barang': req.body.np
+    }, (e, r) => {
+        res.json(r);
+    });
+});
 
-    } else {
-        const input_pendaftaran_baru = await Pendaftaran.create(result.value);
-        res.redirect("/pendaftaran");
-    }
-}))
 
 module.exports = router;

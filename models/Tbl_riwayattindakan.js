@@ -12,7 +12,8 @@ var tbl_riwayattindakanSchema = mongoose.Schema({
         type: String
     },
     tanggal: {
-        type: Date
+        type: Date,
+        default: Date.now
     }
 }, {
     timestamps: true,

@@ -41,6 +41,10 @@ var tbl_pendaftaranSchema = mongoose.Schema({
     id_riwayattindakan: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_riwayattindakan'
+    }],
+    id_riwayatberiobat: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tbl_riwayatberiobat'
     }]
 }, {
     timestamps: true,

@@ -79,11 +79,11 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
-    const cari_pengadaanobat = await Pengadaanobat.findById(req.params.id).populate("id_supplier");
-    const pengadaanobat_detail = await Pengadaanobat_detail.find({}).populate("id_barang");
+    const pengadaanobat = await Pengadaanobat.findById(req.params.id).populate("id_supplier");
+    const detail_pengadaanobat = await Pengadaanobat_detail.find().where('id_pengadaanobat').equals(pengadaanobat.id).populate("id_barang");
     res.render("v_pengadaanobat/detail", {
-        data_pengadaan_obat: cari_pengadaanobat,
-        pengadaanobat_detail: pengadaanobat_detail
+        data_pengadaan_obat: pengadaanobat,
+        pengadaanobat_detail: detail_pengadaanobat
     });
 }))
 
