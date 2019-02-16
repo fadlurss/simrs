@@ -1,6 +1,7 @@
 var express = require('express')
 router = express.Router()
-Pengadaanobat = require("../models/Tbl_pengadaanobat")
+Penjualanobat = require("../models/Tbl_penjualanobat")
+Penjualanobat_detail = require("../models/Tbl_penjualanobat_detail")
 Pengadaanobat_detail = require("../models/Tbl_pengadaanobat_detail")
 Barang = require("../models/Tbl_obat_alkes_bhp")
 Supplier = require("../models/Tbl_supplier")
@@ -10,38 +11,28 @@ asyncMiddleware = require("../middleware");
 
 const schema = Joi.object().keys({
     no_faktur: Joi.number().required(),
-    tanggal: Joi.string().required(),
-    id_supplier: Joi.string().required(),
-    nama_supplier: Joi.any(),
     nama_barang: Joi.any(),
     harga: Joi.number().required(),
-    qty: Joi.string().required(),
+    qty: Joi.number().required(),
     submit: Joi.any(),
     id_barang: Joi.string().required(),
-    id_pengadaanobat: Joi.any()
 })
 
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const allPengadaanobat = await Pengadaanobat.find({}).populate("id_supplier");
-    res.render('v_pengadaanobat/index', {
-        data_pengadaanobat: allPengadaanobat
+    const allPenjualanobat = await Penjualanobat.find({});
+    res.render('v_penjualanobat/index', {
+        data_penjualanobat: allPenjualanobat
     });
 }))
 
 router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    const data_supplier = await Supplier.find({});
-    res.render('v_Pengadaanobat/new', {
-        data_supplier: data_supplier
-    });
+    res.render('v_penjualanobat/new');
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({ ...req.body
     }, schema);
-
-
-    console.log("hasil result 1 " + schema);
     const a = {
         value,
         error
@@ -51,67 +42,57 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
         res.status(422).json({
             message: 'Invalid request'
         })
-        console.log("error 1: " + error);
 
     } else {
-        const input_Pengadaanobat_baru = await Pengadaanobat.create(result.value);
+        const input_penjualanobat_baru = await Penjualanobat.create(result.value);
 
-        const id_pengadaanobat = input_Pengadaanobat_baru._id;
+        const id_Penjualanobat = input_penjualanobat_baru._id;
         const id_barang = req.body.id_barang;
         const qty = req.body.qty;
-        const new_pengadaan_detail = {
-            id_pengadaanobat: id_pengadaanobat,
+        const new_penjualan_detail = {
+            id_penjualanobat: id_Penjualanobat,
             id_barang: id_barang,
             qty: qty
         };
-        const input_Pengadaanobat_detail_baru = await Pengadaanobat_detail.create(new_pengadaan_detail);
-        res.redirect("/pengadaanobat");
+
+        const input_Penjualanobat_detail_baru = await Penjualanobat_detail.create(new_penjualan_detail);
+        res.redirect("/penjualanobat");
     }
 }))
 
 router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
-    const cari_Pengadaanobat = await Pengadaanobat.findById(req.params.id).populate("id_supplier");
-    const cari_Pengadaanobat_detail = await Pengadaanobat_detail.find().where('id_pengadaanobat').equals(cari_Pengadaanobat.id).populate("id_barang");
-    res.render("v_pengadaanobat/edit", {
-        pengadaanobat_edit_id: cari_Pengadaanobat,
-        pengadaanobat_detail: cari_Pengadaanobat_detail
+    const cari_Penjualanobat = await Penjualanobat.findById(req.params.id);
+    const cari_Penjualanobat_detail = await Penjualanobat_detail.findById(req.params.id);
+    res.render("v_Penjualanobat/edit", {
+        Penjualanobat_edit_id: cari_Penjualanobat,
+        pengadaan_obat_detail: cari_Penjualanobat_detail
     });
 }))
 
 router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
-    const pengadaanobat = await Pengadaanobat.findById(req.params.id).populate("id_supplier");
-    const detail_pengadaanobat = await Pengadaanobat_detail.find().where('id_pengadaanobat').equals(pengadaanobat.id).populate("id_barang");
-    res.render("v_pengadaanobat/detail", {
-        data_pengadaan_obat: pengadaanobat,
-        pengadaanobat_detail: detail_pengadaanobat
+    const penjualanobat = await Penjualanobat.findById(req.params.id);
+    const detail_Penjualanobat = await Penjualanobat_detail.find().where('id_penjualanobat').equals(penjualanobat.id).populate("id_barang");
+    res.render("v_Penjualanobat/detail", {
+        data_penjualan_obat: penjualanobat,
+        penjualanobat_detail: detail_Penjualanobat
     });
 }))
 
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({ ...req.body
     }, schema);
-    const hasilUpdate = await Pengadaanobat.findOneAndUpdate({
+    const hasilUpdate = await Penjualanobat.findOneAndUpdate({
         _id: req.params.id
     }, {
         $set: { ...req.body
         }
     });
-    const id_pengadaanobat = hasilUpdate._id;
-    const id_pengadaanobat_detail = req.body.id_pengadaanobat_detail;
-    const id_barang = req.body.id_barang;
-    const qty = req.body.qty;
-    const new_pengadaan_detail = {
-        id_pengadaanobat: id_pengadaanobat,
-        id_barang: id_barang,
-        qty: qty
-    };
-    const input_Pengadaanobat_detail_baru = await Pengadaanobat_detail.findOneAndUpdate(id_pengadaanobat_detail, new_pengadaan_detail);
-    res.redirect("/pengadaanobat");
+    res.redirect("/Penjualanobat");
 }))
 
 router.delete("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const delete_Pengadaanobat = await Pengadaanobat.findByIdAndRemove(req.params.id);
-    res.redirect("/pengadaanobat");
+    const delete_Penjualanobat = await Penjualanobat.findByIdAndRemove(req.params.id);
+    res.redirect("/Penjualanobat");
 }))
 
 router.get('/cari_supplier', (req, res) => {

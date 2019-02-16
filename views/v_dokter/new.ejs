@@ -58,13 +58,14 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3">Alamat</label>
                             <div class="col-sm-9">
-                                <textarea name="alamat" id="" cols="30" rows="10"></textarea>
+                                <textarea name="alamat" class="form-control" id="" cols="30" rows="10"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3">No HP</label>
                             <div class="col-sm-9">
-                                <input type="number" name="no_hp" class="form-control">
+                                <input name="no_hp" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    type="number" maxlength="12" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -98,18 +99,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Golongan darah</label>
+                            <label for="" class="col-sm-3">Tarif dokter</label>
                             <div class="col-sm-9">
-                                <input type="radio" name="golongan_darah" value="O"> O
-                                <input type="radio" name="golongan_darah" value="AB"> AB
-                                <input type="radio" name="golongan_darah" value="A"> A
-                                <input type="radio" name="golongan_darah" value="B"> B
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp</span>
+                                    <input type="number" name="tarif_dokter" required class="form-control">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Alumni</label>
+                            <label for="" class="col-sm-3">Gaji pokok</label>
                             <div class="col-sm-9">
-                                <input type="text" name="alumni" class="form-control">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp</span>
+                                    <input type="number" name="gaji_pokok" required class="form-control">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">

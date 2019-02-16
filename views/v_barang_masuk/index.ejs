@@ -1,0 +1,160 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Stok opname</h1>
+            <br><br>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="help-block">
+        <a href="/stokopname/new" class="btn btn-info">Tambah stok opname baru</a>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Data barang dengan stok kurang dari ketentuan
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body table-responsive">
+                    <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
+                        <thead>
+                            <tr>
+                                <th>Nama barang</th>
+                                <th>Harga modal</th>
+                                <th>Stok</th>
+                                <th>Stok minimum</th>
+                                <th width="120px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data_barang.forEach(function(hasil){ %>
+                            <tr>
+                                <td>
+                                    <%= hasil.nama_barang %>
+                                </td>
+                                <td>
+                                    Rp
+                                    <%= hasil.harga_modal %>
+                                </td>
+                                <td>
+                                    <%= hasil.stok %>
+                                </td>
+                                <td>
+                                    <%= hasil.stok_minimum %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="/stokopname/<%= hasil._id %>/new"><i class="fa fa-plus"></i></a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Stok opname
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body table-responsive">
+                    <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
+                        <thead>
+                            <tr>
+                                <th>Nama supplier</th>
+                                <th>Status penerimaan</th>
+                                <th>Total bayar</th>
+                                <th>Total masuk</th>
+                                <th>Total diterima</th>
+                                <th>Tanggal transaksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data_barang_masuk.forEach(function(hasil){ %>
+                            <tr>
+                                <td>
+                                    <%= hasil.id_supplier.nama_supplier %>
+                                </td>
+                                <td>
+                                    <% if(hasil.status_penerimaan == false){ %>
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                        data-target="#myModal">Belum
+                                    </button>
+                                    <% } else { %>
+                                    Selesai
+                                    <% } %>
+                                </td>
+                                <td>
+                                    Rp
+                                    <%= hasil.total_bayar %>
+                                </td>
+                                <td>
+                                    <div id="a1" value="<%= hasil.total_masuk %>">
+                                        <%= hasil.total_masuk %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <%= hasil.total_diterima %>
+                                </td>
+                                <td>
+                                    <%= moment(hasil.tgl_transaksi_masuk).format('lll') %>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<!-- /#page-wrapper -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Penerimaan barang
+                </h4>
+            </div>
+            <form class="form-horizontal" role="form" action="/stokopname/<%= hasil._id %>?_method=PUT" method="POST"
+                id="tambah_stokopname">
+                <table class="table table-bordered">
+                    <tr>
+                        <td width="200">Total diterima</td>
+                        <td>
+                            <input type="number" id="a2" onblur="result()" name="total_diterima" class="form-control">
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary">Konfirmasi</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+<% }); %>
+<!-- end looping -->
+</div>
+<% include ../partials/admin/footer %>

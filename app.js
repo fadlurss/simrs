@@ -18,13 +18,12 @@ const express = require('express'),
     poliklinikRoutes = require("./routes/routes_poliklinik"),
     spesialisRoutes = require("./routes/routes_spesialis"),
     jpdRoutes = require("./routes/routes_jpd"),
+    barang_masukRoutes = require("./routes/routes_barang_masuk"),
     dokterRoutes = require("./routes/routes_dokter"),
-    jenjangRoutes = require("./routes/routes_jenjang"),
     jabatanRoutes = require("./routes/routes_jabatan"),
-    departemenRoutes = require("./routes/routes_departemen"),
-    bidangRoutes = require("./routes/routes_bidang"),
     pegawaiRoutes = require("./routes/routes_pegawai"),
     gedungRoutes = require("./routes/routes_gedung"),
+    barangRoutes = require("./routes/routes_barang"),
     ruanganRoutes = require("./routes/routes_ruangan"),
     tempattidurRoutes = require("./routes/routes_tempat_tidur"),
     pasienRoutes = require("./routes/routes_pasien"),
@@ -32,8 +31,10 @@ const express = require('express'),
     kategoribarangRoutes = require("./routes/routes_kategori_barang"),
     satuanbarangRoutes = require("./routes/routes_satuan_barang"),
     dataobatRoutes = require("./routes/routes_obat_alkes_bhp"),
+    golonganobatRoutes = require("./routes/routes_golongan_obat"),
     supplierRoutes = require("./routes/routes_supplier"),
     pengadaanobatRoutes = require("./routes/routes_pengadaanobat"),
+    penjualanobatRoutes = require("./routes/routes_penjualanobat"),
     diagnosapenyakitRoutes = require("./routes/routes_diagnosa_penyakit"),
     kategoritindakanRoutes = require("./routes/routes_kategori_tindakan"),
     tindakanRoutes = require("./routes/routes_tindakan"),
@@ -73,24 +74,25 @@ app.use(express.static(__dirname + "/public")); // jangan pakai koma seperti con
 app.use(express.static(__dirname, +"/config"));
 
 app.use("/poliklinik", poliklinikRoutes);
+app.use("/barang", barangRoutes);
 app.use("/spesialis", spesialisRoutes);
 app.use("/jadwalpraktek", jpdRoutes);
 app.use("/dokter", dokterRoutes);
-app.use("/jenjang", jenjangRoutes);
 app.use("/jabatan", jabatanRoutes);
-app.use("/departemen", departemenRoutes);
-app.use("/bidang", bidangRoutes);
 app.use("/pegawai", pegawaiRoutes);
 app.use("/gedung", gedungRoutes);
 app.use("/ruangan", ruanganRoutes);
 app.use("/tempattidur", tempattidurRoutes);
 app.use("/pasien", pasienRoutes);
+app.use("/stokopname", barang_masukRoutes);
 app.use("/pendaftaran", pendaftaranRoutes);
 app.use("/kategoribarang", kategoribarangRoutes);
 app.use("/satuanbarang", satuanbarangRoutes);
 app.use("/dataobat", dataobatRoutes);
 app.use("/supplier", supplierRoutes);
 app.use("/pengadaanobat", pengadaanobatRoutes);
+app.use("/golonganobat", golonganobatRoutes);
+app.use("/penjualanobat", penjualanobatRoutes);
 app.use("/diagnosapenyakit", diagnosapenyakitRoutes);
 app.use("/kategoritindakan", kategoritindakanRoutes);
 app.use("/tindakan", tindakanRoutes);

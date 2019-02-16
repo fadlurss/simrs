@@ -5,7 +5,8 @@ var tbl_pengadaanobatSchema = mongoose.Schema({
         type: String
     },
     tanggal: {
-        type: String
+        type: Date,
+        default: Date.now
     },
     id_supplier: {
         type: mongoose.Schema.Types.ObjectId,

@@ -172,20 +172,34 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
-    const data_agama = await Agama.find({});
-    const data_status_menikah = await Status_menikah.find({});
-    const cari_pasien = await Pasien.findById(req.params.id).populate("agama").populate("status_menikah");
-    res.render("v_pasien/edit", {
-        data_pasien: cari_pasien,
-        data_agama: data_agama,
-        data_status_menikah: data_status_menikah
+    const data_poliklinik = await Poliklinik.find({});
+    const data_jenis_bayar = await Jenis_bayar.find({});
+    const data_pendaftaran = await Pendaftaran.findById(req.params.id)
+        .populate("id_pasien")
+        .populate("id_dokter_penanggung_jawab")
+        .populate({
+            path: "id_riwayatberiobat",
+            populate: {
+                path: "id_obat"
+            }
+        })
+        .populate({
+            path: "id_riwayattindakan",
+            populate: {
+                path: "id_tindakan"
+            }
+        });
+    res.render("v_pendaftaran/edit", {
+        data_pendaftaran: data_pendaftaran,
+        data_poliklinik: data_poliklinik,
+        data_jenis_bayar: data_jenis_bayar
     });
 }))
 
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({ ...req.body
     }, schema);
-    const hasilUpdate = await Pasien.findOneAndUpdate({
+    const hasilUpdate = await Pendaftaran.findOneAndUpdate({
         _id: req.params.id
     }, {
         $set: { ...req.body

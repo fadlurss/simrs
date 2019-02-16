@@ -33,11 +33,11 @@ var tbl_dokterSchema = new mongoose.Schema({
     no_izin_praktek: {
         type: String
     },
-    golongan_darah: {
-        type: String
+    gaji_pokok: {
+        type: Number
     },
-    alumni: {
-        type: String
+    tarif_dokter: {
+        type: Number
     }
 
 }, {

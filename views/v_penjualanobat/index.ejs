@@ -2,41 +2,49 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Data Jenjang</h1>
+            <h1 class="page-header">Laporan Penjualan Obat</h1>
             <br><br>
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <div class="help-block">
-        <a href="/jenjang/new" class="btn btn-info">Tambah Jenjang baru</a>
+        <a href="/penjualanobat/new" class="btn btn-info">Tambah penjualan obat baru</a>
     </div>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Jenjang Tables
+                    Laporan Obat Alkes BHP Tables
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body table-responsive">
                     <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
                         <thead>
                             <tr>
-                                <th>Nama Jenjang</th>
+                                <th>No Faktur</th>
+                                <th>Tanggal</th>
                                 <th width="120px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% data_jenjang.forEach(function(hasil){ %>
+                            <% data_penjualanobat.forEach(function(hasil){ %>
                             <tr>
                                 <td>
-                                    <%= hasil.nama_jenjang %>
+                                    <%= hasil.no_faktur %>
                                 </td>
                                 <td>
-                                    <a class="btn btn-warning btn-sm" href="/jenjang/<%= hasil._id %>/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                    <%= moment(hasil.tanggal).format('LL') %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="/penjualanobat/<%= hasil._id %>/detail"><i
+                                            class="fa fa-eye"></i></a>
+                                    <a class="btn btn-warning btn-sm" href="/penjualanobat/<%= hasil._id %>/edit"><i
+                                            class="fa fa-pencil-square-o"></i></a>
                                     <a class="btn btn-white btn-sm" href="">
-                                        <form action="/jenjang/<%= hasil._id %>?_method=DELETE" method="POST" class="delete-form">
-                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Kamu Yakin Ingin Menghapus Data <%= hasil.nama_jenjang %> ?')"><i
+                                        <form action="/penjualanobat/<%= hasil._id %>?_method=DELETE" method="POST"
+                                            class="delete-form">
+                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Kamu Yakin Ingin Menghapus Data <%= hasil.no_faktur  %> ?')"><i
                                                     class="fa fa-trash-o"></i></button>
                                         </form>
                                     </a>

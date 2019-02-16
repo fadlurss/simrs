@@ -12,6 +12,10 @@ var tbl_obat_alkes_bhpSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_satuan_barang'
     },
+    id_golongan_obat: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tbl_golongan_obat'
+    },
     harga: {
         type: String
     }

@@ -4,9 +4,6 @@ Jenjang_pendidikan = require("../models/Tbl_jenjang_pendidikan")
 Pegawai = require("../models/Tbl_pegawai")
 Jabatan = require("../models/Tbl_jabatan")
 Agama = require("../models/Tbl_agama")
-Jenjang = require("../models/Tbl_jenjang")
-Departemen = require("../models/Tbl_departemen")
-Bidang = require("../models/Tbl_bidang")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
@@ -20,14 +17,11 @@ const schema = Joi.object().keys({
     tempat_lahir: Joi.string().required(),
     tanggal_lahir: Joi.string().required(),
     jabatan: Joi.string().required(),
-    jenjang: Joi.string().required(),
-    departemen: Joi.string().required(),
-    bidang: Joi.string().required(),
     submit: Joi.any()
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const data_pegawai = await Pegawai.find({}).populate("jenjang_pendidikan").populate("jabatan").populate("jenjang").populate("departemen").populate("bidang");
+    const data_pegawai = await Pegawai.find({}).populate("jenjang_pendidikan").populate("jabatan");
     res.render('v_pegawai/index', {
         data_pegawai: data_pegawai
     });
@@ -36,15 +30,9 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
 router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
     const data_jenjang_pendidikan = await Jenjang_pendidikan.find({});
     const data_jabatan = await Jabatan.find({});
-    const data_jenjang = await Jenjang.find({});
-    const data_departemen = await Departemen.find({});
-    const data_bidang = await Bidang.find({});
     res.render("v_pegawai/new", {
         data_jenjang_pendidikan: data_jenjang_pendidikan,
-        data_jabatan: data_jabatan,
-        data_jenjang: data_jenjang,
-        data_departemen: data_departemen,
-        data_bidang: data_bidang
+        data_jabatan: data_jabatan
     });
 }))
 
@@ -72,16 +60,10 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
     const data_pegawai = await Pegawai.findById(req.params.id);
     const data_jenjang_pendidikan = await Jenjang_pendidikan.find({});
     const data_jabatan = await Jabatan.find({});
-    const data_jenjang = await Jenjang.find({});
-    const data_departemen = await Departemen.find({});
-    const data_bidang = await Bidang.find({});
     res.render("v_pegawai/edit", {
         data_pegawai: data_pegawai,
         data_jenjang_pendidikan: data_jenjang_pendidikan,
-        data_jabatan: data_jabatan,
-        data_jenjang: data_jenjang,
-        data_departemen: data_departemen,
-        data_bidang: data_bidang
+        data_jabatan: data_jabatan
     });
 }))
 

@@ -163,6 +163,32 @@
         $('#remain').text(remain);
     });
 
+
+    calculate = function () {
+        var resources = document.getElementById('a1').value;
+        var minutes = document.getElementById('a2').value;
+        document.getElementById('a3').value = parseInt(resources) * parseInt(minutes);
+
+    }
+
+    // result = function () {
+    //     var total_bayar = document.getElementById('a3').value;
+    //     var dibayarkan = document.getElementById('a4').value;
+    //     if (dibayarkan > total_bayar) {
+    //         alert("Jumlah pembayaran terlalu besar")
+    //     }
+    // }
+
+    result = function () {
+        var totalnya_masuk = document.getElementById('a1').getAttribute('value');
+        var total_diterima = document.getElementById('a2').value;
+        console.log(totalnya_masuk);
+        console.log(total_diterima);
+
+        if (total_diterima > totalnya_masuk) {
+            alert("Total diterima tidak boleh melebihi total masuk");
+        }
+    }
     //VALIDATION FOR POLIKLINIK
     $("#tambah_poliklinik").validate({
         rules: {
@@ -174,7 +200,7 @@
         },
         messages: {
             nama_poliklinik: {
-                accept: "Harus alphabet",
+                accept: "Nama poli harus alphabet",
                 maxlength: "Maksimal 30 huruf"
             }
         }
@@ -191,7 +217,132 @@
         },
         messages: {
             nama_spesialis: {
-                accept: "Harus alphabet",
+                accept: "Nama spesialis harus alphabet",
+                maxlength: "Maksimal 30 huruf"
+            }
+        }
+    });
+
+    //VALIDATION FOR V_KATEGORIBARANG
+    $("#tambah_kategori_barang").validate({
+        rules: {
+            nama_kategori: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            }
+        },
+        messages: {
+            nama_kategori: {
+                accept: "Nama kategori harus alphabet",
+                maxlength: "Maksimal 30 huruf"
+            }
+        }
+    });
+
+    //VALIDATION FOR V_SATUANBARANG
+    $("#tambah_satuan_barang").validate({
+        rules: {
+            nama_satuan: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            }
+        },
+        messages: {
+            nama_satuan: {
+                accept: "Nama satuan harus alphabet",
+                maxlength: "Maksimal 30 huruf"
+            }
+        }
+    });
+
+    //VALIDATION FOR V_PENGADAANOBAT
+    $("#tambah_pengadaan_obat").validate({
+        rules: {
+            nama_supplier: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            },
+            nama_barang: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            },
+            no_faktur: {
+                required: true,
+                number: true,
+            },
+            harga: {
+                required: true,
+                number: true
+            },
+            qty: {
+                required: true,
+                number: true
+            }
+        },
+        messages: {
+            nama_supplier: {
+                required: "Nama supplier wajib diisi",
+                accept: "Nama supplier harus alphabet",
+                maxlength: "Maksimal 30 huruf"
+            },
+            nama_barang: {
+                required: "Nama barang wajib diisi",
+                accept: "Nama barang harus alphabet",
+                maxlength: "Maksimal 30 huruf"
+            },
+            no_faktur: {
+                required: "No faktur wajib diisi",
+                number: "No faktur wajib angka"
+            },
+            harga: {
+                required: "Harga wajib diisi"
+            },
+            qty: {
+                required: "Qty wajib diisi"
+            }
+        }
+    });
+
+    //VALIDATION FOR V_DATAOBAT
+    $("#tambah_barang").validate({
+        rules: {
+            nama_barang: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            },
+            harga: {
+                required: true,
+                number: true
+            }
+        },
+        messages: {
+            nama_barang: {
+                accept: "Nama barang harus alphabet",
+                maxlength: "Maksimal 30 huruf"
+            },
+            harga: {
+                required: "Harga wajib diisi"
+            }
+        }
+    });
+
+    //VALIDATION FOR V_DATAOBAT
+    $("#tambah_jabatan").validate({
+        rules: {
+            nama_jabatan: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            }
+        },
+        messages: {
+            nama_jabatan: {
+                accept: "Nama jabatan harus alphabet",
                 maxlength: "Maksimal 30 huruf"
             }
         }
@@ -496,6 +647,38 @@
         }
     });
 
+    var demo11 = new autoComplete({
+        selector: '#cari_barang_penjualan',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/penjualanobat/cari_barang").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+
+        }
+    });
+
+    var demo12 = new autoComplete({
+        selector: '#cari_dokter_pj',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_dokter").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+
+        }
+    });
+
     $("#cari_supplier").on("change", function () {
         np = $(this).val();
         $.post("http://localhost:4000/pengadaanobat/cari_id_supplier", {
@@ -524,6 +707,48 @@
         });
     });
 
+    $("#cari_barang_penjualan").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/penjualanobat/cari_id_barang", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_barang_penjualan").val(r[0]._id);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
+
+    $("#cari_barang").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/pengadaanobat/cari_harga_barang", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#harga").val(r[0].harga);
+            } else {
+                alert("Harga Tidak Ditemukan");
+            }
+        });
+    });
+
+    $("#cari_barang").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/penjualanobat/cari_harga_barang", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#harga_obat_penjualan").val(r[0].harga);
+            } else {
+                alert("Harga Tidak Ditemukan");
+            }
+        });
+    });
+
     $("#cari_dokter").on("change", function () {
         np = $(this).val();
         $.post("http://localhost:4000/pendaftaran/cari_id_dokter", {
@@ -532,6 +757,20 @@
             console.log(r);
             if (r.length > 0) {
                 $("#id_dokter").val(r[0]._id);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
+
+    $("#cari_dokter_pj").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/pendaftaran/cari_id_dokter", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_dokter_penanggung_jawab").val(r[0]._id);
             } else {
                 alert("Nama Tidak Ditemukan");
             }

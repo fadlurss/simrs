@@ -2,112 +2,81 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Edit Pasien</h1>
+            <h1 class="page-header">Edit Pendaftaran</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Edit Pasien
+                    Edit Pendaftaran
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" action="/pasien/<%= data_pasien._id %>?_method=PUT"
-                        method="POST" id="tambah_pasien">
+                    <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>?_method=PUT"
+                        method="POST" id="tambah_pendaftaran">
                         <div class="form-group">
-                            <label for="" class="col-sm-3">No Rekamedis<span style="color:red"> *</span></label>
+                            <label for="" class="col-sm-3">No Registrasi<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
-                                <input type="text" name="no_rm" value="<%= data_pasien.no_rm %>" required class="form-control">
+                                <input type="text" name="no_registrasi" value="<%= data_pendaftaran.no_registrasi %>"
+                                    required class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">No Rekamedis Lama</label>
+                            <label for="" class="col-sm-3">No Rawat<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
-                                <input type="text" name="no_rm_lama" value="<%= data_pasien.no_rm_lama %>" required
-                                    class="form-control">
+                                <input type="date" id="date" name="no_rawat" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Nama Pasien<span style="color:red"> *</span></label>
+                            <label for="" class="col-sm-3">Cara Masuk</label>
                             <div class="col-sm-9">
-                                <input type="text" name="nama_pasien" value="<%= data_pasien.nama_pasien %>" required
-                                    class="form-control">
+                                <select name="cara_masuk" id="" class="form-control">
+                                    <option value="Rawat jalan">Rawat jalan</option>
+                                    <option value="Rawat inap">Rawat inap</option>
+                                    <option value="IGD">IGD</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">No BPJS</label>
+                            <label for="" class="col-sm-3">Tanggal daftar<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
-                                <input type="text" name="no_bpjs" value="<%= data_pasien.no_bpjs %>" required class="form-control">
+                                <input type="date" id="date2" name="tgl_daftar" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Tanggal lahir<span style="color:red"> *</span></label>
+                            <label for="" class="col-sm-3">Dokter penanggung jawab<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
-                                <input type="date" name="tanggal_lahir" id="tanggal_lahir" value="<%= data_pasien.tanggal_lahir %>"
-                                    class="form-control" onchange="submitBday()">
-                                <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
+                                <input type="text" name="nama_dokter" value="<%= data_pendaftaran.id_dokter_penanggung_jawab.nama_dokter %>"
+                                    id="cari_dokter_pj" class="form-control">
+                                <input type="hidden" value="<%= data_pendaftaran.id_dokter_penanggung_jawab.id %>" name="id_dokter_penanggung_jawab"
+                                    id="id_dokter_penanggung_jawab" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Umur<span style="color:red"> *</span></label>
+                            <label for="" class="col-sm-3">Poliklinik Tujuan</label>
                             <div class="col-sm-9">
-                                <input type="text" name="umur" value="<%= data_pasien.umur %>" id="umurku" min="1" max="80"
-                                    required readonly class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-sm-3">Agama</label>
-                            <div class="col-sm-9">
-                                <select name="agama" id="" class="form-control" id="">
-                                    <option value="" disabled>
-                                        Pilihan sebelumnya :
-                                        <%= data_pasien.agama.nama_agama %>
-                                    </option>
-                                    <% data_agama.forEach(function(hasil){ %>
+                                <select name="id_poliklinik" id="" class="form-control" id="">
+                                    <% data_poliklinik.forEach(function(hasil){ %>
                                     <option value="<%= hasil.id %>">
-                                        <%= hasil.nama_agama %>
+                                        <%= hasil.nama_poliklinik %>
                                     </option>
                                     <% }); %>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Status menikah</label>
+                            <label for="" class="col-sm-3">Jenis bayar</label>
                             <div class="col-sm-9">
-                                <select name="status_menikah" id="" class="form-control" id="">
-                                    <option value="" disabled>
-                                        Pilihan sebelumnya :
-                                        <%= data_pasien.status_menikah.status_menikah %>
-                                    </option>
-                                    <% data_status_menikah.forEach(function(hasil){ %>
+                                <select name="id_jenis_bayar" id="" class="form-control" id="">
+                                    <% data_jenis_bayar.forEach(function(hasil){ %>
                                     <option value="<%= hasil.id %>">
-                                        <%= hasil.status_menikah %>
+                                        <%= hasil.jenis_bayar %>
                                     </option>
                                     <% }); %>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-sm-3">Alamat<span style="color:red"> *</span></label>
-                            <div class="col-sm-9">
-                                <textarea name="alamat" value="<%= data_pasien.alamat %>" class="form-control" id=""
-                                    cols="30" rows="10"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-sm-3">Pekerjaan</label>
-                            <div class="col-sm-9">
-                                <input type="text" name="pekerjaan" value="<%= data_pasien.pekerjaan %>" required class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-sm-3">No HP</label>
-                            <div class="col-sm-9">
-                                <input name="no_hp" value="<%= data_pasien.no_hp %>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                    type="number" maxlength="12" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -115,6 +84,84 @@
                                 <button class="btn btn-info btn-block">Update</button>
                             </div>
                         </div>
+
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Edit Pasien
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body form-horizontal">
+
+                    <div class="form-group">
+                        <label for="" class="col-sm-3">No Rekamedis<span style="color:red"> *</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="no_rm" value="<%= data_pendaftaran.id_pasien.no_rm %>" id="cari_no_rm"
+                                required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-3">Nama Pasien <span style="color:red"> *</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="nama_pasien" value="<%= data_pendaftaran.id_pasien.nama_pasien %>"
+                                id="nama_pasien" required class="form-control">
+                            <input type="hidden" value="<%= data_pendaftaran.id_pasien.id %>" name="id_pasien" id="id_pasien"
+                                required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-3">No BPJS</label>
+                        <div class="col-sm-9">
+                            <input name="no_bpjs" id="no_bpjs" value="<%= data_pendaftaran.id_pasien.no_bpjs %>"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                type="number" maxlength="13" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-3">Tanggal lahir<span style="color:red"> *</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="" value="<%= moment(data_pendaftaran.id_pasien.tanggal_lahir).format('LL') %>"
+                                id="tanggal_lahir" class="form-control">
+                            <input type="hidden" name="tanggal_lahir" value="<%= data_pendaftaran.id_pasien.tanggal_lahir %>"
+                                id="tanggal_lahir" class="form-control">
+                            <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-3">Nama penanggung jawab</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="nama_penanggung_jawab" value="<%= data_pendaftaran.nama_penanggung_jawab %>"
+                                class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-3">Hubungan dengan penanggung jawab</label>
+                        <div class="col-sm-9">
+
+                            <select name="hubungan_penanggung_jawab" class="form-control" id="">
+                                <option value="" disabled>
+                                    Pilihan sebelumnya :
+                                    <%= data_pendaftaran.hubungan_penanggung_jawab %>
+                                </option>
+                                <option value="orang_tua">Orang tua</option>
+                                <option value="saudara">Saudara</option>
+                                <option value="teman">Teman</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-3">Alamat penanggung jawab</label>
+                        <div class="col-sm-9">
+                            <textarea name="alamat_penanggung_jawab" value="<%= %>" class="form-control" id="" cols="30"
+                                rows="10"></textarea>
+                        </div>
+                    </div>
                     </form>
 
                 </div>
@@ -122,6 +169,7 @@
             </div>
             <!-- /.panel -->
         </div>
+
         <!-- /.col-lg-12 -->
     </div>
 </div>

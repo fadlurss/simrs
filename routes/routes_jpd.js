@@ -6,6 +6,14 @@ Poliklinik = require("../models/Tbl_poliklinik")
 middleware = require("../middleware")
 asyncMiddleware = require("../middleware");
 
+const schema = Joi.object().keys({
+    jam_mulai: Joi.string().required(),
+    jam_selesai: Joi.string().required(),
+    hari: Joi.string().required(),
+    poliklinik: Joi.string().required(),
+    submit: Joi.any()
+})
+
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     const data_jpd = await Jpd.find({}).populate("poliklinik").populate("nama_dokter");
     res.render('v_jpd/index', {

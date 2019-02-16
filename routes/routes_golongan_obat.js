@@ -1,24 +1,24 @@
 var express = require('express')
 router = express.Router()
-Jenjang = require("../models/Tbl_jenjang")
+Golongan_obat = require("../models/Tbl_golongan_obat")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
 
 const schema = Joi.object().keys({
-    nama_jenjang: Joi.string().required(),
+    nama_golongan_obat: Joi.string().required(),
     submit: Joi.any()
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const allJenjang = await Jenjang.find({});
-    res.render('v_jenjang/index', {
-        data_jenjang: allJenjang
+    const allGolongan_obat = await Golongan_obat.find({});
+    res.render('v_golonganobat/index', {
+        data_golongan_obat: allGolongan_obat
     });
 }))
 
 router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    res.render('v_jenjang/new');
+    res.render('v_golonganobat/new');
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
@@ -34,33 +34,33 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
             message: 'Invalid request'
         })
     } else {
-        const input_jenjang_baru = await Jenjang.create(result.value);
-        res.redirect("/jenjang");
+        const input_Golongan_obat_baru = await Golongan_obat.create(result.value);
+        res.redirect("/golonganobat");
     }
 }))
 
 router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
-    const cari_jenjang = await Jenjang.findById(req.params.id);
-    res.render("v_jenjang/edit", {
-        jenjang_edit_id: cari_jenjang
+    const cari_Golongan_obat = await Golongan_obat.findById(req.params.id);
+    res.render("v_golonganobat/edit", {
+        golongan_obat_edit_id: cari_Golongan_obat
     });
 }))
 
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({ ...req.body
     }, schema);
-    const hasilUpdate = await Jenjang.findOneAndUpdate({
+    const hasilUpdate = await Golongan_obat.findOneAndUpdate({
         _id: req.params.id
     }, {
         $set: { ...req.body
         }
     });
-    res.redirect("/jenjang");
+    res.redirect("/golonganobat");
 }))
 
 router.delete("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const delete_jenjang = await Jenjang.findByIdAndRemove(req.params.id);
-    res.redirect("/jenjang");
+    const delete_Golongan_obat = await Golongan_obat.findByIdAndRemove(req.params.id);
+    res.redirect("/golonganobat");
 }))
 
 module.exports = router;

@@ -2,48 +2,46 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Data Bidang Pegawai</h1>
+            <h1 class="page-header">Data Golongan Obat</h1>
             <br><br>
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <div class="help-block">
-        <a href="/bidang/new" class="btn btn-info">Tambah Bidang Pegawai baru</a>
+        <a href="/golonganobat/new" class="btn btn-info">Tambah golongan obat baru</a>
     </div>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Bidang Pegawai Tables
+                    Golongan Obat Tables
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body table-responsive">
                     <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
                         <thead>
                             <tr>
-                                <th>Nama Bidang Pegawai</th>
+                                <th>Nama Golongan Obat</th>
                                 <th width="120px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% data_bidang.forEach(function(hasil){ %>
+                            <% data_golongan_obat.forEach(function(hasil){ %>
                             <tr>
                                 <td>
-                                    <%= hasil.nama_bidang %>
+                                    <%= hasil.nama_golongan_obat %>
                                 </td>
                                 <td>
-                                        <a class="btn btn-warning btn-sm" href="/bidang/<%= hasil._id %>/edit"><i
-                                                class="fa fa-pencil-square-o"></i></a>
-                                        <a class="btn btn-white btn-sm" href="">
-                                            <form action="/bidang/<%= hasil._id %>?_method=DELETE" method="POST"
-                                                class="delete-form">
-                                                <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Kamu Yakin Ingin Menghapus Data <%= hasil.nama_bidang %> ?')"><i
-                                                        class="fa fa-trash-o"></i></button>
-                                            </form>
-                                        </a>
-    
-                                    </td>
+                                    <a class="btn btn-warning btn-sm" href="/golonganobat/<%= hasil._id %>/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                    <a class="btn btn-white btn-sm" href="">
+                                        <form action="/golonganobat/<%= hasil._id %>?_method=DELETE" method="POST" class="delete-form">
+                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Kamu Yakin Ingin Menghapus Data <%= hasil.nama_golongan_obat %> ?')"><i
+                                                    class="fa fa-trash-o"></i></button>
+                                        </form>
+                                    </a>
+
+                                </td>
                             </tr>
                             <% }); %>
                         </tbody>

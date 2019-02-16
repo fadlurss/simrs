@@ -26,18 +26,6 @@ var tbl_pegawaiSchema = mongoose.Schema({
     jabatan: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_jabatan'
-    },
-    jenjang: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tbl_jenjang'
-    },
-    departemen: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tbl_departemen'
-    },
-    bidang: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tbl_bidang'
     }
 }, {
     timestamps: true,

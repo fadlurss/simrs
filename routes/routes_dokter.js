@@ -18,10 +18,10 @@ const schema = Joi.object().keys({
     agama: Joi.string().required(),
     alamat: Joi.string().required(),
     no_hp: Joi.number().min(11).required().integer(),
-    golongan_darah: Joi.any().valid('O', 'A', 'B', 'AB'),
+    gaji_pokok: Joi.number().required(),
+    tarif_dokter: Joi.number().required(),
     status_menikah: Joi.string().required(),
     spesialis: Joi.string().required(),
-    alumni: Joi.string().required(),
     no_izin_praktek: Joi.string().required(),
     submit: Joi.any()
 })

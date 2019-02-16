@@ -2,7 +2,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Edit Barang</h1>
+            <h1 class="page-header">Edit Pengadaan Obat</h1>
 
         </div>
 
@@ -13,57 +13,52 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Edit Barang
+                    Edit Pengadaan Obat
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" action="/pengadaaobat/<%= pengadaanobat_edit_id._id %>?_method=PUT"
-                        method="POST" id="tambah_barang">
+                    <form class="form-horizontal" role="form" action="/pengadaanobat/<%= pengadaanobat_edit_id._id %>?_method=PUT"
+                        method="POST" id="tambah_pengadaan_obat">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">No Faktur</label>
+                            <div class="col-sm-9">
+                                <input type="number" name="no_faktur" required class="form-control" value="<%= pengadaanobat_edit_id.no_faktur %>">
+                                <input type="hidden" name="id_pengadaanobat_detail" required class="form-control" value="<%= pengadaanobat_detail %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tanggal</label>
+                            <div class="col-sm-9">
+                                <input type="date" id="date" name="tanggal" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Supplier</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_supplier" id="cari_supplier" required class="form-control">
+                                <input type="hidden" name="id_supplier" id="id_supplier">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3">Nama Barang</label>
                             <div class="col-sm-9">
-                                <input type="text" name="nama_barang" required class="form-control" value="<%= pengadaanobat_edit_id %>">
+                                <input type="text" name="nama_barang" id="cari_barang" required class="form-control">
+                                <input type="hidden" name="id_barang" id="id_barang">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Kategori Barang</label>
-                            <div class="col-sm-9">
-                                <select name="id_kategori_barang" id="" class="form-control" id="">
-                                    <option value="" disabled>
-                                        Pilihan sebelumnya :
-                                        <%= pengadaanobat_edit_id %>
-                                    </option>
-                                    <% data_kategori_barang.forEach(function(hasil){ %>
-                                    <option value="<%= hasil.id %>">
-                                        <%= hasil.nama_kategori %>
-                                    </option>
-                                    <% }); %>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-sm-3">Status menikah</label>
-                            <div class="col-sm-9">
-                                <select name="id_satuan_barang" id="" class="form-control" id="">
-                                    <option value="" disabled>
-                                        Pilihan sebelumnya :
-                                        <%= pengadaanobat_edit_id %>
-                                    </option>
-                                    <% data_satuan_barang.forEach(function(hasil){ %>
-                                    <option value="<%= hasil.id %>">
-                                        <%= hasil.nama_satuan %>
-                                    </option>
-                                    <% }); %>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-sm-3">Harga Barang</label>
+                            <label for="" class="col-sm-3">Harga</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp</span>
-                                    <input type="text" name="harga" required class="form-control">
+                                    <input type="text" name="harga" id="harga" required class="form-control">
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Qty</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="qty" required class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -72,7 +67,6 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
                 <!-- /.panel-body -->
             </div>
