@@ -25,7 +25,7 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     //cari stok barang yang kurang dari 0
     const data_barang = await Benda.find({
         "stok": {
-            "$lt": 0
+            "$lt": 20
         }
     });
     const data_barang_masuk = await Barang_masuk.find({}).populate("id_barang").populate("id_supplier");
@@ -80,6 +80,13 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
     });
 }))
 
+router.get("/:id/edit2", middleware.asyncMiddleware(async (req, res, next) => {
+    const edit_barang_masuk = await Barang_masuk.findById(req.params.id);
+    res.render("v_barang_masuk/modal", {
+        edit_barang_masuk: edit_barang_masuk
+    });
+}))
+
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({ ...req.body
     }, schema2);
@@ -87,13 +94,10 @@ router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
         _id: req.params.id
     }, {
         $inc: {
-            ...req.body
-        },
-        $set: {
+            ...req.body,
             status_penerimaan: "Selesai"
         }
     });
-
     const update_barang = await Benda.findOneAndUpdate({
         $inc: {
             stok: +req.body.total_diterima
@@ -108,43 +112,3 @@ router.delete("/:id", middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 module.exports = router;
-
-
-
-// status_penerimaan: {
-//     $cond: {
-//         if: {
-//             $gte: ["$total_diterima", 2]
-//         },
-//         then: {
-//             $set: {
-//                 status_penerimaan: "Selesai"
-//             }
-//         }
-//     }
-// }
-// }, {
-//     $project: {
-//         item: 1,
-//         discount: {
-//             $cond: {
-//                 if: {
-//                     $gte: ["$total_diterima", 2]
-//                 },
-//                 then: 30,
-//                 else: 20
-//             }
-//         }
-//     }
-// status_penerimaan: {
-//     $cond: {
-//         if: {
-//             $gte: ["$total_diterima", 2]
-//         },
-//         then: {
-//             $set: {
-//                 status_penerimaan: "Selesai"
-//             }
-//         }
-//     }
-// }

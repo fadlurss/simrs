@@ -14,6 +14,8 @@ Riwayatberiobat = require("../models/Tbl_riwayatberiobat")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
+var moment = require('moment');
+var now = moment().toDate();
 
 const schema = Joi.object().keys({
     no_registrasi: Joi.number().required(),

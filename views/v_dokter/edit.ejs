@@ -17,7 +17,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" action="/dokter/<%= dokter_edit_id._id %>?_method=PUT"
-                        method="POST" id="update_dokter">
+                        method="POST" id="tambah_dokter">
                         <div class="form-group">
                             <label for="" class="col-sm-3">Nama dokter</label>
                             <div class="col-sm-9">
@@ -107,7 +107,7 @@
                             <div class="col-sm-9">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp</span>
-                                    <input type="number" name="tarif_dokter" required class="form-control">
+                                    <input type="number" min="10000" name="tarif_dokter" required class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                             <div class="col-sm-9">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp</span>
-                                    <input type="number" name="gaji_pokok" required class="form-control">
+                                    <input type="number" min="1000000" name="gaji_pokok" required class="form-control">
                                 </div>
                             </div>
                         </div>

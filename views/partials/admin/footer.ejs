@@ -18,6 +18,7 @@
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -57,6 +58,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
+
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
     //  $(document).ready(function() {
@@ -64,6 +66,10 @@
     //          responsive: true
     //      });
     //  });
+
+    var NowMoment = moment();
+    var eDsiplayMoment = document.getElementById("displayMoment");
+    eDsiplayMoment.innerHTML = NowMoment;
 
     $("[name='approveComment']").bootstrapSwitch();
     $("[name='statusAkun']").bootstrapSwitch();
@@ -171,21 +177,13 @@
 
     }
 
-    // result = function () {
-    //     var total_bayar = document.getElementById('a3').value;
-    //     var dibayarkan = document.getElementById('a4').value;
-    //     if (dibayarkan > total_bayar) {
-    //         alert("Jumlah pembayaran terlalu besar")
-    //     }
-    // }
-
     result = function () {
         var totalnya_masuk = document.getElementById('a1').getAttribute('value');
         var total_diterima = document.getElementById('a2').value;
         console.log(totalnya_masuk);
         console.log(total_diterima);
 
-        if (total_diterima > totalnya_masuk) {
+        if (total_diterima >= totalnya_masuk) {
             alert("Total diterima tidak boleh melebihi total masuk");
         }
     }
@@ -202,6 +200,58 @@
             nama_poliklinik: {
                 accept: "Nama poli harus alphabet",
                 maxlength: "Maksimal 30 huruf"
+            }
+        }
+    });
+
+    //VALIDATION FOR DOKTER
+    $("#tambah_dokter").validate({
+        rules: {
+            nama_dokter: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            },
+            tempat_lahir: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            },
+            alamat: {
+                required: true
+            },
+            no_izin_praktek: {
+                required: true
+            },
+            tarif_dokter: {
+                required: true
+            },
+            gaji_pokok: {
+                required: true
+            }
+        },
+        messages: {
+            nama_dokter: {
+                accept: "Nama dokter harus alphabet",
+                required: "Nama dokter wajib diisi",
+                maxlength: "Maksimal 30 huruf"
+            },
+            tempat_lahir: {
+                accept: "Tempat lahir harus alphabet",
+                tempat_lahir: "Tempat lahir wajib diisi",
+                maxlength: "Maksimal 30 huruf"
+            },
+            alamat: {
+                required: "Alamat wajib diisi"
+            },
+            no_izin_praktek: {
+                required: "No izin praktek wajib diisi"
+            },
+            gaji_pokok: {
+                required: "Gaji pokok wajib diisi"
+            },
+            tarif_dokter: {
+                required: "Tarif dokter wajib diisi"
             }
         }
     });
@@ -383,7 +433,7 @@
         }
     });
 
-    //VALIDATION FOR POLIKLINIK
+    //VALIDATION FOR PASIEN
     $("#tambah_pasien").validate({
         rules: {
             tanggal_lahir: {
@@ -456,6 +506,65 @@
                 required: "Pekerjaan wajib diisi dengan benar !",
                 accept: "Nama harus alphabet dan tidak boleh ada angka",
                 maxlength: "Nama pekerjaan maksimal 30 huruf"
+            },
+        }
+    });
+
+    //VALIDATION FOR PENDAFTARAN
+    $("#tambah_pendaftaran").validate({
+        rules: {
+            no_registrasi: {
+                required: true,
+                number: true
+            },
+            nama_dokter: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            },
+            nama_pasien: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            },
+            no_rm: {
+                required: true,
+                number: true,
+            },
+            no_bpjs: {
+                number: true,
+                maxlength: 13
+            },
+            nama_penanggung_jawab: {
+                required: true,
+                accept: "[a-zA-Z\s]+",
+                maxlength: 30
+            }
+        },
+        messages: {
+            no_registrasi: {
+                number: "Masukkan angka dengan benar !",
+                required: "No registrasi wajib diisi !"
+            },
+            nama_dokter: {
+                accept: "Nama harus alphabet dan tidak boleh ada angka",
+                maxlength: "Nama dokter maksimal 30 huruf"
+            },
+            nama_pasien: {
+                accept: "Nama harus alphabet dan tidak boleh ada angka",
+                maxlength: "Nama pasien maksimal 30 huruf"
+            },
+            no_rm: {
+                number: "Masukkan angka dengan benar !",
+                required: "No Rekamedis wajib diisi !"
+            },
+            no_bpjs: {
+                number: "Masukkan angka dengan benar !",
+                maxlength: "No bpjs maksimal 13 angka"
+            },
+            nama_penanggung_jawab: {
+                accept: "Nama harus alphabet dan tidak boleh ada angka",
+                maxlength: "Nama penanggung jawab maksimal 30 huruf"
             },
         }
     });
@@ -871,6 +980,7 @@
             console.log(r);
             if (r.length > 0) {
                 $("#tanggal_lahir").val(r[0].tanggal_lahir);
+                // const moment = moment("2013-03-10T02:00:00Z").format("YYYY-MM-DD") //"2013-03-10"
             } else {
                 alert("Nama Tidak Ditemukan");
             }

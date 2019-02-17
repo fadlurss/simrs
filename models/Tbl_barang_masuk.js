@@ -5,8 +5,8 @@ var tbl_barang_masukSchema = mongoose.Schema({
         type: String
     },
     status_penerimaan: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: "Belum"
     },
     hutang: {
         type: Number

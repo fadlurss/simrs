@@ -87,7 +87,7 @@
                                     <%= hasil.id_supplier.nama_supplier %>
                                 </td>
                                 <td>
-                                    <% if(hasil.status_penerimaan == false){ %>
+                                    <% if(hasil.total_diterima < hasil.total_masuk){ %>
                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                         data-target="#myModal">Belum
                                     </button>
@@ -140,7 +140,7 @@
                     <tr>
                         <td width="200">Total diterima</td>
                         <td>
-                            <input type="number" id="a2" onblur="result()" name="total_diterima" class="form-control">
+                            <input type="number" min="1" id="a2" onblur="result()" name="total_diterima" class="form-control">
                         </td>
                     </tr>
                 </table>
