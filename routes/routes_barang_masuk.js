@@ -25,7 +25,7 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     //cari stok barang yang kurang dari 0
     const data_barang = await Benda.find({
         "stok": {
-            "$lt": 0
+            "$lt": 20
         }
     });
     const data_barang_masuk = await Barang_masuk.find({}).populate("id_barang").populate("id_supplier");
@@ -83,23 +83,27 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({ ...req.body
     }, schema2);
-    const update_barang_masuk = await Barang_masuk.findOneAndUpdate({
-        _id: req.params.id
-    }, {
-        $inc: {
-            ...req.body
-        },
-        $set: {
-            status_penerimaan: "Selesai"
-        }
-    });
+    if (req.body.total_diterima > (req.body.tmasuk - req.body.tterima)) {
+        res.redirect("/stokopname");
+    } else {
+        const update_barang_masuk = await Barang_masuk.findOneAndUpdate({
+            _id: req.params.id
+        }, {
+            $inc: {
+                ...req.body
+            },
+            $set: {
+                status_penerimaan: "Selesai"
+            }
+        });
+        const update_barang = await Benda.findOneAndUpdate({
+            $inc: {
+                stok: +req.body.total_diterima
+            }
+        });
+        res.redirect("/stokopname");
+    }
 
-    const update_barang = await Benda.findOneAndUpdate({
-        $inc: {
-            stok: +req.body.total_diterima
-        }
-    });
-    res.redirect("/stokopname");
 }))
 
 router.delete("/:id", middleware.asyncMiddleware(async (req, res, next) => {
