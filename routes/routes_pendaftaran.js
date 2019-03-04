@@ -168,8 +168,13 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
                 path: "id_tindakan"
             }
         });
+    total = 0;
+    data_pendaftaran.id_riwayattindakan.forEach(function (comment) {
+        total = total + comment.id_tindakan.tarif;
+    });
     res.render("v_pendaftaran/detail", {
-        data_pendaftaran: data_pendaftaran
+        data_pendaftaran: data_pendaftaran,
+        total: total
     });
 }))
 
