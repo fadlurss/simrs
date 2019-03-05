@@ -1,0 +1,58 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">User Tables</h1>
+                <a class="btn btn-info btn-sm" href="">Print</a>
+                <a class="btn btn-success btn-sm" href="">Excel</a>
+            <br><br>
+            </div>
+           
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        User Tables
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Status</th>
+                                    <th>Kirim Email</th>
+                                    <th>Image KTP</th>
+                                    <th>Selfie KTP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% allUser.forEach(function(hasil){ %>
+                               <tr>
+                                   <td><%= hasil.local.username %></td>
+                                   <td><input data-idAkun="<%= hasil.id %>" <% if(hasil.local.statusAkun){ %> checked <% } %> type="checkbox" name="statusAkun"></td>
+                                   <td>
+                                       <form action="/gagalverifikasi" id="gagalverifikasi" method="POST">
+                                            <input type="hidden" value="<%= hasil.local.email %>" name="email">
+                                            <button class="btn btn-sm btn-danger">Kirim email gagal verifikasi</button>
+                                       </form>
+                                    </td>
+                                   <td><img src="<%= hasil.local.image_ktp %>" alt="" style="min-height:50px;height:30px;"></td>
+                                   <td><img src="<%= hasil.local.image_ktp_selfie %>" alt="" style="min-height:50px;height:30px;"></td>
+                               </tr>
+                               <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>     
+</div>
+    <!-- /#page-wrapper -->
+<% include ../partials/admin/footer %>

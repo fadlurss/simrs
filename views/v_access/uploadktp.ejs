@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <form action="/uploadktp" method="POST" enctype="multipart/form-data">
+                <label for="">Upload Scan KTP</label>
+                <div class="form-group">
+                    <input type="file" name="image" class="form-control" accept="image/*" onchange="document.getElementById('preview_ktp').src = window.URL.createObjectURL(this.files[0])">
+                </div>
+                <div class="form-group">
+                    <img id="preview_ktp" style="min-height:250px;height:50px;" src="/public/upload/id_card.jpg" />
+                </div>
+                <label for="">Upload Selfie dengan KTP</label>
+                <div class="form-group">
+                    <input type="file" name="image_ktp_selfie" class="form-control" id="image_ktp_selfie" accept="image/*" onchange="document.getElementById('preview_ktp_selfie').src = window.URL.createObjectURL(this.files[0])">
+                </div>
+                <div class="form-group">
+                    <img id="preview_ktp_selfie" style="min-height:250px;height:50px;" src="/public/upload/id_card_selfie.png" />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-info btn-block">Submit</button>
+                </div>  
+            </form>
+        </div>
+    </div>   
+</div>
+<% include ../partials/footer %>

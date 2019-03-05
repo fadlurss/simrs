@@ -11,10 +11,12 @@ const express = require('express'),
     configDB = require('./config/database.js'),
     session = require('express-session'),
     methodOverride = require('method-override'),
+    user = require('./models/user'),
     cors = require('cors'),
     validator = require('express-validator'),
     MongoStore = require('connect-mongo')(session),
     moment = require('moment'),
+    indexRoutes = require("./routes/routes"),
     poliklinikRoutes = require("./routes/routes_poliklinik"),
     spesialisRoutes = require("./routes/routes_spesialis"),
     jpdRoutes = require("./routes/routes_jpd"),
@@ -44,7 +46,9 @@ const express = require('express'),
 mongoose.connect(configDB.url, {
     useNewUrlParser: true
 }); // connect to our database
+require('./config/passport')(passport);
 app.set('view engine', 'ejs');
+app.enable("trust proxy");
 app.use(helmet());
 app.use(validator());
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -73,6 +77,19 @@ app.use(passport.session()); // persistent login sessions
 app.use(express.static(__dirname + "/public")); // jangan pakai koma seperti config
 app.use(express.static(__dirname, +"/config"));
 
+app.use(function (req, res, next) { //buat melihat siapa yang login, ada di header welcome back!! semacam session bisa mengeluarkan email 
+    res.locals.currentUser = req.user;
+    res.locals.session = req.session;
+    res.locals.error = req.flash("error"); //utk mengirim pesan ke semua router
+    res.locals.success = req.flash("success");
+    res.locals.pesan_cari = req.flash("pesan_cari");
+    // res.setHeader("Content-Type", "application/json");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.use("/", indexRoutes);
 app.use("/poliklinik", poliklinikRoutes);
 app.use("/barang", barangRoutes);
 app.use("/spesialis", spesialisRoutes);

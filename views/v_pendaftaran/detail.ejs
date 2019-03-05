@@ -130,11 +130,16 @@
                                     <%= comment.id_obat.harga %>
                                 </td>
                                 <td>
-
+                                    <%= comment.qty * comment.id_obat.harga %>
                                 </td>
                             </tr>
                             <% }) %>
                         </tbody>
+                        <tr>
+                            <td colspan="4" align="right">Total</td>
+                            <td><b>
+                                    <%= subtotal %></b></td>
+                        </tr>
                     </table>
 
                 </div>

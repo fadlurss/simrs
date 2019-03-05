@@ -86,7 +86,8 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
+    const result = Joi.validate({
+        ...req.body
     }, schema);
     const {
         value,
@@ -101,7 +102,8 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
         console.log(error);
 
     } else {
-        const result = Joi.validate({ ...req.body
+        const result = Joi.validate({
+            ...req.body
         }, schema);
         const {
             value,
@@ -169,12 +171,20 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
             }
         });
     total = 0;
+    subtotal = 0;
+
     data_pendaftaran.id_riwayattindakan.forEach(function (comment) {
         total = total + comment.id_tindakan.tarif;
     });
+
+    data_pendaftaran.id_riwayatberiobat.forEach(function (comment) {
+        subtotal = subtotal + (comment.qty * comment.id_obat.harga);
+    });
+
     res.render("v_pendaftaran/detail", {
         data_pendaftaran: data_pendaftaran,
-        total: total
+        total: total,
+        subtotal: subtotal
     });
 }))
 
@@ -204,12 +214,14 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
+    const result = Joi.validate({
+        ...req.body
     }, schema);
     const hasilUpdate = await Pendaftaran.findOneAndUpdate({
         _id: req.params.id
     }, {
-        $set: { ...req.body
+        $set: {
+            ...req.body
         }
     });
     res.redirect("/pendaftaran");

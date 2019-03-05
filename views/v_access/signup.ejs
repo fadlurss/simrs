@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Klinik Dokter Kita</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- Toaster CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+  <style>
+    body         { padding-top:80px; }
+    </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="col-sm-6 col-sm-offset-3">
+
+      <h1><span class="fa fa-sign-in"></span> Registrasi Akun</h1>
+
+      <% if (message.length > 0) { %>
+      <div class="alert alert-danger">
+        <%= message %>
+      </div>
+      <% } %>
+
+      <!-- LOGIN FORM -->
+      <form id="register-form" action="/signup" method="POST">
+        <div class="form-group">
+          <label>Nama depan</label>
+          <input type="text" class="form-control" name="firstName" placeholder="Nama depan anda">
+        </div>
+        <div class="form-group">
+          <label>Nama belakang</label>
+          <input type="text" class="form-control" name="lastName" required placeholder="Nama belakang anda">
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" class="form-control" name="username" required placeholder="Username anda">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" class="form-control" name="email" required placeholder="Email anda">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" id="password" name="password" required placeholder="Masukkan password, maksimal panjang 8 karakter">
+        </div>
+        <div class="form-group">
+          <label>Konfirmasi Password</label>
+          <input type="password" class="form-control" name="password2" required placeholder="Konfirmasi password harus sesuai">
+        </div>
+        <div class="form-group">
+          <label></label>
+          <input type="password" class="form-control" name="adminCode" placeholder="Kode autentikasi admin">
+        </div>
+        <div class="form-group">
+          <label></label>
+          <input type="password" class="form-control" name="dokterCode" placeholder="Kode autentikasi dokter">
+        </div>
+
+        <button type="submit" id="linkButton" class="btn btn-success btn-lg">Daftar</button>
+      </form>
+
+      <hr>
+
+      <p>Sudah punya akun? <a href="/login">Masuk</a></p>
+      <p>Atau ke <a href="/">home</a>.</p>
+
+
+    </div>
+  </div>
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js"></script>
+  <!-- Toaster JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script>
+    $.validator.setDefaults({
+      errorClass: 'help-block',
+      highlight: function (element) {
+        $(element)
+          .closest('.form-group')
+          .addClass('has-error');
+      },
+      unhighlight: function (element) {
+        $(element)
+          .closest('.form-group')
+          .removeClass('has-error');
+      },
+      errorPlacement: function (error, element) {
+        if (element.prop('type') === 'checkbox') {
+          error.insertAfter(element.parent());
+        } else {
+          error.insertAfter(element);
+        }
+      }
+    });
+    $.validator.addMethod('strongPassword', function (value, element) {
+      return this.optional(element) ||
+        value.length >= 8 &&
+        /\d/.test(value) &&
+        /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/i.test(value);
+    }, 'Password harus lebih dari 8 karakter dan mengandung angka.')
+    $("#register-form").validate({
+      rules: {
+        email: {
+          required: true,
+          email: true,
+          //   remote: "http://localhost:3000/inputValidator"
+        },
+        password: {
+          required: true,
+          strongPassword: true
+        },
+        password2: {
+          required: true,
+          equalTo: '#password'
+        },
+        firstName: {
+          required: true,
+          lettersonly: true
+        },
+        lastName: {
+          required: true,
+          lettersonly: true
+        },
+        username: {
+          required: true,
+          nowhitespace: true
+        }
+      },
+      messages: {
+        email: {
+          required: 'Masukan alamat email.',
+          email: 'Masukan alamat email yang <em>valid</em>.',
+          //   remote: $.validator.format("{0} is already associated with an account.")
+        },
+        username: {
+          nowhitespace: 'Username harus tanpa spasi.'
+        }
+      }
+    });
+    $(document).ready(function () {
+      toastr.options.timeOut = 9000; // 1.5s
+      // toastr.info('Page Loaded!');
+      $('#linkButton').click(function () {
+        toastr.success('Selamat anda berhasil registrasi, silakan cek alamat email anda sekarang!');
+      });
+    });
+  </script>
+</body>
+
+</html>

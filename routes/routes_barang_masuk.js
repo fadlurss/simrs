@@ -45,7 +45,8 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
+    const result = Joi.validate({
+        ...req.body
     }, schema);
     console.log(result.error);
     const {
@@ -81,7 +82,8 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
+    const result = Joi.validate({
+        ...req.body
     }, schema2);
     if (req.body.total_diterima > (req.body.tmasuk - req.body.tterima)) {
         res.redirect("/stokopname");

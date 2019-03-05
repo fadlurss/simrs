@@ -77,17 +77,21 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
+                        <% if(!currentUser){%>
+                        <li><a class="nav-link" href="/index">Log In or Register </a></li>
+                        <% } else { %>
                         <li>
-                            <a href="/users/"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            <a href="/users/"><i class="fa fa-user fa-fw"></i>
+                                <%= currentUser.local.firstName %>
+                                <%= currentUser.local.lastName %>
+                                <%= currentUser.google.name %>
+                                <%= currentUser.facebook.name %></a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
-
+                        <% }  %>
                     </ul>
 
                     <!-- /.dropdown-user -->

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <title>Verify your email</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:80px; }
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="col-sm-6 col-sm-offset-3">
+       
+    <% if (success && success.length > 0) { %>
+        <div class="alert alert-success" role="alert"><%= success %></div>
+    <% } %>       
+       
+    <h1>Verify your email yelpcamp</h1>
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+
+    <!-- LOGIN FORM -->
+    <form action="/verify" method="post">
+        <div class="form-group">
+            <label>Secret Token</label>
+            <input type="text" class="form-control" name="tokenReg" required autofocus>
+        </div>
+        
+
+        <button type="submit" class="btn btn-warning btn-lg">Verify</button>
+    </form>
+
+    <hr>
+
+    <p>Need an account? <a href="/signup">Signup</a></p>
+    <p>Or go <a href="/">home</a>.</p>
+
+    <div class="text-center">
+        <p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
+        <p>Visit the <a href="http://scotch.io/tutorials/javascript/easy-node-authentication-setup-and-local">tutorial</a>.</p>
+    </div>
+
+</div>
+</div>
+</body>
+</html>
