@@ -187,6 +187,13 @@
             alert("Total diterima tidak boleh melebihi total masuk");
         }
     }
+
+    function generateNoRawat() {
+        document.getElementById('txtFullName').value =
+            document.getElementById('no_registrasi').value + ' ' +
+            document.getElementById('no_rawat').value;
+    }
+
     //VALIDATION FOR POLIKLINIK
     $("#tambah_poliklinik").validate({
         rules: {
@@ -531,6 +538,9 @@
                 required: true,
                 number: true,
             },
+            no_rawat: {
+                required: true
+            },
             no_bpjs: {
                 number: true,
                 maxlength: 13
@@ -545,6 +555,9 @@
             no_registrasi: {
                 number: "Masukkan angka dengan benar !",
                 required: "No registrasi wajib diisi !"
+            },
+            no_rawat: {
+                required: "No rawat wajib diisi !"
             },
             nama_dokter: {
                 required: "Nama dokter wajib diisi !",

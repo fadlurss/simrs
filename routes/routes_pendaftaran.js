@@ -35,6 +35,7 @@ const schema = Joi.object().keys({
     hubungan_penanggung_jawab: Joi.string().required(),
     alamat_penanggung_jawab: Joi.string().required(),
     no_bpjs: Joi.number().required(),
+    tanggal_sekarang: Joi.any(),
     submit: Joi.any()
 })
 
@@ -62,6 +63,9 @@ const schema2 = Joi.object().keys({
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     const allpendaftaran = await Pendaftaran.find({})
+        .sort({
+            createdAt: -1
+        })
         .populate("id_pasien")
         .populate("id_dokter_penanggung_jawab")
         .populate("id_jenis_bayar")
