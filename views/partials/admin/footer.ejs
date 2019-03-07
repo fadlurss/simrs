@@ -547,27 +547,39 @@
                 required: "No registrasi wajib diisi !"
             },
             nama_dokter: {
+                required: "Nama dokter wajib diisi !",
                 accept: "Nama harus alphabet dan tidak boleh ada angka",
                 maxlength: "Nama dokter maksimal 30 huruf"
             },
             nama_pasien: {
+                required: "Nama pasien wajib diisi !",
                 accept: "Nama harus alphabet dan tidak boleh ada angka",
                 maxlength: "Nama pasien maksimal 30 huruf"
+            },
+            tanggal_lahir: {
+                required: "Tanggal lahir wajib diisi !"
             },
             no_rm: {
                 number: "Masukkan angka dengan benar !",
                 required: "No Rekamedis wajib diisi !"
             },
             no_bpjs: {
+                required: "No BPJS wajib diisi !",
                 number: "Masukkan angka dengan benar !",
                 maxlength: "No bpjs maksimal 13 angka"
             },
             nama_penanggung_jawab: {
+                required: "Nama penanggung jawab wajib diisi !",
                 accept: "Nama harus alphabet dan tidak boleh ada angka",
                 maxlength: "Nama penanggung jawab maksimal 30 huruf"
             },
+            alamat_penanggung_jawab: {
+                required: "Alamat penanggung jawab wajib diisi !",
+            }
         }
     });
+
+
 
     function submitBday() {
         var Q4A = "";

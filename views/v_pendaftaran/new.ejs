@@ -8,10 +8,10 @@
     </div>
     <!-- /.row -->
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Tambah Pendaftaran
+                    <span style="color:red"> *</span> = Kolom wajib diisi
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -77,6 +77,56 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="" class="col-sm-3">No Rekamedis<span style="color:red"> *</span></label>
+                            <div class="col-sm-9">
+                                <input type="number" name="no_rm" id="cari_no_rm" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama Pasien <span style="color:red"> *</span></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_pasien" id="nama_pasien" required class="form-control">
+                                <input type="text" hidden name="id_pasien" id="id_pasien" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">No BPJS</label>
+                            <div class="col-sm-9">
+                                <input name="no_bpjs" id="no_bpjs" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    type="number" maxlength="13" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Tanggal lahir<span style="color:red"> *</span></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="form-control">
+                                <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Nama penanggung jawab</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_penanggung_jawab" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Hubungan dengan penanggung jawab</label>
+                            <div class="col-sm-9">
+                                <select name="hubungan_penanggung_jawab" class="form-control" id="">
+                                    <option value="orang_tua">Orang tua</option>
+                                    <option value="saudara">Saudara</option>
+                                    <option value="teman">Teman</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Alamat penanggung jawab</label>
+                            <div class="col-sm-9">
+                                <textarea name="alamat_penanggung_jawab" required class="form-control" id="" cols="30"
+                                    rows="10"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-9 col-sm-offset-3">
                                 <button class="btn btn-info btn-block">Save</button>
                             </div>
@@ -88,70 +138,9 @@
             </div>
             <!-- /.panel -->
         </div>
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Tambah Pasien
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body form-horizontal">
 
-                    <div class="form-group">
-                        <label for="" class="col-sm-3">No Rekamedis<span style="color:red"> *</span></label>
-                        <div class="col-sm-9">
-                            <input type="number" name="no_rm" id="cari_no_rm" required class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-sm-3">Nama Pasien <span style="color:red"> *</span></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="nama_pasien" id="nama_pasien" required class="form-control">
-                            <input type="text" hidden name="id_pasien" id="id_pasien" required class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-sm-3">No BPJS</label>
-                        <div class="col-sm-9">
-                            <input name="no_bpjs" id="no_bpjs" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                type="number" maxlength="13" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-sm-3">Tanggal lahir<span style="color:red"> *</span></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="form-control">
-                            <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-sm-3">Nama penanggung jawab</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="nama_penanggung_jawab" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-sm-3">Hubungan dengan penanggung jawab</label>
-                        <div class="col-sm-9">
-                            <select name="hubungan_penanggung_jawab" class="form-control" id="">
-                                <option value="orang_tua">Orang tua</option>
-                                <option value="saudara">Saudara</option>
-                                <option value="teman">Teman</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-sm-3">Alamat penanggung jawab</label>
-                        <div class="col-sm-9">
-                            <textarea name="alamat_penanggung_jawab" required class="form-control" id="" cols="30" rows="10"></textarea>
-                        </div>
-                    </div>
-                    </form>
+        </form>
 
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
 
         <!-- /.col-lg-12 -->
     </div>
