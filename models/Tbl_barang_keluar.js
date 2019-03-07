@@ -1,6 +1,14 @@
 var mongoose = require("mongoose");
-
+//Tbl  barang keluar
 var tbl_barang_keluarSchema = mongoose.Schema({
+    id_barang_keluar_transaksi: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tbl_barang_keluar_transaksi'
+    },
+    id_barang: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tbl_barang'
+    },
     total_keluar: {
         type: Number
     },
@@ -9,10 +17,6 @@ var tbl_barang_keluarSchema = mongoose.Schema({
     },
     harga_jual: {
         type: Number
-    },
-    id_barang: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tbl_barang'
     },
     tgl_keluar: {
         type: Date,

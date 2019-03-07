@@ -21,6 +21,7 @@ const express = require('express'),
     spesialisRoutes = require("./routes/routes_spesialis"),
     jpdRoutes = require("./routes/routes_jpd"),
     barang_masukRoutes = require("./routes/routes_barang_masuk"),
+    barang_keluarRoutes = require("./routes/routes_barang_keluar"),
     dokterRoutes = require("./routes/routes_dokter"),
     jabatanRoutes = require("./routes/routes_jabatan"),
     pegawaiRoutes = require("./routes/routes_pegawai"),
@@ -102,6 +103,7 @@ app.use("/ruangan", ruanganRoutes);
 app.use("/tempattidur", tempattidurRoutes);
 app.use("/pasien", pasienRoutes);
 app.use("/stokopname", barang_masukRoutes);
+app.use("/penjualan", barang_keluarRoutes);
 app.use("/pendaftaran", pendaftaranRoutes);
 app.use("/kategoribarang", kategoribarangRoutes);
 app.use("/satuanbarang", satuanbarangRoutes);

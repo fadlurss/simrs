@@ -22,12 +22,18 @@ const schema2 = Joi.object().keys({
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    //cari stok barang yang kurang dari 0
+    stok_minimum = 0;
+    const data_item = await Benda.find({});
+    data_item.forEach(function (comment) {
+        stok_minimum = comment.stok_minimum;
+    });
+
     const data_barang = await Benda.find({
         "stok": {
-            "$lt": 20
+            "$lt": stok_minimum // CARI STOK BARANG YANG KURANG DARI STOK MINIMUM
         }
     });
+
     const data_barang_masuk = await Barang_masuk.find({}).populate("id_barang").populate("id_supplier");
     res.render('v_barang_masuk/index', {
         data_barang_masuk: data_barang_masuk,

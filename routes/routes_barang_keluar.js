@@ -1,8 +1,7 @@
 var express = require('express')
 router = express.Router()
-Barang_masuk = require("../models/Tbl_barang_masuk")
+Barang_masuk = require("../models/Tbl_barang_keluar_transaksi")
 Benda = require("../models/Tbl_barang")
-Supplier = require("../models/Tbl_supplier")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
@@ -25,7 +24,7 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     //cari stok barang yang kurang dari 0
     const data_barang = await Benda.find({
         "stok": {
-            "$lt": 20
+            "$lt": 2
         }
     });
     const data_barang_masuk = await Barang_masuk.find({}).populate("id_barang").populate("id_supplier");
@@ -45,7 +44,8 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
+    const result = Joi.validate({
+        ...req.body
     }, schema);
     console.log(result.error);
     const {
@@ -88,7 +88,8 @@ router.get("/:id/edit2", middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
+    const result = Joi.validate({
+        ...req.body
     }, schema2);
     const update_barang_masuk = await Barang_masuk.findOneAndUpdate({
         _id: req.params.id

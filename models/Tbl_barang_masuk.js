@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-
+//Tbl transaksi barang masuk
 var tbl_barang_masukSchema = mongoose.Schema({
     status_transaksi: {
         type: String
