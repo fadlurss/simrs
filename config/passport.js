@@ -75,9 +75,8 @@ module.exports = function (passport) {
                             expiresIn: 86400 //expires in 24 hours
                         });
                         return done(null, user, req.flash('success', 'Welcome back to Klinik Dokter Kita, ' + user.local.email + ' This is your token ' + token));
-
                     } else {
-                        return done(null, false, req.flash('loginMessage', 'Gagal.'));
+                        return done(null, false, req.flash('loginMessage', 'Silakan isi kembali email dan password anda dengan benar'));
                     }
 
                 });

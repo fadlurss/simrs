@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Klinik Dokter Kita</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by QBOOTSTRAP.COM" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="QBOOTSTRAP.COM" />
+
+	<!-- 
+	//////////////////////////////////////////////////////
+
+	FREE HTML5 TEMPLATE 
+	DESIGNED & DEVELOPED by QBOOTSTRAP.COM
+		
+	Website: 		http://qbootstrap.com/
+	Email: 			info@qbootstrap.com
+	Twitter: 		http://twitter.com/Q_bootstrap
+	Facebook: 		https://www.facebook.com/Qbootstrap
+	//////////////////////////////////////////////////////
+	 -->
+
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:description" content="" />
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="/css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="/css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="/css/magnific-popup.css">
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="/css/flexslider.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+
+	<div class="qbootstrap-loader"></div>
+
+	<div id="page">
+		<nav class="qbootstrap-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="top">
+								<div class="row">
+									<div class="col-md-4 col-md-push-4 text-center">
+										<div id="qbootstrap-logo"><a href="index.html"><i class="icon-plus-outline"></i>Klinik Dokter Kita</span></a></div>
+									</div>
+									<div class="col-md-4 col-md-pull-4">
+										<div class="num">
+											<span class="icon"><i class="icon-phone"></i></span>
+											<p><a href="#">0823-1555-9991</a></p>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="loc">
+											<span class="icon"><i class="icon-location"></i></span>
+											<p><a href="https://goo.gl/maps/u2UdjbvHDgv">Jl. Parakan Saat Ruko Perumahan Sinergi No. 4, Antapani, Kota
+													Bandung, Jawa Barat.</a></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 text-center">
+							<div class="menu-1">
+								<ul>
+									<li class="active"><a href="/index">Halaman utama</a></li>
+									<li><a href="/pelayanan">Pelayanan</a></li>
+									<li class="has-dropdown">
+										<a href="departments.html">Departments</a>
+										<ul class="dropdown">
+											<li><a href="departments-single.html">Plasetic Surgery Department</a></li>
+											<li><a href="departments-single.html">Dental Department</a></li>
+											<li><a href="departments-single.html">Psychological Department</a></li>
+										</ul>
+									</li>
+									<li class="has-dropdown">
+										<a href="/jadwaldokter">Jadwal Dokter</a>
+									</li>
+									<!-- <li><a href="/hubungikami">Hubungi Kami</a></li> -->
+									<% if(!currentUser){%>
+									<li><a href="/login">Login</a></li>
+									<% } else { %>
+									<li>Halo,
+										<%= currentUser.local.firstName %>
+									</li>
+									<li> <a class="nav-link" href="/logout">Keluar</a></li>
+									<% }  %>
+
+									<!-- <li class="btn-cta"><a href="appointment.html"><span>Make an Appointment <i class="icon-calendar3"></i></span></a></li> -->
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</nav>

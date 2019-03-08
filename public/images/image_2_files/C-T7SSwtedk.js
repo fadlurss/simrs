@@ -1,0 +1,3 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["1cBZH"]); }
+
+__d("MMessagesJewelChannelUpdates",["ChannelEventType","MJewels","MJewelSetLite","MTouchChannelManager","Stratcom"],(function(a,b,c,d,e,f,g,h,i,j,k){"use strict";__p&&__p();var l=!1;function a(){__p&&__p();if(l)return;l=!0;j.initialize();k.listen([g.INBOX],null,function(a){a=a.getData();a=a.unseen;if(a===null||a===void 0)return;var b=i.getJewel(h.MESSAGES);b.setBadgeCount(a)})}e.exports={start:a}}),null);

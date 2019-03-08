@@ -1,0 +1,3 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["KEqGj"]); }
+
+__d("MNTGroupActionHandler",["MNTActions"],(function(a,b,c,d,e,f){__p&&__p();a={performAction:function(a){__p&&__p();a=a.children;for(var a=a,c=Array.isArray(a),d=0,a=c?a:a[typeof Symbol==="function"?Symbol.iterator:"@@iterator"]();;){var e;if(c){if(d>=a.length)break;e=a[d++]}else{d=a.next();if(d.done)break;e=d.value}e=e;var f=b("MNTActions");f.performAction(e)}}};e.exports=a}),null);

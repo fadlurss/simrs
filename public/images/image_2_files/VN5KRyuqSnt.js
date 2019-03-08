@@ -1,0 +1,3 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["oPC+Z"]); }
+
+__d("MUFIConversationGuideEmojiItem_item.graphql",[],(function(a,b,c,d,e,f){"use strict";a={kind:"Fragment",name:"MUFIConversationGuideEmojiItem_item",type:"EmojiSuggestion",metadata:null,argumentDefinitions:[],selections:[{kind:"ScalarField",alias:null,name:"id",args:null,storageKey:null},{kind:"ScalarField",alias:null,name:"unicode_string",args:null,storageKey:null}]};e.exports=a}),null);

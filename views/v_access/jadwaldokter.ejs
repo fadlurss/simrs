@@ -1,0 +1,55 @@
+<% include ../partials/header2 %>
+<div id="page-wrapper">
+    <center>
+        <div class="col-lg-12">
+            <h1 class="page-header">Jadwal Praktek Dokter</h1>
+        </div> <!-- /.col-lg-12 -->
+    </center>
+    <!-- /.row -->
+
+    <!-- /.panel-heading -->
+    <center>
+        <div class="panel-body table-responsive">
+            <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
+                <thead>
+                    <tr>
+                        <th>Nama dokter</th>
+                        <th>Hari</th>
+                        <th>Jam mulai</th>
+                        <th>Jam selesai</th>
+                        <th>Poli
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% jadwaldokter.forEach(function(hasil){ %>
+                    <tr>
+                        <td>
+                            <%= hasil.nama_dokter.nama_dokter %>
+                        </td>
+                        <td>
+                            <%= hasil.hari %>
+                        </td>
+                        <td>
+                            <%= hasil.jam_mulai %>
+                        </td>
+                        <td>
+                            <%= hasil.jam_selesai %>
+                        </td>
+                        <td>
+                            <%= hasil.poliklinik.nama_poliklinik %></a>
+                        </td>
+
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+
+        </div>
+    </center>
+    <div class="col-lg-12">
+        <p><span style="color:red"> Data jadwal dokter dapat berubah sewaktu-waktu, tanpa pemberitahuan.</span></p>
+    </div>
+
+</div>
+<% include ../partials/footer %>

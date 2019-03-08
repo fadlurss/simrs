@@ -1,0 +1,3 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["JjsU9"]); }
+
+__d("MJewelChannelUpdates",["MFriendingJewelChannelUpdates","MJewels","MJewelSetLite","MMessagesJewelChannelUpdates","MNotificationsJewelChannelUpdates"],(function(a,b,c,d,e,f,g,h,i,j,k){"use strict";function a(){i.getJewel(h.REQUESTS)!=null&&g.start(),i.getJewel(h.MESSAGES)!=null&&j.start(),i.getJewel(h.NOTIFICATIONS)!=null&&k.start()}e.exports={start:a}}),null);

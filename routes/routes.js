@@ -1,7 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
-var User = require('../models/user');
+const express = require('express')
+router = express.Router()
+passport = require('passport')
+User = require('../models/user')
+Jadwal_dokter = require("../models/Tbl_jadwal_praktek_dokter")
+Dokter = require("../models/Tbl_dokter")
+Poliklinik = require("../models/Tbl_poliklinik")
+
+
 // var Campground = require('../models/campground');
 var async = require('async');
 var nodemailer = require('nodemailer');
@@ -10,6 +15,7 @@ var crypto = require('crypto');
 var request = require("request");
 var multer = require("multer");
 const bcrypt = require('bcrypt-nodejs');
+middleware = require("../middleware")
 const asyncMiddleware = require("../middleware");
 
 const storage = multer.diskStorage({
@@ -53,6 +59,20 @@ router.get('/index', function (req, res) {
     res.render('v_access/index');
 });
 
+router.get('/pelayanan', function (req, res) {
+    res.render('v_access/pelayanan');
+});
+
+router.get('/jadwaldokter', middleware.asyncMiddleware(async (req, res, next) => {
+    const jadwaldokter = await Jadwal_dokter.find({}).populate("poliklinik").populate("nama_dokter");
+    res.render('v_access/jadwaldokter', {
+        jadwaldokter: jadwaldokter
+    });
+}));
+
+router.get('/hubungikami', middleware.asyncMiddleware(async (req, res, next) => {
+    res.render('v_access/kontak');
+}));
 // PROFILE SECTION =========================
 // router.get('/users/:id', isLoggedIn, function(req, res) {
 //     User.findById(req.params.id, function(err, foundUser){

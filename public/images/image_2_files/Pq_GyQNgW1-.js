@@ -1,0 +1,3 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["oOBXW"]); }
+
+__d("MUFIConversationGuideTextItem_item.graphql",[],(function(a,b,c,d,e,f){"use strict";a={kind:"Fragment",name:"MUFIConversationGuideTextItem_item",type:"TextSuggestion",metadata:null,argumentDefinitions:[],selections:[{kind:"ScalarField",alias:null,name:"id",args:null,storageKey:null},{kind:"ScalarField",alias:null,name:"text",args:null,storageKey:null}]};e.exports=a}),null);

@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html>
 
 <head>
@@ -10,41 +10,43 @@
     </style>
 </head>
 
-<body>
-    <div class="container">
-        <div class="col-sm-6 col-sm-offset-3">
+<body> -->
+<% include ../partials/header2 %>
+<div class="container">
+    <div class="col-sm-6 col-sm-offset-3"><br>
+        <center>
+            <h1>Login</h1>
+        </center>
 
-            <h1><span class="fa fa-sign-in"></span> Login</h1>
-
-            <% if (message.length > 0) { %>
-            <div class="alert alert-danger">
-                <%= message %>
-            </div>
-            <% } %>
-
-            <!-- LOGIN FORM -->
-            <form action="/login" method="post">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" name="email">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="password">
-                </div>
-
-                <button type="submit" class="btn btn-warning btn-lg">Login</button>
-            </form>
-
-            <hr>
-
-            <p>Belum punya akun? <a href="/signup">Signup</a></p>
-            <p>Atau ke <a href="/">home</a>.</p>
-
-
-
+        <% if (message.length > 0) { %>
+        <div class="alert alert-danger">
+            <%= message %>
         </div>
-    </div>
-</body>
+        <% } %>
 
-</html>
+        <!-- LOGIN FORM -->
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" required class="form-control" name="email">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" required class="form-control" name="password">
+            </div>
+
+            <button type="submit" class="btn btn-warning btn-lg">Login</button>
+        </form>
+
+        <hr>
+
+        <p>Belum punya akun? <a href="/signup">Signup</a></p>
+        <p>Atau ke <a href="/">home</a>.</p>
+
+
+    </div>
+</div>
+<% include ../partials/footer %>
+<!-- </body>
+
+</html> -->

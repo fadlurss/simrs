@@ -1,0 +1,3 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["kSqjr"]); }
+
+__d("MNotificationsJewelChannelUpdates",["ChannelEventType","MJewels","MJewelSetLite","MTouchChannelManager","Stratcom"],(function(a,b,c,d,e,f,g,h,i,j,k){"use strict";__p&&__p();var l=!1,m=0,n=[];function a(){__p&&__p();if(l)return;l=!0;var a=i.getJewel(h.NOTIFICATIONS);m=a.getBadgeCount();j.initialize();k.listen(g.NOTIFICATIONS_NEW,null,function(b){b=b.getData();b=b.data;b.alert_id&&!n.includes(b.alert_id)&&n.push(b.alert_id);a.setBadgeCount(n.length+m)});k.listen(g.NOTIFICATIONS_SEEN,null,function(b){n=[],m=0,a.setBadgeCount(n.length+m)})}e.exports={start:a}}),null);
