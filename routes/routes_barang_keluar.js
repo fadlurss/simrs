@@ -184,7 +184,7 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
 
 router.get("/:id/edit2", middleware.asyncMiddleware(async (req, res, next) => {
     const edit_barang_masuk = await Barang_masuk.findById(req.params.id);
-    const contoh_join = await Barang_keluar.find({}).populate("id_barang");
+    // const contoh_join = await Barang_keluar.find({}).populate("id_barang");
     res.render("v_barang_masuk/modal", {
         edit_barang_masuk: edit_barang_masuk
     });

@@ -123,7 +123,7 @@
                                         id: "id_barang_keluar_transaksi",
                                         value: ins.data._id,
                                         type: "hidden"
-                                    },{
+                                    }, {
                                         label: "",
                                         name: "harga_modal",
                                         id: "harga_modal",
@@ -187,38 +187,64 @@
                                     "http://localhost:4000/penjualan/getdatabarang",
                                     dialog.find("#id_barang"));
                                 var total = 0;
-                                dialog.find("#id_barang").on('change',function(event) {
-                                  event.preventDefault();
-                                  val = $(this).val();
-                                  console.log(val);
-                                  get = get("barangget/"+val);
-                                  console.log(get);
-                                  if (get.status == 1) {
-                                    dialog.find("#harga_modal").val(get.harga_modal);
-                                    dialog.find("#harga_jual").val(get.harga_jual);
-                                    toastr.success("Data Ditemukan");
-                                  }else {
-                                    toastr.error("Data Tidak Ditemukan");
-                                  }
+                                dialog.find("#id_barang").on('change',
+                                    function (event) {
+                                        event.preventDefault();
+                                        val = $(this).val();
+                                        console.log(val);
+                                        get = get(
+                                            "http://localhost:4000/penjualan/barangget/" +
+                                            val);
+                                        console.log(get);
+                                        if (get.status == 1) {
+                                            dialog.find(
+                                                    "#harga_modal")
+                                                .val(get.harga_modal);
+                                            dialog.find(
+                                                "#harga_jual").val(
+                                                get.harga_jual);
+                                            toastr.success(
+                                                "Data Ditemukan"
+                                            );
+                                        } else {
+                                            toastr.error(
+                                                "Data Tidak Ditemukan"
+                                            );
+                                        }
+                                    });
+                                tbl_list_barang = dialog.find(
+                                    "#tbl_list_barang").DataTable({
+                                    ajax: "http://localhost:4000/penjualan/getdatabarangjoin/" +
+                                        ins.data._id
                                 });
-                                tbl_list_barang = dialog.find("#tbl_list_barang").DataTable({
-                                  ajax:"http://localhost:4000/penjualan/getdatabarangjoin/"+ins.data._id
-                                });
-                                dialog.find("#simpan_trx").on('click', function(event) {
-                                  event.preventDefault();
-                                  c = confirm("Apakah Anda Yakin ? ");
-                                  if (c) {
-                                    id = dialog.find("#id_barang_keluar_transaksi").val();
-                                    ins = post("savetrx/"+id,{status_transaksi:"Sudah Bayar",total_bayar:dialog.find("#total_bayar").val()});
-                                    if (ins.status == 1) {
-                                      bootbox.hideAll();
-                                      table.ajax.reload();
-                                      toastr.success(ins.msg);
-                                    }else {
-                                      toastr.error(ins.msg);
-                                    }
-                                  }
-                                });
+                                dialog.find("#simpan_trx").on('click',
+                                    function (event) {
+                                        event.preventDefault();
+                                        c = confirm(
+                                            "Apakah Anda Yakin ? "
+                                        );
+                                        if (c) {
+                                            id = dialog.find(
+                                                "#id_barang_keluar_transaksi"
+                                            ).val();
+                                            ins = post(
+                                                "http://localhost:4000/penjualan/savetrx/" +
+                                                id, {
+                                                    status_transaksi: "Sudah Bayar",
+                                                    total_bayar: dialog
+                                                        .find(
+                                                            "#total_bayar"
+                                                        ).val()
+                                                });
+                                            if (ins.status == 1) {
+                                                bootbox.hideAll();
+                                                table.ajax.reload();
+                                                toastr.success(ins.msg);
+                                            } else {
+                                                toastr.error(ins.msg);
+                                            }
+                                        }
+                                    });
                                 dialog.find("#save").on(
                                     "submit",
                                     function () {
@@ -230,8 +256,13 @@
                                         console.log(ins);
                                         if (ins.status == 1) {
                                             tbl_list_barang.ajax.reload();
-                                            total = total + (ins.data.harga_jual*ins.data.total_keluar);
-                                            dialog.find("#total_bayar").val(total);
+                                            total = total + (ins.data
+                                                .harga_jual *
+                                                ins.data.total_keluar
+                                            );
+                                            dialog.find(
+                                                    "#total_bayar")
+                                                .val(total);
                                             toastr.success(
                                                 ins.msg
                                             );
