@@ -5,18 +5,14 @@ User = require('../models/user')
 Jadwal_dokter = require("../models/Tbl_jadwal_praktek_dokter")
 Dokter = require("../models/Tbl_dokter")
 Poliklinik = require("../models/Tbl_poliklinik")
-
-
-// var Campground = require('../models/campground');
-var async = require('async');
-var nodemailer = require('nodemailer');
-var crypto = require('crypto');
-// var Categories = require('../models/categories');
-var request = require("request");
-var multer = require("multer");
-const bcrypt = require('bcrypt-nodejs');
+async = require('async')
+nodemailer = require('nodemailer')
+crypto = require('crypto')
+request = require("request")
+multer = require("multer")
+bcrypt = require('bcrypt-nodejs')
 middleware = require("../middleware")
-const asyncMiddleware = require("../middleware");
+asyncMiddleware = require("../middleware")
 
 const storage = multer.diskStorage({
     filename: function (req, file, callback) {
@@ -68,6 +64,10 @@ router.get('/jadwaldokter', middleware.asyncMiddleware(async (req, res, next) =>
     res.render('v_access/jadwaldokter', {
         jadwaldokter: jadwaldokter
     });
+}));
+
+router.get('/diagnosa', middleware.asyncMiddleware(async (req, res, next) => {
+    res.render("v_access/diagnosa");
 }));
 
 router.get('/hubungikami', middleware.asyncMiddleware(async (req, res, next) => {

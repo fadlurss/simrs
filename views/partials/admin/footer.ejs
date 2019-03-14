@@ -19,6 +19,7 @@
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -51,13 +52,14 @@
 <!-- Custom Theme JavaScript -->
 <script src="/admin/js/sb-admin-2.js"></script>
 
+
 <!-- Bootstrap Switch -->
 <script src="/admin/js/bootstrap-switch.min.js"></script>
 
 <!-- Toaster JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
@@ -814,6 +816,21 @@
         }
     });
 
+    var demo13 = new autoComplete({
+        selector: '#cari_item',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/penjualan/cari_barang").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+        }
+    });
+
     $("#cari_supplier").on("change", function () {
         np = $(this).val();
         $.post("http://localhost:4000/pengadaanobat/cari_id_supplier", {
@@ -866,6 +883,67 @@
                 $("#harga").val(r[0].harga);
             } else {
                 alert("Harga Tidak Ditemukan");
+            }
+        });
+    });
+
+
+    //routes_barang_keluar
+    $("#cari_item").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/penjualan/cari_stok_item", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#cari_stok_item").val(r[0].stok);
+            } else {
+                alert("Stok Barang Tidak Ditemukan");
+            }
+        });
+    });
+
+    //routes_barang_keluar
+    $("#cari_item").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/penjualan/id_item", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_item").val(r[0]._id);
+            } else {
+                alert("Stok Barang Tidak Ditemukan");
+            }
+        });
+    });
+
+    //routes_barang_keluar
+    $("#cari_item").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/penjualan/harga_item", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#harga_item").val(r[0].harga_jual);
+            } else {
+                alert("Stok Barang Tidak Ditemukan");
+            }
+        });
+    });
+
+    //routes_barang_keluar
+    $("#cari_item").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/penjualan/harga_modal", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#harga_modal").val(r[0].harga_modal);
+            } else {
+                alert("Stok Barang Tidak Ditemukan");
             }
         });
     });
@@ -1043,6 +1121,7 @@
         document.getElementById('hidden_div3').style.display = style;
     })
 </script>
+<script src="/admin/js/main.js"></script>
 </body>
 
 </html>

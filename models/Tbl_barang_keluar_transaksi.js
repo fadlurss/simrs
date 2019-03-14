@@ -5,7 +5,8 @@ var tbl_barang_keluar_transaksiSchema = mongoose.Schema({
         type: Number
     },
     total_bayar: {
-        type: Number
+        type: Number,
+        default: 0
     },
     status_transaksi: {
         type: String,

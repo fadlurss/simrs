@@ -16,7 +16,6 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Dokter Tables
-
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body table-responsive">
@@ -59,12 +58,12 @@
                                 <td>
                                     <a class="btn btn-warning btn-sm" href="/dokter/<%= hasil._id %>/edit"><i class="fa fa-pencil-square-o"></i></a>
                                     <a class="btn btn-white btn-sm" href="">
-                                            <form action="/dokter/<%= hasil._id %>?_method=DELETE" method="POST" class="delete-form">
-                                                <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Kamu Yakin Ingin Menghapus Data <%= hasil.nama_dokter %> ?')"><i
-                                                        class="fa fa-trash-o"></i></button>
-                                            </form>
-                                        </a>
-    
+                                        <form action="/dokter/<%= hasil._id %>?_method=DELETE" method="POST" class="delete-form">
+                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Kamu Yakin Ingin Menghapus Data <%= hasil.nama_dokter %> ?')"><i
+                                                    class="fa fa-trash-o"></i></button>
+                                        </form>
+                                    </a>
+
                                 </td>
                             </tr>
                             <% }); %>
