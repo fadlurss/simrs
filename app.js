@@ -20,6 +20,8 @@ const express = require('express'),
     poliklinikRoutes = require("./routes/routes_poliklinik"),
     spesialisRoutes = require("./routes/routes_spesialis"),
     jpdRoutes = require("./routes/routes_jpd"),
+    agamaRoutes = require("./routes/routes_agama"),
+    statusmenikahRoutes = require("./routes/routes_status_menikah"),
     barang_masukRoutes = require("./routes/routes_barang_masuk"),
     barang_keluarRoutes = require("./routes/routes_barang_keluar"),
     dokterRoutes = require("./routes/routes_dokter"),
@@ -96,6 +98,8 @@ app.use(function (req, res, next) { //buat melihat siapa yang login, ada di head
 app.use("/", indexRoutes);
 app.use("/poliklinik", poliklinikRoutes);
 app.use("/barang", barangRoutes);
+app.use("/agama", agamaRoutes);
+app.use("/statusmenikah", statusmenikahRoutes);
 app.use("/spesialis", spesialisRoutes);
 app.use("/jadwalpraktek", jpdRoutes);
 app.use("/dokter", dokterRoutes);
