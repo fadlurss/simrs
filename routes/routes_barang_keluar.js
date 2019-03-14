@@ -89,7 +89,7 @@ router.get('/getdatabarangjoin/:id_barang_keluar_transaksi', middleware.asyncMid
   const list = await Barang_keluar.find(req.params).populate("id_barang");
   var data = [];
   for (var i = 0; i < list.length; i++) {
-    data.push([list[i]._id,list[i].id_barang_keluar_transaksi,list[i].id_barang.nama_barang,list[i].total_keluar,list[i].harga_jual,(list[i].harga_jual*list[i].total_keluar)]);
+    data.push([list[i]._id,list[i].id_barang.nama_barang,list[i].total_keluar,list[i].harga_jual,(list[i].harga_jual*list[i].total_keluar)]);
   }
   res.json({"data":data});
 }))

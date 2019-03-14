@@ -152,11 +152,12 @@
                                 html = builder(form, btn, "save", true,
                                     12);
                                 build = [
-                                    "<div class='row'>",
+                                    "<div class='row' style='overflow-y:scroll'>",
                                     "<div class='col-md-12'>",
                                     html,
                                     "</div>",
-                                    "<div class='col-md-12 table-responsive'>",
+                                    "<div class='col-md-12 '>",
+                                    "<div class='table-responsive'>",
                                     "<table class='table' id='tbl_list_barang'>",
                                     "<thead>",
                                     "<th>ID</th>",
@@ -168,6 +169,7 @@
                                     "<tbody>",
                                     "</tbody>",
                                     "</table>",
+                                    "</div>",
                                     "</div>",
                                     "<div class='col-md-12'>",
                                     "<div class='form-group'>",
