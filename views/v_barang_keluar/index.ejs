@@ -122,19 +122,16 @@
                                         name: "id_barang_keluar_transaksi",
                                         value: ins.data._id,
                                         type: "hidden"
-                                    }, {
-                                        label: "",
-                                        name: "id_barang",
-                                        type: "hidden"
-                                    }, {
+                                    },{
                                         label: "",
                                         name: "harga_modal",
+                                        id: "harga_modal",
                                         type: "hidden"
                                     }, {
                                         label: "Nama Barang",
                                         type: "select2",
-                                        id: "nama_barang",
-                                        name: "nama_barang"
+                                        id: "id_barang",
+                                        name: "id_barang"
                                     }, {
                                         label: "Harga Jual",
                                         name: "harga_jual",
@@ -158,8 +155,18 @@
                                     "<div class='col-md-12'>",
                                     html,
                                     "</div>",
-                                    "<div class='col-md-12'>",
-
+                                    "<div class='col-md-12 table-responsive'>",
+                                    "<table class='table' id='tbl_list_barang'>",
+                                    "<thead>",
+                                    "<th>ID</th>",
+                                    "<th>Nama Barang</th>",
+                                    "<th>Harga</th>",
+                                    "<th>Jumlah Beli</th>",
+                                    "<th>Subtotal</th>",
+                                    "</thead>",
+                                    "<tbody>",
+                                    "</tbody>",
+                                    "</table>",
                                     "</div>",
                                     "<div class='col-md-12'>",
 
@@ -170,21 +177,38 @@
                                     .join(""));
                                 select2builder(
                                     "http://localhost:4000/penjualan/getdatabarang",
-                                    dialog.find("#nama_barang"));
+                                    dialog.find("#id_barang"));
+                                dialog.find("#id_barang").on('change',function(event) {
+                                  event.preventDefault();
+                                  val = $(this).val();
+                                  console.log(val);
+                                  get = get("localhost:4000/penjualan/barangget/"+val);
+                                  console.log(get);
+                                  if (get.status == 1) {
+                                    dialog.find("#harga_modal").val(get.harga_modal);
+                                    dialog.find("#harga_jual").val(get.harga_jual);
+                                    toastr.success("Data Ditemukan");
+                                  }else {
+                                    toastr.error("Data Tidak Ditemukan");
+                                  }
+                                });
+                                tbl_list_barang = dialog.find("#tbl_list_barang").DataTable({
+                                  ajax:"http://localhost:4000/penjualan/getdatabarangjoin/"+ins.data._id
+                                });
                                 dialog.find("#save").on(
                                     "submit",
                                     function () {
                                         dform = $(this).serializeArray();
                                         console.log(dform);
                                         ins = post(
-                                            "http://localhost:4000/penjualan/save",
+                                            "http://localhost:4000/penjualan/savebrg",
                                             dform);
                                         console.log(ins);
                                         if (ins.status == 1) {
+                                            tbl_list_barang.ajax.reload();
                                             toastr.success(
                                                 ins.msg
                                             );
-
                                         } else {
                                             toastr.error(
                                                 ins.msg
