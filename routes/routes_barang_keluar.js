@@ -6,6 +6,11 @@ Bendaa = require("../models/Tbl_barang")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
+const randomize = require('randomatic');
+const random = randomize('0', 8);
+
+
+
 
 const schema = Joi.object().keys({
     no_faktur: Joi.any(),
@@ -25,7 +30,8 @@ const schema2 = Joi.object().keys({
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     const data_barang_keluar_transaksi = await Barang_keluar_transaksi.find({});
     res.render('v_barang_keluar/index', {
-        data_barang_keluar_transaksi: data_barang_keluar_transaksi
+        data_barang_keluar_transaksi: data_barang_keluar_transaksi,
+        random: random
     });
 }))
 router.get('/getdata', middleware.asyncMiddleware(async (req, res, next) => {
@@ -44,54 +50,66 @@ router.get('/getdata', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 // savetrx
 router.post('/savebrg', middleware.asyncMiddleware(async (req, res, next) => {
-  var data = req.body;
-  const save = await Barang_keluar.create(req.body);
-  if (save != null) {
-      res.json({
-          "status": 1,
-          "msg": "Data Di Simpan",
-          data: save
-      });
-  } else {
-      res.json({
-          "status": 0,
-          "msg": "Data Gagal Di Simpan"
-      });
-  }
+    var data = req.body;
+    const save = await Barang_keluar.create(req.body);
+    if (save != null) {
+        res.json({
+            "status": 1,
+            "msg": "Data Di Simpan",
+            data: save
+        });
+    } else {
+        res.json({
+            "status": 0,
+            "msg": "Data Gagal Di Simpan"
+        });
+    }
 }))
 router.post('/savetrx/:_id', middleware.asyncMiddleware(async (req, res, next) => {
-  var data = req.body;
-  body = req.body;
-  const save = await Barang_keluar_transaksi.findOneAndUpdate(req.params,{$set:body});
-  if (save != null) {
-      res.json({
-          "status": 1,
-          "msg": "Data Di Update",
-          data: save
-      });
-  } else {
-      res.json({
-          "status": 0,
-          "msg": "Data Gagal Di Update"
-      });
-  }
+    var data = req.body;
+    body = req.body;
+    const save = await Barang_keluar_transaksi.findOneAndUpdate(req.params, {
+        $set: body
+    });
+    if (save != null) {
+        res.json({
+            "status": 1,
+            "msg": "Data Di Update",
+            data: save
+        });
+    } else {
+        res.json({
+            "status": 0,
+            "msg": "Data Gagal Di Update"
+        });
+    }
 }))
 router.get('/barangget/:_id', middleware.asyncMiddleware(async (req, res, next) => {
     const cari = await Bendaa.find(req.params);
     if (cari.length > 0) {
-      res.json({status:1,msg:"Data Ditemukan",harga_jual:cari[0].harga_jual,harga_modal:cari[0].harga_modal});
-    }else {
-      res.json({status:0,msg:"Data Tidak Ditemukan"});
+        res.json({
+            status: 1,
+            msg: "Data Ditemukan",
+            harga_jual: cari[0].harga_jual,
+            harga_modal: cari[0].harga_modal
+        });
+    } else {
+        res.json({
+            status: 0,
+            msg: "Data Tidak Ditemukan"
+        });
     }
 }))
 // const data_barang_masuk = await Barang_masuk.find({}).populate("id_barang").populate("id_supplier");
 router.get('/getdatabarangjoin/:id_barang_keluar_transaksi', middleware.asyncMiddleware(async (req, res, next) => {
-  const list = await Barang_keluar.find(req.params).populate("id_barang");
-  var data = [];
-  for (var i = 0; i < list.length; i++) {
-    data.push([list[i]._id,list[i].id_barang.nama_barang,list[i].total_keluar,list[i].harga_jual,(list[i].harga_jual*list[i].total_keluar)]);
-  }
-  res.json({"data":data});
+    const list = await Barang_keluar.find(req.params).populate("id_barang");
+    var data = [];
+    for (var i = 0; i < list.length; i++) {
+        data.push([list[i]._id, list[i].id_barang.nama_barang, list[i].total_keluar, list[i].harga_jual, (list[i].harga_jual * list[i].total_keluar)]);
+    }
+    res.json({
+        "data": data
+    });
 }))
 router.get('/getdatabarang', middleware.asyncMiddleware(async (req, res, next) => {
     const barang = await Bendaa.find({});

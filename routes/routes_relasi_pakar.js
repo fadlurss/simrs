@@ -16,7 +16,6 @@ const schema = Joi.object().keys({
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     const allrelasi_pakar = await Relasi_pakar.find({}).populate("id_gejala_pakar").populate("id_diagnosa_pakar");
-
     res.render('v_relasipakar/index', {
         allrelasi_pakar: allrelasi_pakar
     });
