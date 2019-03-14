@@ -39,6 +39,9 @@ const express = require('express'),
     pengadaanobatRoutes = require("./routes/routes_pengadaanobat"),
     penjualanobatRoutes = require("./routes/routes_penjualanobat"),
     diagnosapenyakitRoutes = require("./routes/routes_diagnosa_penyakit"),
+    diagnosapakarRoutes = require("./routes/routes_diagnosa_pakar"),
+    gejalapakarRoutes = require("./routes/routes_gejala_pakar"),
+    relasipakarRoutes = require("./routes/routes_relasi_pakar"),
     kategoritindakanRoutes = require("./routes/routes_kategori_tindakan"),
     tindakanRoutes = require("./routes/routes_tindakan"),
     pemeriksaanlaboratoriumRoutes = require("./routes/routes_pemeriksaanlaboratorium"),
@@ -113,6 +116,9 @@ app.use("/pengadaanobat", pengadaanobatRoutes);
 app.use("/golonganobat", golonganobatRoutes);
 app.use("/penjualanobat", penjualanobatRoutes);
 app.use("/diagnosapenyakit", diagnosapenyakitRoutes);
+app.use("/diagnosapakar", diagnosapakarRoutes);
+app.use("/gejalapakar", gejalapakarRoutes);
+app.use("/relasipakar", relasipakarRoutes);
 app.use("/kategoritindakan", kategoritindakanRoutes);
 app.use("/tindakan", tindakanRoutes);
 app.use("/pemeriksaanlaboratorium", pemeriksaanlaboratoriumRoutes);
