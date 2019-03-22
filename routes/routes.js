@@ -66,9 +66,9 @@ router.get('/jadwaldokter', middleware.asyncMiddleware(async (req, res, next) =>
     });
 }));
 
-router.get('/diagnosa', middleware.asyncMiddleware(async (req, res, next) => {
-    res.render("v_access/diagnosa");
-}));
+// router.get('/diagnosa', middleware.asyncMiddleware(async (req, res, next) => {
+//     res.render("v_access/diagnosa");
+// }));
 
 router.get('/hubungikami', middleware.asyncMiddleware(async (req, res, next) => {
     res.render('v_access/kontak');

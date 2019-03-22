@@ -42,6 +42,7 @@ const express = require('express'),
     penjualanobatRoutes = require("./routes/routes_penjualanobat"),
     diagnosapenyakitRoutes = require("./routes/routes_diagnosa_penyakit"),
     diagnosapakarRoutes = require("./routes/routes_diagnosa_pakar"),
+    diagnosaRoutes = require("./routes/routes_diagnosa"),
     gejalapakarRoutes = require("./routes/routes_gejala_pakar"),
     relasipakarRoutes = require("./routes/routes_relasi_pakar"),
     kategoritindakanRoutes = require("./routes/routes_kategori_tindakan"),
@@ -83,7 +84,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(express.static(__dirname + "/public")); // jangan pakai koma seperti config
 app.use(express.static(__dirname, +"/config"));
 
-app.use(function (req, res, next) { //buat melihat siapa yang login, ada di header welcome back!! semacam session bisa mengeluarkan email 
+app.use(function (req, res, next) { //buat melihat siapa yang login, ada di header welcome back!! semacam session bisa mengeluarkan email
     res.locals.currentUser = req.user;
     res.locals.session = req.session;
     res.locals.error = req.flash("error"); //utk mengirim pesan ke semua router
@@ -125,6 +126,7 @@ app.use("/gejalapakar", gejalapakarRoutes);
 app.use("/relasipakar", relasipakarRoutes);
 app.use("/kategoritindakan", kategoritindakanRoutes);
 app.use("/tindakan", tindakanRoutes);
+app.use("/diagnosa", diagnosaRoutes);
 app.use("/pemeriksaanlaboratorium", pemeriksaanlaboratoriumRoutes);
 app.use("/subpemeriksaanlaboratorium", subpemeriksaanlaboratoriumRoutes);
 

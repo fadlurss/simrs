@@ -1,33 +1,247 @@
 <% include ../partials/header2 %>
 <div id="page-wrapper">
-    <center>
-        <div class="col-lg-12">
-            <h1 class="page-header">Diagnosa Penyakit Gigi</h1>
-        </div>
-    </center>
-
-    <div class="panel">
-        <div class="panel-heading">
-            Gejala apa saja yang dialami oleh anda ?
-        </div>
-        <div class="panel-body">
-            <form action="">
-                <div class="form-group">
-                    <input type="checkbox" name="gejala_1"> Noda kehitaman atau kecoklatan pada gigi
-                </div>
-                <div class="form-group">
-                    <input type="checkbox" name="gejala_2"> Lubang kecil pada gigi
-                </div>
-                <div class="form-group">
-                    <input type="checkbox" name="gejala_3"> Sakit ketika menggigit makanan
-                </div>
-                <div class="form-group">
-                    <input type="checkbox" name="gejala_4"> Gigi sensitif
-                </div>
-                <button class="btn btn-primary" type="submit" name="simpan">Cek diagnosa</button>
-                <button class="btn btn-danger" type="submit" name="reset">Reset</button>
-            </form>
-        </div>
+  <center>
+    <div class="col-lg-12">
+      <h1 class="page-header">Diagnosa Penyakit Gigi</h1>
     </div>
+  </center>
+
+  <div class="panel">
+    <div class="panel-heading">
+      Gejala apa saja yang dialami oleh anda ?
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3" id="form_data">
+          <form class="form-horizontal" action="" onsubmit="return false" id="set" method="post">
+            <% alldiagnosa_pakar.forEach(function(rs){ %>
+            <div class="col-md-12">
+              <div class="checkbox">
+                <input type="checkbox" name="select" value="<%= rs.kode_gejala %>">
+                <label>
+                  <%= rs.nama_gejala %></label>
+              </div>
+            </div>
+            <% }) %>
+            <div class="col-md-12" style="padding-top:20px">
+              <div class="form-group">
+                <button type="submit" class="btn btn-block btn-success">
+                  Cek Diagnosa
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <style media="screen">
+          hr {
+            color:black;
+          }
+        </style>
+        <div class="col-md-6 col-md-offset-3"  id="block" style="display:none;">
+          <div class="col-md-12" >
+            
+            <p class='content'>
+
+            </p>
+          </div>
+          <div class='col-md-12 gejala' style="padding-top:20px">
+
+          </div>
+          <div class='col-md-12 content_body' style="padding-top:20px">
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <% include ../partials/footer %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    function algoritmaDS(selected,g,r,d) {
+      var $hasil = [];
+      function array_round(arr) {
+        var arr_round = [];
+        // console.log("== List Array == ");
+        // console.log(arr);
+        // console.log("total = "+arr.length);
+        // console.log("== Round Up == ");
+        for (var i = 0; i < arr.length; i++) {
+          arr_round.push(Math.round(arr[i]));
+        }
+        return arr_round;
+      }
+      function DS_total_nilai($name, $data){
+          $arr = [];
+          // console.log("Hitung Nilai");
+          $.each( $data, function( $key, $val ) {
+            if ($val['name'] == $name) {
+              $arr.push($val['value']);
+            }
+          });
+          return $arr;
+      }
+      function DS_get_best($hasil){
+          $num = 0;
+          $max = [];
+          $.each( $hasil, function( $key, $val ) {
+            if($val['value'] > $num){
+                $num = $val['value'];
+                $max = $val;
+            }
+          });
+          return $max;
+      }
+      function DS_get_diagnosa($kode,$dataset)
+      {
+        $data = [];
+        // console.log("Kode : "+$kode);
+        $.each( $dataset, function( $key, $val ) {
+          if ($val["kode_gejala"] == $kode) {
+            // console.log("Kode Gejalan : "+$val["kode_gejala"]);
+            // console.log("Bandingan  : "+$kode);
+            $data.push($val["kode_diagnosa"]);
+          }
+        });
+        return $data;
+      }
+      function array_sum(sum) {
+        var totalUnitPrice = 0;
+        for (var i = 0; i < sum.length; i++) {
+          totalUnitPrice = totalUnitPrice + sum[i];
+        }
+        // console.log(totalUnitPrice);
+        return totalUnitPrice;
+      }
+      function DS_hitung($unik, $data){
+          $arr_s = [];
+          // console.log("Hitung");
+          // console.log($arr);
+          $kosong = DS_total_nilai('', $data);
+          $.each( $unik, function( $key, $val ) {
+            if($key != ''){
+                $arr_x = DS_total_nilai($key, $data);
+                // console.log($arr_x);
+                $arr_s.push({
+                    'arr' : $val,
+                    'name' : $key,
+                    'value' :  array_sum($arr_x) / (1 - array_sum($kosong)),
+                    'desc' : '( '+($arr_x.join("+"))+' ) / ( 1 - [ '+(array_round($kosong)).join(" + ")+' ] )'
+                });
+            }
+          });
+          return  $arr_s;
+      }
+      function array_keys(input) {
+          var output = [];
+          $.each(input,function(index, el) {
+            output.push(index);
+          });
+          return output;
+      }
+      function findIndex(kode,set) {
+        a = 0;
+        $.each(set,function(index, el) {
+          if (el["kode"] == kode) {
+            a = index;
+          }
+        });
+        return a;
+      }
+      var selected = selected;
+      var gejala = g;
+      var diagnosa = d;
+      var data_relasi = r;
+      $hasil.push({
+          'arr' : array_keys(diagnosa),
+          'name' : (array_keys(diagnosa)).join(","),
+          'value' : 1
+        });
+        // console.log($hasil);
+      var data_hasil = [];
+      $.each(selected,function(index, el) {
+        var $kode = el;
+        $new_hasil = [];
+        $arr_diagnosa = DS_get_diagnosa($kode,data_relasi);
+        $.each($hasil,function(key, row) {
+            $arr = row['arr'].filter(value =>  $arr_diagnosa.includes(value));
+            $name =  $arr.join(",");
+            $value = row['value'] * gejala[findIndex($kode,gejala)]['bobot'];
+            $new_hasil.push({
+                'arr' : $arr,
+                'name' : $name,
+                'value' : $value,
+            });
+            ext = [];
+            $.each(diagnosa,function(i, v) {
+              ext.push(i);
+            });
+            $arr2 = row['arr'].filter(value =>  ext.includes(value));
+            $name2 = $arr2.join(",");
+            $value2 = row['value'] * (1 - gejala[findIndex($kode,gejala)]['bobot']);
+            $new_hasil.push({
+                'arr' : $arr2,
+                'name' : $name2,
+                'value' : $value2,
+            });
+            $hasil = $new_hasil;
+        });
+        $unik = {};
+        $.each($hasil,function(index, $row) {
+          $unik[$row['name']] = $row['arr'];
+        });
+        $new_hasil = DS_hitung($unik, $hasil);
+        $hasil = $new_hasil;
+        // console.log($hasil);
+        // console.log($arr_diagnosa);
+      });
+      $best = DS_get_best($hasil);
+      return $best;
+    }
+    $("#set").on('submit',  function(event) {
+      event.preventDefault();
+      selected = [];
+      $.each($("input[name='select']:checked"),function(){
+        selected.push($(this).val());
+      });
+      console.log("Terpilih");
+      if (selected.length > 0) {
+        $.get("diagnosa/getgejala",function (rs) {
+        gejala = rs;
+        $.get("diagnosa/getrelasi",function(rx){
+          relasi = rx;
+          $.get("diagnosa/getdiagnosa",function(ra){
+            diagnosa = ra;
+            set = algoritmaDS(selected,gejala,relasi,diagnosa);
+            console.log(set);
+            penyakit = "";
+            gejala_set = "";
+            $.each(diagnosa,function(index, el) {
+              if (el.kode == set.name) {
+                penyakit = el.nama;
+              }
+            });
+            $.each(selected,function(index, e) {
+              setit = "";
+              $.each(gejala,function(i, el) {
+                if (e == el.kode_gejala) {
+                  setit = el.nama_gejala;
+                }
+              });
+              gejala_set += "<p>"+setit+"</p>";
+            });
+            $("#block").css("display","block");
+            $("#form_data").css("display","none");
+            $("#block").find(".content").html("Berdasarkan Gejala Yang Di Alami Maka Kemungkinan "+(set.value*100)+" % Anda Menderita "+penyakit+ "Silahkan Berobat ke Saritem Dan perbaiki anus anda");
+            $("#block").find(".gejala").html("<h3>Gejala Yang Di Pilih</h3><hr>"+gejala_set);
+            $("#block").find(".content_body").html("<h3>Riwayat Diagnosa</h3><hr>");
+          });
+        });
+      });
+      }else {
+        alert("Tidak Ada Diagnosa Terpilih");
+      }
+    });
+  });
+</script>

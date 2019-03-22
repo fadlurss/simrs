@@ -1,26 +1,58 @@
 var express = require('express')
 router = express.Router()
+Diagnosa_pakar = require("../models/Tbl_diagnosa_pakar")
 Gejala_pakar = require("../models/Tbl_gejala_pakar")
+Relasi_pakar = require("../models/Tbl_relasi_pakar")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
 
 const schema = Joi.object().keys({
-    kode_gejala: Joi.string().required(),
-    nama_gejala: Joi.string().required(),
-    bobot: Joi.number().required(),
+    kode_diagnosa: Joi.string().required(),
+    nama_diagnosa: Joi.string().required(),
+    keterangan: Joi.any(),
     submit: Joi.any()
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const allgejala_pakar = await Gejala_pakar.find({});
-    res.render('v_gejalapakar/index', {
-        allgejala_pakar: allgejala_pakar
+    const alldiagnosa_pakar = await Gejala_pakar.find({});
+    res.render('v_access/diagnosa', {
+        alldiagnosa_pakar: alldiagnosa_pakar
     });
 }))
 
+// router.get('/diagnosa', middleware.asyncMiddleware(async (req, res, next) => {
+//     res.render("v_access/diagnosa");
+// }));
+
+
+router.get('/getgejala', middleware.asyncMiddleware(async (req, res, next) => {
+    const gejalaDb = await Gejala_pakar.find({});
+    capsule = [];
+    gejalaDb.forEach(function(el) {
+      capsule.push({kode_gejala:el.kode_gejala,nama_gejala:el.nama_gejala,bobot:el.bobot});
+    });
+    res.json(capsule);
+}))
+router.get('/getdiagnosa', middleware.asyncMiddleware(async (req, res, next) => {
+    const diagnosaDb = await Diagnosa_pakar.find({});
+    capsule = {};
+    diagnosaDb.forEach(function(el) {
+      capsule[el.kode_diagnosa] = {kode:el.kode_diagnosa,nama:el.nama_diagnosa};
+    });
+    res.json(capsule);
+}))
+router.get('/getrelasi', middleware.asyncMiddleware(async (req, res, next) => {
+    let relasiDb = await Relasi_pakar.find({}).populate("kode_diagnosa_pakar").populate("kode_gejala_pakar");
+    capsule = [];
+    relasiDb.forEach(function(el) {
+      capsule.push({kode_diagnosa:el.kode_diagnosa_pakar.kode_diagnosa,kode_gejala:el.kode_gejala_pakar.kode_gejala});
+    });
+    res.json(capsule);
+}))
+
 router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    res.render('v_gejalapakar/new');
+    res.render('v_diagnosapakar/new');
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
@@ -37,8 +69,8 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
             message: 'Invalid request'
         })
     } else {
-        const input_bidang_baru = await Gejala_pakar.create(result.value);
-        res.redirect("/gejalapakar");
+        const input_bidang_baru = await Diagnosa_pakar.create(result.value);
+        res.redirect("/diagnosapakar");
     }
 }))
 

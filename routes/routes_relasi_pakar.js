@@ -15,9 +15,13 @@ const schema = Joi.object().keys({
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const allrelasi_pakar = await Relasi_pakar.find({}).populate("id_gejala_pakar").populate("id_diagnosa_pakar");
+  const data_gejala = await Gejala_pakar.find({});
+  const data_diagnosa = await Diagnosa_pakar.find({});
+    const allrelasi_pakar = await Relasi_pakar.find({}).populate("kode_diagnosa_pakar");
     res.render('v_relasipakar/index', {
-        allrelasi_pakar: allrelasi_pakar
+        allrelasi_pakar: allrelasi_pakar,
+        data_gejala: data_gejala,
+        data_diagnosa: data_diagnosa
     });
 }))
 
