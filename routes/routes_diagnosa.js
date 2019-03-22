@@ -3,6 +3,7 @@ router = express.Router()
 Diagnosa_pakar = require("../models/Tbl_diagnosa_pakar")
 Gejala_pakar = require("../models/Tbl_gejala_pakar")
 Relasi_pakar = require("../models/Tbl_relasi_pakar")
+Riwayat_diagnosa = require("../models/Tbl_riwayat_diagnosa")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
@@ -53,6 +54,15 @@ router.get('/getrelasi', middleware.asyncMiddleware(async (req, res, next) => {
 
 router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
     res.render('v_diagnosapakar/new');
+}))
+
+router.post("", middleware.asyncMiddleware(async (req, res, next) => {
+    const get_data = req.body;
+    const add_riwayat_diagnosa = await Riwayat_diagnosa.create(get_data);
+}))
+
+router.get("", middleware.asyncMiddleware(async (req, res, next) => {
+    const get_data = await Riwayat_diagnosa.find({}).populate("id_user");
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
