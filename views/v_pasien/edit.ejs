@@ -20,13 +20,14 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3">No Rekamedis<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
-                                <input type="text" name="no_rm" value="<%= data_pasien.no_rm %>" required class="form-control">
+                                <input type="text" name="no_rm" value="<%= data_pasien.no_rm %>" required
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3">No Rekamedis Lama</label>
                             <div class="col-sm-9">
-                                <input type="text" name="no_rm_lama" value="<%= data_pasien.no_rm_lama %>" required
+                                <input type="text" name="no_rm_lama" value="<%= data_pasien.no_rm_lama %>"
                                     class="form-control">
                             </div>
                         </div>
@@ -38,24 +39,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">No BPJS</label>
-                            <div class="col-sm-9">
-                                <input type="text" name="no_bpjs" value="<%= data_pasien.no_bpjs %>" required class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="" class="col-sm-3">Tanggal lahir<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
-                                <input type="date" name="tanggal_lahir" id="tanggal_lahir" value="<%= data_pasien.tanggal_lahir %>"
-                                    class="form-control" onchange="submitBday()">
+                                <input type="date" name="tanggal_lahir" id="tanggal_lahir"
+                                    value="<%= data_pasien.tanggal_lahir %>" class="form-control"
+                                    onchange="submitBday()">
                                 <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3">Umur<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
-                                <input type="text" name="umur" value="<%= data_pasien.umur %>" id="umurku" min="1" max="80"
-                                    required readonly class="form-control">
+                                <input type="text" name="umur" value="<%= data_pasien.umur %>" id="umurku" min="1"
+                                    max="80" required readonly class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -100,13 +96,15 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3">Pekerjaan</label>
                             <div class="col-sm-9">
-                                <input type="text" name="pekerjaan" value="<%= data_pasien.pekerjaan %>" required class="form-control">
+                                <input type="text" name="pekerjaan" value="<%= data_pasien.pekerjaan %>" required
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3">No HP</label>
                             <div class="col-sm-9">
-                                <input name="no_hp" value="<%= data_pasien.no_hp %>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                <input name="no_hp" value="<%= data_pasien.no_hp %>"
+                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                     type="number" maxlength="12" class="form-control" />
                             </div>
                         </div>

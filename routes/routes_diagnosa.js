@@ -7,6 +7,8 @@ Riwayat_diagnosa = require("../models/Tbl_riwayat_diagnosa")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
+var moment = require('moment');
+
 
 const schema = Joi.object().keys({
     kode_diagnosa: Joi.string().required(),
@@ -30,24 +32,34 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
 router.get('/getgejala', middleware.asyncMiddleware(async (req, res, next) => {
     const gejalaDb = await Gejala_pakar.find({});
     capsule = [];
-    gejalaDb.forEach(function(el) {
-      capsule.push({kode_gejala:el.kode_gejala,nama_gejala:el.nama_gejala,bobot:el.bobot});
+    gejalaDb.forEach(function (el) {
+        capsule.push({
+            kode_gejala: el.kode_gejala,
+            nama_gejala: el.nama_gejala,
+            bobot: el.bobot
+        });
     });
     res.json(capsule);
 }))
 router.get('/getdiagnosa', middleware.asyncMiddleware(async (req, res, next) => {
     const diagnosaDb = await Diagnosa_pakar.find({});
     capsule = {};
-    diagnosaDb.forEach(function(el) {
-      capsule[el.kode_diagnosa] = {kode:el.kode_diagnosa,nama:el.nama_diagnosa};
+    diagnosaDb.forEach(function (el) {
+        capsule[el.kode_diagnosa] = {
+            kode: el.kode_diagnosa,
+            nama: el.nama_diagnosa
+        };
     });
     res.json(capsule);
 }))
 router.get('/getrelasi', middleware.asyncMiddleware(async (req, res, next) => {
     let relasiDb = await Relasi_pakar.find({}).populate("kode_diagnosa_pakar").populate("kode_gejala_pakar");
     capsule = [];
-    relasiDb.forEach(function(el) {
-      capsule.push({kode_diagnosa:el.kode_diagnosa_pakar.kode_diagnosa,kode_gejala:el.kode_gejala_pakar.kode_gejala});
+    relasiDb.forEach(function (el) {
+        capsule.push({
+            kode_diagnosa: el.kode_diagnosa_pakar.kode_diagnosa,
+            kode_gejala: el.kode_gejala_pakar.kode_gejala
+        });
     });
     res.json(capsule);
 }))
@@ -61,22 +73,30 @@ router.post("/insertriwayat", middleware.asyncMiddleware(async (req, res, next) 
     // req.user
     get_data.id_user = req.user;
     const add_riwayat_diagnosa = await Riwayat_diagnosa.create(get_data);
-    if(add_riwayat_diagnosa){
-        res.json({"status":1,"msg":"Sukses Tambah Riwayat Diagnosa"});
-    }else{
-        res.json({"status":0,"msg":"Gagal Tambah Riwayat Diagnosa"});
+    if (add_riwayat_diagnosa) {
+        res.json({
+            "status": 1,
+            "msg": "Sukses Tambah Riwayat Diagnosa"
+        });
+    } else {
+        res.json({
+            "status": 0,
+            "msg": "Gagal Tambah Riwayat Diagnosa"
+        });
     }
 }))
 
 router.get("/getriwayat", middleware.asyncMiddleware(async (req, res, next) => {
-     const get_data = await Riwayat_diagnosa.find({id_user:req.user});
-     var data = [];
-     for (var i = 0; i < get_data.length; i++) {
-        data.push([get_data[i].nama_diagnosa,get_data[i].persentansi]);
-     }
-     res.json({
+    const get_data = await Riwayat_diagnosa.find({
+        id_user: req.user
+    });
+    var data = [];
+    for (var i = 0; i < get_data.length; i++) {
+        data.push([get_data[i].nama_diagnosa, get_data[i].persentansi, moment(get_data[i].createdAt).format('LL')]);
+    }
+    res.json({
         "data": data
-     });
+    });
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {

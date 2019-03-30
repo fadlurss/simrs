@@ -11,16 +11,18 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span style="color:red"> *</span> = Kolom wajib diisi
+                        <span style="color:red"> *</span> = Kolom wajib diisi
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" action="/pendaftaran/new" method="POST" id="tambah_pendaftaran"
+                    <form class="form-horizontal" role="form" action="/pendaftaran/new" method="POST"
+                        id="tambah_pendaftaran"
                         oninput="no_rawat.value = tanggal_sekarang.value +'/'+ no_registrasi.value">
                         <div class="form-group">
                             <label for="" class="col-sm-3">No Registrasi<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
-                                <input type="number" name="no_registrasi" id="no_registrasi" required class="form-control">
+                                <input type="number" name="no_registrasi" id="no_registrasi" required
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -31,23 +33,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Cara Masuk</label>
-                            <div class="col-sm-9">
-                                <select name="cara_masuk" id="" class="form-control">
-                                    <option value="Rawat jalan">Rawat jalan</option>
-                                    <option value="Rawat inap">Rawat inap</option>
-                                    <option value="IGD">IGD</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="" class="col-sm-3">Tanggal daftar<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
                                 <input type="date" id="date2" name="tgl_daftar" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Dokter penanggung jawab<span style="color:red"> *</span></label>
+                            <label for="" class="col-sm-3">Dokter penanggung jawab<span style="color:red">
+                                    *</span></label>
                             <div class="col-sm-9">
                                 <input type="text" name="nama_dokter" id="cari_dokter_pj" class="form-control">
                                 <input type="hidden" name="id_dokter_penanggung_jawab" id="id_dokter_penanggung_jawab"
@@ -67,18 +60,6 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Jenis bayar</label>
-                            <div class="col-sm-9">
-                                <select name="id_jenis_bayar" id="" class="form-control" id="">
-                                    <% data_jenis_bayar.forEach(function(hasil){ %>
-                                    <option value="<%= hasil.id %>">
-                                        <%= hasil.jenis_bayar %>
-                                    </option>
-                                    <% }); %>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="" class="col-sm-3">No Rekamedis<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
                                 <input type="number" name="no_rm" id="cari_no_rm" required class="form-control">
@@ -92,17 +73,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">No BPJS</label>
+                            <!-- <label for="" class="col-sm-3">Tanggal lahir<span style="color:red"> *</span></label> -->
                             <div class="col-sm-9">
-                                <input name="no_bpjs" id="no_bpjs" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                    type="number" maxlength="13" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-sm-3">Tanggal lahir<span style="color:red"> *</span></label>
-                            <div class="col-sm-9">
-                                <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="form-control">
-                                <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
+                                <input type="text" hidden name="tanggal_lahir" id="tanggal_lahir" class="form-control">
+                                <!-- <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span> -->
                             </div>
                         </div>
                         <div class="form-group">

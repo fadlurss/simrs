@@ -5,6 +5,8 @@ User = require('../models/user')
 Jadwal_dokter = require("../models/Tbl_jadwal_praktek_dokter")
 Dokter = require("../models/Tbl_dokter")
 Poliklinik = require("../models/Tbl_poliklinik")
+Agama = require("../models/Tbl_agama")
+Status_menikah = require("../models/Tbl_status_menikah")
 async = require('async')
 nodemailer = require('nodemailer')
 crypto = require('crypto')
@@ -123,11 +125,23 @@ router.post('/login', passport.authenticate('local-login', {
 
 // SIGNUP =================================
 // show the signup form
-router.get('/signup', function (req, res) {
+
+router.get('/jadwaldokter', middleware.asyncMiddleware(async (req, res, next) => {
+    const jadwaldokter = await Jadwal_dokter.find({}).populate("poliklinik").populate("nama_dokter");
+    res.render('v_access/jadwaldokter', {
+        jadwaldokter: jadwaldokter
+    });
+}));
+
+router.get('/signup', middleware.asyncMiddleware(async (req, res, next) => {
+    const data_agama = await Agama.find({});
+    const data_status_menikah = await Status_menikah.find({});
     res.render('v_access/signup', {
+        data_agama: data_agama,
+        data_status_menikah: data_status_menikah,
         message: req.flash('signupMessage')
     });
-});
+}));
 
 // process the signup form
 router.post('/signup', passport.authenticate('local-signup', {
@@ -136,48 +150,8 @@ router.post('/signup', passport.authenticate('local-signup', {
     failureFlash: true // allow flash messages
 }));
 
-// facebook -------------------------------
-
-// send to facebook to do the authentication
-router.get('/auth/facebook', passport.authenticate('facebook', {
-    scope: ['public_profile', 'email']
-}));
-
-// handle the callback after facebook has authenticated the user
-router.get('/auth/facebook/callback',
-    passport.authenticate('facebook', {
-        successRedirect: '/campground',
-        failureRedirect: '/'
-    }));
-
-// twitter --------------------------------
-
-// send to twitter to do the authentication
-router.get('/auth/twitter', passport.authenticate('twitter', {
-    scope: 'email'
-}));
-
-// handle the callback after twitter has authenticated the user
-router.get('/auth/twitter/callback',
-    passport.authenticate('twitter', {
-        successRedirect: '/campground',
-        failureRedirect: '/'
-    }));
 
 
-// google ---------------------------------
-
-// send to google to do the authentication
-router.get('/auth/google', passport.authenticate('google', {
-    scope: ['profile', 'email']
-}));
-
-// the callback after google has authenticated the user
-router.get('/auth/google/callback',
-    passport.authenticate('google', {
-        successRedirect: '/campground',
-        failureRedirect: '/'
-    }));
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
@@ -195,48 +169,7 @@ router.post('/connect/local', passport.authenticate('local-signup', {
     failureFlash: true // allow flash messages
 }));
 
-// facebook -------------------------------
 
-// send to facebook to do the authentication
-router.get('/connect/facebook', passport.authorize('facebook', {
-    scope: ['public_profile', 'email']
-}));
-
-// handle the callback after facebook has authorized the user
-router.get('/connect/facebook/callback',
-    passport.authorize('facebook', {
-        successRedirect: '/profile',
-        failureRedirect: '/'
-    }));
-
-// twitter --------------------------------
-
-// send to twitter to do the authentication
-router.get('/connect/twitter', passport.authorize('twitter', {
-    scope: 'email'
-}));
-
-// handle the callback after twitter has authorized the user
-router.get('/connect/twitter/callback',
-    passport.authorize('twitter', {
-        successRedirect: '/profile',
-        failureRedirect: '/'
-    }));
-
-
-// google ---------------------------------
-
-// send to google to do the authentication
-router.get('/connect/google', passport.authorize('google', {
-    scope: ['profile', 'email']
-}));
-
-// the callback after google has authorized the user
-router.get('/connect/google/callback',
-    passport.authorize('google', {
-        successRedirect: '/profile',
-        failureRedirect: '/'
-    }));
 
 // =============================================================================
 // UNLINK ACCOUNTS =============================================================
@@ -255,32 +188,6 @@ router.get('/unlink/local', isLoggedIn, function (req, res) {
     });
 });
 
-// facebook -------------------------------
-router.get('/unlink/facebook', isLoggedIn, function (req, res) {
-    var user = req.user;
-    user.facebook.token = undefined;
-    user.save(function (err) {
-        res.redirect('/profile');
-    });
-});
-
-// twitter --------------------------------
-router.get('/unlink/twitter', isLoggedIn, function (req, res) {
-    var user = req.user;
-    user.twitter.token = undefined;
-    user.save(function (err) {
-        res.redirect('/profile');
-    });
-});
-
-// google ---------------------------------
-router.get('/unlink/google', isLoggedIn, function (req, res) {
-    var user = req.user;
-    user.google.token = undefined;
-    user.save(function (err) {
-        res.redirect('/profile');
-    });
-});
 
 
 
@@ -464,7 +371,7 @@ router.get('/verify/:tokenReg', function (req, res) {
                 result.tokenReg = '';
                 result.save();
                 req.flash("success", "You successfull verify email!");
-                res.redirect("/dokter");
+                res.redirect("/index");
                 console.log(result.active);
             }
         }

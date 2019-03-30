@@ -26,10 +26,8 @@
                                 <th>No Rawat</th>
                                 <th>No RM</th>
                                 <th>Nama pasien</th>
-                                <th>Cara masuk</th>
                                 <th>Dokter PJ</th>
                                 <th>Poliklinik</th>
-                                <th>Jenis bayar</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -49,16 +47,10 @@
                                     <%= hasil.id_pasien.nama_pasien %>
                                 </td>
                                 <td>
-                                    <%= hasil.cara_masuk%>
-                                </td>
-                                <td>
                                     <%= hasil.id_dokter_penanggung_jawab.nama_dokter %>
                                 </td>
                                 <td>
                                     <%= hasil.id_poliklinik.nama_poliklinik %>
-                                </td>
-                                <td>
-                                    <%= hasil.id_jenis_bayar.jenis_bayar %>
                                 </td>
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="/pendaftaran/<%= hasil._id %>/detail"><i

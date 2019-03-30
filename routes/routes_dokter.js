@@ -33,8 +33,6 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
         data_dokter: data_dokter,
         data_spesialis: data_spesialis
     });
-    console.log(data_dokter);
-
 }))
 
 router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
@@ -49,7 +47,8 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
+    const result = Joi.validate({
+        ...req.body
     }, schema);
     console.log(result.error);
     const {
@@ -82,12 +81,14 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
+    const result = Joi.validate({
+        ...req.body
     }, schema);
     const hasilUpdate = await Dokter.findOneAndUpdate({
         _id: req.params.id
     }, {
-        $set: { ...req.body
+        $set: {
+            ...req.body
         }
     });
     res.redirect("/dokter");

@@ -18,6 +18,20 @@ var userSchema = mongoose.Schema({
             type: String,
             unique: true
         },
+        jenis_kelamin: String,
+        tanggal_lahir: String,
+        umur: String,
+        agama: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Tbl_agama'
+        },
+        status_menikah: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Tbl_status_menikah'
+        },
+        alamat: String,
+        pekerjaan: String,
+        no_hp: String,
         password: String,
         isAdmin: {
             type: Boolean,
@@ -43,30 +57,6 @@ var userSchema = mongoose.Schema({
         },
         image_ktp: String,
         image_ktp_selfie: String
-    },
-    facebook: {
-        id: String,
-        token: String,
-        name: String,
-        email: {
-            type: String,
-            unique: true
-        }
-    },
-    twitter: {
-        id: String,
-        token: String,
-        displayName: String,
-        username: String
-    },
-    google: {
-        id: String,
-        token: String,
-        email: {
-            type: String,
-            unique: true
-        },
-        name: String
     }
 
 });

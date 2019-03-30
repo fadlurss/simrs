@@ -11,9 +11,6 @@ var tbl_pendaftaranSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_pasien'
     },
-    cara_masuk: {
-        type: String
-    },
     tanggal_daftar: {
         type: String
     },
@@ -33,10 +30,6 @@ var tbl_pendaftaranSchema = mongoose.Schema({
     },
     alamat_penanggung_jawab: {
         type: String
-    },
-    id_jenis_bayar: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tbl_jenis_bayar'
     },
     id_riwayattindakan: [{
         type: mongoose.Schema.Types.ObjectId,

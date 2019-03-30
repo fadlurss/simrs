@@ -415,9 +415,6 @@
                 accept: "[a-zA-Z\s]+",
                 maxlength: 30
             },
-            nomor_bpjs: {
-                number: true
-            },
             nomor_hp: {
                 required: true,
                 number: true,
@@ -435,9 +432,6 @@
             nama_lengkap: {
                 accept: "nama harus mengandung alphabetdan tanpa spasi",
                 maxlength: "Nama maksimal 30 huruf"
-            },
-            nomor_bpjs: {
-                number: "Masukkan angka dengan benar !"
             }
         }
     });
@@ -460,10 +454,6 @@
             no_hp: {
                 number: true,
                 maxlength: 12
-            },
-            no_bpjs: {
-                number: true,
-                maxlength: 13
             },
             umur: {
                 required: true,
@@ -498,10 +488,6 @@
             no_hp: {
                 number: "Masukkan angka dengan benar !",
                 maxlength: "No hp maksimal 12 angka"
-            },
-            no_bpjs: {
-                number: "Masukkan angka dengan benar !",
-                maxlength: "No bpjs maksimal 13 angka"
             },
             umur: {
                 required: "Umur wajib diisi dengan benar !",
@@ -543,10 +529,6 @@
             no_rawat: {
                 required: true
             },
-            no_bpjs: {
-                number: true,
-                maxlength: 13
-            },
             nama_penanggung_jawab: {
                 required: true,
                 accept: "[a-zA-Z\s]+",
@@ -578,11 +560,6 @@
                 number: "Masukkan angka dengan benar !",
                 required: "No Rekamedis wajib diisi !"
             },
-            no_bpjs: {
-                required: "No BPJS wajib diisi !",
-                number: "Masukkan angka dengan benar !",
-                maxlength: "No bpjs maksimal 13 angka"
-            },
             nama_penanggung_jawab: {
                 required: "Nama penanggung jawab wajib diisi !",
                 accept: "Nama harus alphabet dan tidak boleh ada angka",
@@ -595,7 +572,7 @@
     });
 
 
-
+    // tanggal lahir umur
     function submitBday() {
         var Q4A = "";
         var Bdate = document.getElementById('tanggal_lahir').value;
