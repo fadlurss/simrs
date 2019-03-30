@@ -2,7 +2,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Edit Data Diagnosa Penyakit</h1>
+            <h1 class="page-header">Edit Gejala Penyakit</h1>
 
         </div>
 
@@ -13,40 +13,29 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Edit Data Diagnosa Penyakit
+                    Edit Gejala Penyakit
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" action="/diagnosapenyakit/<%= diagnosapenyakit_edit_id._id %>?_method=PUT"
+                    <form class="form-horizontal" role="form" action="/gejalapakar/<%= cari_gejalapakar._id %>?_method=PUT"
                         method="POST" id="tambah_barang">
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Kode diagnosa</label>
+                            <label for="" class="col-sm-3">Kode gejala</label>
                             <div class="col-sm-9">
-                                <input type="text" name="kode_diagnosa" required class="form-control" value="<%= diagnosapenyakit_edit_id.kode_diagnosa %>">
+                                <input type="text" name="kode_gejala" required class="form-control" value="<%= cari_gejalapakar.kode_gejala %>">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Nama Penyakit</label>
+                            <label for="" class="col-sm-3">Nama gejala</label>
                             <div class="col-sm-9">
-                                <input type="text" name="nama_penyakit" required class="form-control" value="<%= diagnosapenyakit_edit_id.nama_penyakit %>">
+                                <input type="text" name="nama_gejala" required class="form-control" value="<%= cari_gejalapakar.nama_gejala %>">
                             </div>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Ciri-ciri penyakit</label>
+                            <label for="" class="col-sm-3">Bobot</label>
                             <div class="col-sm-9">
-                                <input type="text" name="ciri_ciri_penyakit" required class="form-control" value="<%= diagnosapenyakit_edit_id.ciri_ciri_penyakit %>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-sm-3">Keterangan</label>
-                            <div class="col-sm-9">
-                                <input type="text" name="keterangan" required class="form-control" value="<%= diagnosapenyakit_edit_id.keterangan %>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-sm-3">Ciri-ciri umum</label>
-                            <div class="col-sm-9">
-                                <input type="text" name="ciri_ciri_umum" required class="form-control" value="<%= diagnosapenyakit_edit_id.ciri_ciri_umum %>">
+                                <input type="text" name="bobot" required class="form-control" value="<%= cari_gejalapakar.bobot %>">
                             </div>
                         </div>
                         <div class="form-group">
