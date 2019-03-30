@@ -43,9 +43,9 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
-    const cari_diagnosapenyakit = await Diagnosa_penyakit.findById(req.params.id);
-    res.render("v_diagnosapenyakit/edit", {
-        diagnosapenyakit_edit_id: cari_diagnosapenyakit
+    const cari_gejalapakar = await Gejala_pakar.findById(req.params.id);
+    res.render("v_gejalapakar/edit", {
+        cari_gejalapakar: cari_gejalapakar
     });
 }))
 
@@ -53,19 +53,19 @@ router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({
         ...req.body
     }, schema);
-    const hasilUpdate = await Diagnosa_penyakit.findOneAndUpdate({
+    const hasilUpdate = await Gejala_pakar.findOneAndUpdate({
         _id: req.params.id
     }, {
         $set: {
             ...req.body
         }
     });
-    res.redirect("/diagnosapenyakit");
+    res.redirect("/gejalapakar");
 }))
 
 router.delete("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const delete_diagnosapenyakit = await Diagnosa_penyakit.findByIdAndRemove(req.params.id);
-    res.redirect("/diagnosapenyakit");
+    const delete_diagnosapenyakit = await Gejala_pakar.findByIdAndRemove(req.params.id);
+    res.redirect("/gejalapakar");
 }))
 
 module.exports = router;
