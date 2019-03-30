@@ -56,14 +56,27 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
     res.render('v_diagnosapakar/new');
 }))
 
-router.post("", middleware.asyncMiddleware(async (req, res, next) => {
-    const get_data = req.body;
+router.post("/insertriwayat", middleware.asyncMiddleware(async (req, res, next) => {
+    var get_data = req.body;
     // req.user
+    get_data.id_user = req.user;
     const add_riwayat_diagnosa = await Riwayat_diagnosa.create(get_data);
+    if(add_riwayat_diagnosa){
+        res.json({"status":1,"msg":"Sukses Tambah Riwayat Diagnosa"});
+    }else{
+        res.json({"status":0,"msg":"Gagal Tambah Riwayat Diagnosa"});
+    }
 }))
 
-router.get("", middleware.asyncMiddleware(async (req, res, next) => {
-    const get_data = await Riwayat_diagnosa.find({}).populate("id_user");
+router.get("/getriwayat", middleware.asyncMiddleware(async (req, res, next) => {
+     const get_data = await Riwayat_diagnosa.find({id_user:req.user});
+     var data = [];
+     for (var i = 0; i < get_data.length; i++) {
+        data.push([get_data[i].nama_diagnosa,get_data[i].persentansi]);
+     }
+     res.json({
+        "data": data
+     });
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {

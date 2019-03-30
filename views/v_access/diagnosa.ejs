@@ -235,7 +235,18 @@
             $("#form_data").css("display","none");
             $("#block").find(".content").html("Berdasarkan gejala yang dialami maka kemungkinan "+(set.value*100)+" % anda menderita penyakit "+penyakit+ ". Silahkan konsultasi ke Klinik Dokter Kita atau telusuri lebih lanjut mengenai penyakit anda di kelas edukasi");
             $("#block").find(".gejala").html("<h3>Gejala Yang Di Pilih</h3><hr>"+gejala_set);
-            $("#block").find(".content_body").html("<h3>Riwayat Diagnosa</h3><hr>");
+            $.post("diagnosa/insertriwayat",{persentansi:(set.value*100)+"%",nama_diagnosa:penyakit},function (rs) {
+              if (rs.status == 1) {
+                toastr.success(rs.msg);
+                $("#block").find(".content_body").html("<h3>Riwayat Diagnosa</h3><hr><div class='table-responsive'><table class='table' id='diagnosa_riwayat'><thead><th>Nama Penyakit</th><th>Persentase</th></thead><tbody></tbody></table></div>");
+                $("#block").find("#diagnosa_riwayat").DataTable({
+                  ajax:"diagnosa/getriwayat"
+                });
+              }else{
+                toastr.error(rs.msg);
+              }
+            })
+            
           });
         });
       });
