@@ -58,6 +58,7 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
 
 router.post("", middleware.asyncMiddleware(async (req, res, next) => {
     const get_data = req.body;
+    // req.user
     const add_riwayat_diagnosa = await Riwayat_diagnosa.create(get_data);
 }))
 
