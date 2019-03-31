@@ -62,7 +62,8 @@
 							<div class="top">
 								<div class="row">
 									<div class="col-md-4 col-md-push-4 text-center">
-										<div id="qbootstrap-logo"><a href="index.html"><i class="icon-plus-outline"></i>Klinik Dokter Kita</span></a></div>
+										<div id="qbootstrap-logo"><a href="index.html"><i
+													class="icon-plus-outline"></i>Klinik Dokter Kita</span></a></div>
 									</div>
 									<div class="col-md-4 col-md-pull-4">
 										<div class="num">
@@ -73,7 +74,8 @@
 									<div class="col-md-4">
 										<div class="loc">
 											<span class="icon"><i class="icon-location"></i></span>
-											<p><a href="https://goo.gl/maps/u2UdjbvHDgv">Jl. Parakan Saat Ruko Perumahan Sinergi No. 4, Antapani, Kota
+											<p><a href="https://goo.gl/maps/u2UdjbvHDgv">Jl. Parakan Saat Ruko Perumahan
+													Sinergi No. 4, Antapani, Kota
 													Bandung, Jawa Barat.</a></p>
 										</div>
 									</div>
@@ -86,23 +88,26 @@
 									<li class="active"><a href="/index">Halaman utama</a></li>
 									<li><a href="/pelayanan">Pelayanan</a></li>
 									<li class="has-dropdown">
-										<a href="departments.html">Departments</a>
+										<a href="departments.html">Kelas edukasi</a>
 										<ul class="dropdown">
-											<li><a href="departments-single.html">Plasetic Surgery Department</a></li>
-											<li><a href="departments-single.html">Dental Department</a></li>
-											<li><a href="departments-single.html">Psychological Department</a></li>
+											<li><a href="/abses">Abses periapikal</a></li>
+											<li><a href="/kariesgigi">Karies gigi</a></li>
+											<li><a href="/gingivitis">Gingivitis</a></li>
+											<li><a href="/periodontitis">Periodontitis</a></li>
+											<li><a href="/pulpitisreversibel">Pulpitis reversibel</a></li>
+											<li><a href="/pulpitisireversibel">Pulpitis ireversibel</a></li>
 										</ul>
 									</li>
 									<li class="has-dropdown">
 										<a href="/jadwaldokter">Jadwal Dokter</a>
 									</li>
-									<li class="has-dropdown">
-										<a href="/diagnosa">Diagnosa Penyakit</a>
-									</li>
 									<!-- <li><a href="/hubungikami">Hubungi Kami</a></li> -->
 									<% if(!currentUser){%>
 									<li><a href="/login">Login</a></li>
 									<% } else { %>
+									<li class="has-dropdown">
+										<a href="/diagnosa">Diagnosa Penyakit</a>
+									</li>
 									<li>Halo,
 										<%= currentUser.local.firstName %>
 									</li>

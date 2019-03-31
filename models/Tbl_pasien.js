@@ -36,9 +36,6 @@ var tbl_pasienSchema = mongoose.Schema({
     status_menikah: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_status_menikah'
-    },
-    no_bpjs: {
-        type: Number
     }
 }, {
     timestamps: true,

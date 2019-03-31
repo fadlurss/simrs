@@ -29,6 +29,10 @@ var userSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Tbl_status_menikah'
         },
+        id_pasien: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Tbl_pasien'
+        },
         alamat: String,
         pekerjaan: String,
         no_hp: String,

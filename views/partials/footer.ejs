@@ -80,7 +80,7 @@
 <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/id.js"></script>
+<script src=""></script>
 <!-- Stellar Parallax -->
 <script src="/js/jquery.stellar.min.js"></script>
 <!-- Carousel -->
@@ -111,6 +111,47 @@
     }
     // Call the function with table attr on which you want automatic serial number
     addRowCount('.js-serial');
+
+
+    (function () {
+        var date = new Date().toISOString().substring(0, 10),
+            field = document.querySelector('#date');
+        field.value = date;
+        var date2 = new Date().toISOString().substring(0, 10),
+            field = document.querySelector('#date2');
+        field.value = date2;
+    })()
+
+
+    var demo12 = new autoComplete({
+        selector: '#cari_dokter_pj',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_dokter").then((res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
+
+        }
+    });
+
+    $("#cari_dokter_pj").on("change", function () {
+        np = $(this).val();
+        $.post("http://localhost:4000/pendaftaran/cari_id_dokter", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#id_dokter_penanggung_jawab").val(r[0]._id);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
 </script>
 
 </body>

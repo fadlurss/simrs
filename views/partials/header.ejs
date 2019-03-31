@@ -81,7 +81,9 @@
 							<div class="top">
 								<div class="row">
 									<div class="col-md-4 col-md-push-4 text-center">
-										<div id="qbootstrap-logo"><a href="index.html"><i class="icon-plus-outline"></i>Klinik<span>Dokter Kita</span></a></div>
+										<div id="qbootstrap-logo"><a href="index.html"><i
+													class="icon-plus-outline"></i>Klinik<span>Dokter Kita</span></a>
+										</div>
 									</div>
 									<div class="col-md-4 col-md-pull-4">
 										<div class="num">
@@ -92,7 +94,8 @@
 									<div class="col-md-4">
 										<div class="loc">
 											<span class="icon"><i class="icon-location"></i></span>
-											<p><a href="https://goo.gl/maps/u2UdjbvHDgv">Jl. Parakan Saat Ruko Perumahan Sinergi No. 4, Antapani, Kota
+											<p><a href="https://goo.gl/maps/u2UdjbvHDgv">Jl. Parakan Saat Ruko Perumahan
+													Sinergi No. 4, Antapani, Kota
 													Bandung, Jawa Barat.</a></p>
 										</div>
 									</div>
@@ -105,23 +108,27 @@
 									<li class="active"><a href="index.html">Halaman utama</a></li>
 									<li><a href="/pelayanan">Pelayanan</a></li>
 									<li class="has-dropdown">
-										<a href="departments.html">Departments</a>
+										<a href="departments.html">Kelas edukasi</a>
 										<ul class="dropdown">
-											<li><a href="departments-single.html">Plasetic Surgery Department</a></li>
-											<li><a href="departments-single.html">Dental Department</a></li>
-											<li><a href="departments-single.html">Psychological Department</a></li>
+											<li><a href="/abses">Abses periapikal</a></li>
+											<li><a href="/kariesgigi">Karies gigi</a></li>
+											<li><a href="/gingivitis">Gingivitis</a></li>
+											<li><a href="/periodontitis">Periodontitis</a></li>
+											<li><a href="/pulpitisreversibel">Pulpitis reversibel</a></li>
+											<li><a href="/pulpitisireversibel">Pulpitis ireversibel</a></li>
 										</ul>
 									</li>
 									<li class="has-dropdown">
 										<a href="/jadwaldokter">Jadwal Dokter</a>
 									</li>
-									<li class="has-dropdown">
-										<a href="/diagnosa">Diagnosa Penyakit</a>
-									</li>
+
 									<!-- <li><a href="/hubungikami">Hubungi kami</a></li> -->
 									<% if(!currentUser){%>
 									<li><a href="/login">Login</a></li>
 									<% } else { %>
+									<li class="has-dropdown">
+										<a href="/diagnosa">Diagnosa Penyakit</a>
+									</li>
 									<li><a href="">Halo,
 											<%= currentUser.local.firstName %></a> </li>
 									<li> <a class="nav-link" href="/logout">Keluar</a></li>
@@ -148,7 +155,8 @@
 									<div class="slider-text-inner">
 										<h1>Selamat datang</h1>
 										<h2 class="doc-holder">Klinik Dokter Kita</h2>
-										<p><a class="btn btn-primary btn-lg" href="#">Lihat jadwal dokter</a></p>
+										<p><a class="btn btn-primary btn-lg" href="/jadwaldokter">Lihat jadwal
+												dokter</a></p>
 									</div>
 								</div>
 							</div>
@@ -163,27 +171,22 @@
 				<div class="intro animate-box">
 					<div class="intro-grid color-1">
 						<span class="icon"><i class="icon-calendar3"></i></span>
-						<h3>Flexible Schedule</h3>
-						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab
-							aliquam dolor eius.</p>
-						<a href="#" class="btn btn-primary">Read More</a>
+						<h3>Jadwal yang fleksibel</h3>
+						<p>Anda dapat menghubungi pihak klinik untuk mengetahui jadwal dokter yang tersedia.</p>
 					</div>
 					<div class="intro-grid color-2">
 						<span class="icon"><i class="icon-wallet2"></i></span>
-						<h3>Best Price Guarantee</h3>
-						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab
-							aliquam dolor eius.</p>
-						<a href="#" class="btn btn-primary">Read More</a>
+						<h3>Harga yang terbaik</h3>
+						<p>Berobat di klinik dokter kita berusaha bisa mendapatkan harga yang terbaik dan murah.</p>
 					</div>
 					<div class="intro-grid color-3">
 						<span class="icon"><i class="icon-clock3"></i></span>
-						<h3>Opening Hours</h3>
+						<h3>Jadwal Buka</h3>
 						<p>
-							<span>Monday – Friday: 08.00 am – 06.00 pm</span><br>
-							<span>Saturday – Sunday: 08.00 am – 04.00 pm</span><br>
-							<span>Sunday: 08.00 am – 02.00 pm</span>
+							<span>Senin – Jumat : 07.00 – 06.00 pm</span><br>
+							<span>Sabtu : 08.00 am – 04.00 pm</span><br>
+							<span>Minggu dan Tanggal merah : LIBUR</span>
 						</p>
-						<a href="#" class="btn btn-primary">Book an Appointment</a>
 					</div>
 				</div>
 			</div>
@@ -193,8 +196,9 @@
 			<div class="container">
 				<div class="row animate-box">
 					<div class="col-md-6 col-md-offset-3 text-center qbootstrap-heading">
-						<h2>Our Services</h2>
-						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab
+						<h2>Pelayanan yang kami berikan</h2>
+						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem
+							provident. Odit ab
 							aliquam dolor eius.</p>
 					</div>
 				</div>
@@ -206,7 +210,8 @@
 							</span>
 							<div class="desc">
 								<h3><a href="#">Diagnostic</a></h3>
-								<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and
+								<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas,
+									wild Question Marks and
 									devious Semikoli</p>
 							</div>
 						</div>
@@ -218,7 +223,8 @@
 							</span>
 							<div class="desc">
 								<h3><a href="#">Restorative Solution</a></h3>
-								<p>Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made
+								<p>Little Blind Text didn’t listen. She packed her seven versalia, put her initial into
+									the belt and made
 									herself on the way.</p>
 							</div>
 						</div>
@@ -230,7 +236,8 @@
 							</span>
 							<div class="desc">
 								<h3><a href="#">Additional Treatment</a></h3>
-								<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and
+								<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas,
+									wild Question Marks and
 									devious Semikoli</p>
 							</div>
 						</div>
@@ -243,7 +250,8 @@
 							</span>
 							<div class="desc">
 								<h3><a href="#">Heart Surgery</a></h3>
-								<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and
+								<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas,
+									wild Question Marks and
 									devious Semikoli</p>
 							</div>
 						</div>
@@ -255,7 +263,8 @@
 							</span>
 							<div class="desc">
 								<h3><a href="#">General Treatment</a></h3>
-								<p>Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made
+								<p>Little Blind Text didn’t listen. She packed her seven versalia, put her initial into
+									the belt and made
 									herself on the way.</p>
 							</div>
 						</div>
@@ -267,7 +276,8 @@
 							</span>
 							<div class="desc">
 								<h3><a href="#">Medical Treatment</a></h3>
-								<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and
+								<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas,
+									wild Question Marks and
 									devious Semikoli</p>
 							</div>
 						</div>
@@ -283,40 +293,39 @@
 						<div class="half img-bg" style="background-image: url(images/img_bg_6.jpg);"></div>
 						<div class="half features-wrap">
 							<div class="qbootstrap-heading animate-box">
-								<h2>What Makes Us the Best?</h2>
-								<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab
-									aliquam dolor eius.</p>
+								<h2>Kelebihan yang kami miliki</h2>
 							</div>
 							<div class="features animate-box">
 								<span class="icon text-center"><i class="icon-group-outline"></i></span>
 								<div class="desc">
-									<h3>Well Experienced Doctors</h3>
-									<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab
-										aliquam dolor eius.</p>
+									<h3>Dokter yang Berpengalaman</h3>
+									<p>Kami memiliki dokter yang sudah tersertifikasi, berpengalaman, serta ramah
+										terhadap pasien.</p>
 								</div>
 							</div>
-							<div class="features animate-box">
+							<!-- <div class="features animate-box">
 								<span class="icon text-center"><i class="icon-flow-merge"></i></span>
 								<div class="desc">
 									<h3>Free Medical Consultation</h3>
-									<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab
+									<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias
+										autem provident. Odit ab
 										aliquam dolor eius.</p>
 								</div>
-							</div>
+							</div> -->
 							<div class="features animate-box">
 								<span class="icon text-center"><i class="icon-document-text"></i></span>
 								<div class="desc">
-									<h3>Online Enrollment</h3>
-									<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab
-										aliquam dolor eius.</p>
+									<h3>Pendaftaran Online</h3>
+									<p>Kami menyediakan fasilitas pendaftaran secara online, sehingga dapat mmemudahkan
+										anda untuk berobat.</p>
 								</div>
 							</div>
 							<div class="features animate-box">
 								<span class="icon text-center"><i class="icon-gift"></i></span>
 								<div class="desc">
-									<h3>Modern Facilities</h3>
-									<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab
-										aliquam dolor eius.</p>
+									<h3>Fasilitas yang Modern</h3>
+									<p>Klinik kami menyediakan fasilitas yang modern, telah teruji secara klinis, dan
+										berstandar kedokteran.</p>
 								</div>
 							</div>
 						</div>

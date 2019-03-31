@@ -1,6 +1,7 @@
 var express = require('express')
 router = express.Router()
 Pasien = require("../models/Tbl_pasien")
+User = require("../models/user")
 Pendaftaran = require("../models/Tbl_pendaftaran")
 Tindakan = require("../models/Tbl_tindakan")
 Obat = require("../models/Tbl_obat_alkes_bhp")
@@ -20,7 +21,7 @@ var now = moment().toDate();
 const schema = Joi.object().keys({
     no_registrasi: Joi.number().required(),
     no_rawat: Joi.string(),
-    no_rm: Joi.string(),
+    no_rm: Joi.any(),
     tgl_daftar: Joi.date().required(),
     id_pasien: Joi.string().required(),
     id_dokter_penanggung_jawab: Joi.string().required(),
@@ -85,6 +86,24 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
     });
 }))
 
+router.get('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
+    const data_dokter = await Dokter.find({});
+    const data_user = await User.find({}).populate("id_pasien");
+    const data_poli = await Poliklinik.find({});
+    const data_user_sekarang = req.user;
+    // console.log(data_user_sekarang);
+
+    // console.log(data_user.local);
+    // console.log(req.user.local.id_pasien);
+
+    res.render('v_access/pendaftaran', {
+        data_dokter: data_dokter,
+        data_user: data_user,
+        data_user_sekarang: data_user_sekarang,
+        data_poliklinik: data_poli
+    });
+}))
+
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({
         ...req.body
@@ -118,9 +137,48 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
             console.log(error);
 
         } else {
-
             const input_pendaftaran_baru = await Pendaftaran.create(result.value);
             res.redirect("/pendaftaran");
+        }
+    }
+}))
+
+router.post('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
+    const result = Joi.validate({
+        ...req.body
+    }, schema);
+    const {
+        value,
+        error
+    } = result;
+    const valid = error == null;
+    if (!valid) { // jika tidak valid, atau salah...
+        res.status(422).json({
+            message: 'Invalid request',
+            data: 'error'
+        })
+        console.log(error);
+
+    } else {
+        const result = Joi.validate({
+            ...req.body
+        }, schema);
+        const {
+            value,
+            error
+        } = result;
+        const valid = error == null;
+        if (!valid) { // jika tidak valid, atau salah...
+            res.status(422).json({
+                message: 'Invalid request',
+                data: 'error'
+            })
+            console.log(error);
+        } else {
+            const input_pendaftaran_baru = await Pendaftaran.create(result.value);
+            res.redirect("/index", {
+                message: "Pendaftaran berhasil"
+            });
         }
     }
 }))

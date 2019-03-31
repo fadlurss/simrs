@@ -12,6 +12,7 @@ var crypto = require('crypto');
 
 // load up the user model
 var User = require('../models/user');
+var User2 = require('../models/Tbl_pasien');
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing
@@ -151,6 +152,7 @@ module.exports = function (passport) {
 
                             // create the user
                             var newUser = new User();
+                            var newUser2 = new User2();
                             // eval(require('locus'))
                             if (req.body.adminCode === 'kode_admin') {
                                 newUser.local.isAdmin = true;
@@ -158,21 +160,21 @@ module.exports = function (passport) {
                             if (req.body.dokterCode === 'kode_dokter') {
                                 newUser.local.isDokter = true;
                             }
+
+                            //BUAT NGIRIM EMAIL, klw disimpan dibawah, akan error
                             newUser.local.email = email;
-                            newUser.local.firstName = firstName;
-                            newUser.local.lastName = lastName;
                             newUser.local.username = username;
-                            newUser.local.password = newUser.generateHash(password);
-                            newUser.local.tokenReg = randomToken;
-                            newUser.local.jenis_kelamin = jenis_kelamin;
-                            newUser.local.tanggal_lahir = tanggal_lahir;
-                            newUser.local.umur = umur;
-                            newUser.local.agama = agama;
-                            newUser.local.status_menikah = status_menikah;
-                            newUser.local.alamat = alamat;
-                            newUser.local.pekerjaan = pekerjaan;
-                            newUser.local.no_hp = no_hp;
-                            newUser.local.activeReg = false;
+
+                            newUser2.nama_pasien = firstName + " " + lastName;
+                            newUser2.tanggal_lahir = tanggal_lahir;
+                            newUser2.umur = umur;
+                            newUser2.alamat = alamat;
+                            newUser2.pekerjaan = pekerjaan;
+                            newUser2.no_hp = no_hp;
+                            newUser2.jenis_kelamin = jenis_kelamin;
+                            newUser2.agama = agama;
+                            newUser2.status_menikah = status_menikah;
+
 
                             //create a token
                             var token = jwt.sign({
@@ -184,12 +186,33 @@ module.exports = function (passport) {
                             // req.flash('success', 'This is your token '+token);
                             // res.status(200).send({auth:true, token: token});
 
-                            newUser.save(function (err) {
-                                if (err)
-                                    return done(err);
+                            newUser2.save(function (err) {
+                                const id_pasien = newUser2._id;
+                                newUser.local.id_pasien = id_pasien;
+                                newUser.local.email = email;
+                                newUser.local.firstName = firstName;
+                                newUser.local.lastName = lastName;
+                                newUser.local.username = username;
+                                newUser.local.password = newUser.generateHash(password);
+                                newUser.local.tokenReg = randomToken;
+                                newUser.local.jenis_kelamin = jenis_kelamin;
+                                newUser.local.tanggal_lahir = tanggal_lahir;
+                                newUser.local.umur = umur;
+                                newUser.local.agama = agama;
+                                newUser.local.status_menikah = status_menikah;
+                                newUser.local.alamat = alamat;
+                                newUser.local.pekerjaan = pekerjaan;
+                                newUser.local.no_hp = no_hp;
+                                newUser.local.activeReg = false;
 
-                                return done(null, newUser, req.flash('success', 'Selamat anda berhasil registrasi, silakan cek alamat email anda sekarang!'));
+                                newUser.save(function (err) {
+                                    if (err)
+                                        return done(err);
+                                    return done(null, newUser, req.flash('success', 'Selamat anda berhasil registrasi, silakan cek alamat email anda sekarang!'));
+                                });
                             });
+
+
 
                             var transporter = nodemailer.createTransport({
                                 service: 'gmail',

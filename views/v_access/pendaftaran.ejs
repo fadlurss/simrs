@@ -1,0 +1,105 @@
+<!-- <!doctype html>
+<html>
+
+<head>
+    <title>Klinik Dokter Kita</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:80px; }
+    </style>
+</head>
+
+<body> -->
+<% include ../partials/header2 %>
+<div class="container">
+    <div class="col-sm-6 col-sm-offset-3"><br>
+        <center>
+            <h1>Pendaftaran Berobat</h1>
+            <p><span style="color:red">
+                    *</span> = Wajib diisi</p>
+        </center>
+
+        <!-- PENDAFTARAN FORM -->
+        <form action="/pendaftaran/daftar" method="post"
+            oninput="no_rawat.value = tgl_daftar.value +'/'+ no_registrasi.value">
+            <div class="form-group">
+                <label>No Registrasi<span style="color:red">
+                        *</span></label>
+                <input type="text" required class="form-control" name="no_registrasi">
+            </div>
+            <div class="form-group">
+                <label for="">No Rawat<span style="color:red">
+                        *</span></label>
+                <input type="text" readonly id="no_rawat" name="no_rawat" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="">Tanggal daftar</label>
+                <input type="date" readonly id="date" name="tgl_daftar" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="">Dokter penanggung jawab<span style="color:red">
+                        *</span></label>
+                <select name="id_dokter_penanggung_jawab" id="" class="form-control" id="">
+                    <% data_dokter.forEach(function(hasil){ %>
+                    <option value="<%= hasil.id %>">
+                        <%= hasil.nama_dokter %>
+                    </option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">Poliklinik Tujuan</label>
+                <select name="id_poliklinik" id="" class="form-control" id="">
+                    <% data_poliklinik.forEach(function(hasil){ %>
+                    <option value="<%= hasil.id %>">
+                        <%= hasil.nama_poliklinik %>
+                    </option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">Nama Pasien</label>
+                <input type="text" readonly name="nama_pasien" id="nama_pasien"
+                    value="<%= data_user_sekarang.local.firstName %> <%= data_user_sekarang.local.lastName %>" required
+                    class="form-control">
+                <input type="text" name="id_pasien" style="display:none" id=""
+                    value="<%= data_user_sekarang.local.id_pasien %>" required class="form-control">
+                <input type="text" name="tanggal_lahir" style="display:none" id=""
+                    value="<%= data_user_sekarang.local.tanggal_lahir %>" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="">Nama penanggung jawab<span style="color:red">
+                        *</span></label>
+                <input type="text" name="nama_penanggung_jawab" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="">Hubungan dengan penanggung jawab<span style="color:red">
+                        *</span></label>
+                <select name="hubungan_penanggung_jawab" class="form-control" id="">
+                    <option value="orang_tua">Orang tua</option>
+                    <option value="saudara">Saudara</option>
+                    <option value="teman">Teman</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">Alamat penanggung jawab <span style="color:red">
+                        *</span></label>
+                <textarea name="alamat_penanggung_jawab" required class="form-control" id="" cols="30"
+                    rows="10"></textarea>
+            </div>
+            <div class="col-md-12" style="padding-top:20px">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block btn-success">
+                        Daftar
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<% include ../partials/footer %>
+<!-- </body>
+
+</html> -->
