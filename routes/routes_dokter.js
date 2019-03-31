@@ -27,11 +27,9 @@ const schema = Joi.object().keys({
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const data_spesialis = await Spesialis.find({});
     const data_dokter = await Dokter.find({}).populate("agama").populate("status_menikah").populate("spesialis");
     res.render('v_dokter/index', {
-        data_dokter: data_dokter,
-        data_spesialis: data_spesialis
+        data_dokter: data_dokter
     });
 }))
 

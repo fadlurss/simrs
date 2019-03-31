@@ -108,8 +108,8 @@
 									<li class="has-dropdown">
 										<a href="/diagnosa">Diagnosa Penyakit</a>
 									</li>
-									<li>Halo,
-										<%= currentUser.local.firstName %>
+									<li><a href="/users/<%= currentUser.id %>">Halo,
+											<%= currentUser.local.firstName %></a>
 									</li>
 									<li> <a class="nav-link" href="/logout">Keluar</a></li>
 									<% }  %>

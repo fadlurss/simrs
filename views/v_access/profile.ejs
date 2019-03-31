@@ -1,24 +1,50 @@
-<% include ../partials/header %>
+<% include ../partials/header2 %>
+<div id="qbootstrap-services">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h1><%= campgrounds[0].author.username %></h1>
-                <div class="thumbnail">
-                    <img src="<%= user.avatar %>" alt="user profile image">
-                    <div class="caption">
-                        Send me email : <a href="mailto:<%= user.local.email %><%= user.google.email %>"><%= user.local.email %><%= user.google.email %></a>
-                    </div>
+        <div class="row animate-box">
+            <div class="col-md-6 col-md-offset-3">
+                <h2 class="text-center">Biodata diri</h2>
+                <p>Nama lengkap : <%= user.local.firstName %> <%= user.local.lastName %> </p>
+                <p>Tanggal lahir : <%= moment(user.local.tanggal_lahir).format('LL') %></p>
+                <p>Umur : <%= user.local.umur %> tahun</p>
+                <p>Jenis kelamin : <%= user.local.jenis_kelamin %></p>
+                <p>Agama : <%= user.local.id_agama.nama_agama %></p>
+                <p>Status menikah : <%= user.local.status_menikah.status_menikah %></p>
+                <p>No handphone : <%= user.local.no_hp %></p>
+                <p>Pekerjaan : <%= user.local.pekerjaan %></p>
+                <p>Alamat : <%= user.local.alamat %></p>
+                <br>
+                <h2 class="text-center">Riwayat diagnosa</h2>
+                <div class="panel-body table-responsive">
+                    <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
+                        <thead>
+                            <tr>
+                                <th>Nama diagnosa</th>
+                                <th>Persentase</th>
+                                <th>Tanggal diagnosa</th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data_riwayat_diagnosa.forEach(function(hasil){ %>
+                            <tr>
+                                <td>
+                                    <%= hasil.nama_diagnosa %>
+                                </td>
+                                <td>
+                                    <%= hasil.persentansi %>
+                                </td>
+                                <td>
+                                    <%= moment(hasil.tanggal_diagnosa).format('LL') %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div class="col-md-8">
-                <h3><%= campgrounds[0].author.username %>'s campground : </h3>
-                    <% campgrounds.forEach(function(list_campground){ %>
-                        <ul>
-                            <li><a href="/campground/<%= list_campground.encodedName %>"><%= list_campground.name %></a></li>
-                        </ul>
-                    <% }); %>
             </div>
         </div>
     </div>
-    
+</div>
+
 <% include ../partials/footer %>

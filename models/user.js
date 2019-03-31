@@ -14,14 +14,11 @@ var userSchema = mongoose.Schema({
         },
         firstName: String,
         lastName: String,
-        username: {
-            type: String,
-            unique: true
-        },
+        username: String,
         jenis_kelamin: String,
         tanggal_lahir: String,
         umur: String,
-        agama: {
+        id_agama: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Tbl_agama'
         },

@@ -146,7 +146,7 @@ module.exports = function (passport) {
 
                         // check to see if theres already a user with that email
                         if (user) {
-                            return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                            return done(null, false, req.flash('signupMessage', 'Email sudah digunakan.'));
                         } else {
                             var randomToken = randomstring.generate();
 
@@ -164,6 +164,7 @@ module.exports = function (passport) {
                             //BUAT NGIRIM EMAIL, klw disimpan dibawah, akan error
                             newUser.local.email = email;
                             newUser.local.username = username;
+                            newUser.local.tokenReg = randomToken;
 
                             newUser2.nama_pasien = firstName + " " + lastName;
                             newUser2.tanggal_lahir = tanggal_lahir;
@@ -172,7 +173,7 @@ module.exports = function (passport) {
                             newUser2.pekerjaan = pekerjaan;
                             newUser2.no_hp = no_hp;
                             newUser2.jenis_kelamin = jenis_kelamin;
-                            newUser2.agama = agama;
+                            newUser2.id_agama = agama;
                             newUser2.status_menikah = status_menikah;
 
 
@@ -198,7 +199,7 @@ module.exports = function (passport) {
                                 newUser.local.jenis_kelamin = jenis_kelamin;
                                 newUser.local.tanggal_lahir = tanggal_lahir;
                                 newUser.local.umur = umur;
-                                newUser.local.agama = agama;
+                                newUser.local.id_agama = agama;
                                 newUser.local.status_menikah = status_menikah;
                                 newUser.local.alamat = alamat;
                                 newUser.local.pekerjaan = pekerjaan;
@@ -226,7 +227,7 @@ module.exports = function (passport) {
                                 from: 'fadlurss@gmail.com',
                                 to: newUser.local.email,
                                 subject: 'Verify your email',
-                                text: 'Hello, ' + newUser.local.username + '. Thank you for register Klinik Dokter Kita, please verify your token.\n\n' +
+                                text: 'Hello, ' + newUser.local.username + '. Terima kasih sudah menjadi anggota Klinik Dokter Kita, silakan verifikasi terlebih dahulu melalui email .\n\n' +
                                     'Click on the following link http://' + req.headers.host + '/verify/' + newUser.local.tokenReg
                             };
 

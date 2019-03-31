@@ -3,6 +3,7 @@ router = express.Router()
 passport = require('passport')
 User = require('../models/user')
 Jadwal_dokter = require("../models/Tbl_jadwal_praktek_dokter")
+Riwayat_diagnosa = require("../models/Tbl_riwayat_diagnosa")
 Dokter = require("../models/Tbl_dokter")
 Poliklinik = require("../models/Tbl_poliklinik")
 Agama = require("../models/Tbl_agama")
@@ -30,27 +31,10 @@ const imageFilter = function (req, file, cb) {
     cb(null, true);
 };
 
-// const upload = multer({
-//     storage: storage,
-//     fileFilter: imageFilter
-// });
-
-// const cloudinary = require('cloudinary');
-// cloudinary.config({
-//     cloud_name: 'ikutanevent',
-//     api_key: process.env.CLOUDINARY_API_KEY,
-//     api_secret: process.env.CLOUDINARY_API_SECRET
-// });
 
 // show the home page (will also have our login links)
 router.get('/', function (req, res) {
-    // req.logout();
     res.redirect("/index");
-    // res.redirect("/verify");
-    // User.find().where('activeReg').equals(false).exec(function(err, keluar) {
-    //     req.logout();
-    //     res.redirect("/verify");
-    // });
 });
 
 router.get('/index', function (req, res) {
@@ -68,32 +52,21 @@ router.get('/jadwaldokter', middleware.asyncMiddleware(async (req, res, next) =>
     });
 }));
 
-// router.get('/diagnosa', middleware.asyncMiddleware(async (req, res, next) => {
-//     res.render("v_access/diagnosa");
-// }));
-
 router.get('/hubungikami', middleware.asyncMiddleware(async (req, res, next) => {
     res.render('v_access/kontak');
 }));
+
 // PROFILE SECTION =========================
-// router.get('/users/:id', isLoggedIn, function(req, res) {
-//     User.findById(req.params.id, function(err, foundUser){
-//         if(err){
-//             req.flash("error", "Something went wrong");
-//             res.redirect("/campground");
-//         }//jika berhasil menemukan user, maka cari campground milik user
-//         Campground.find().where('author.id').equals(foundUser._id).exec(function(err, campgrounds){
-//             if(err){
-//                 req.flash("error", "Something went wrong");
-//                 res.redirect("/campground");
-//             } //jika ketemu, tampilkan list campground beserta profil user
-//             console.log("User id saat ini "+req.user._id+" User google "+campgrounds[0].author.id);
-//             Categories.find({}, function(err,categories){
-//              res.render('v_access/profile',{user : foundUser, campgrounds : campgrounds, categories : categories});
-//             });
-//         });
-//     });
-// });
+router.get("/users/:id", middleware.isLoggedIn, middleware.asyncMiddleware(async (req, res, next) => {
+    const agama = await Agama.find({});
+    const data_user = await User.findById(req.params.id).populate("local.id_agama").populate("local.status_menikah");
+    const data_riwayat_diagnosa = await Riwayat_diagnosa.find().where('id_user').equals(data_user._id);
+    res.render("v_access/profile", {
+        user: data_user,
+        agama: agama,
+        data_riwayat_diagnosa: data_riwayat_diagnosa
+    })
+}));
 
 // LOGOUT ==============================
 router.get('/logout', function (req, res) {
@@ -101,11 +74,6 @@ router.get('/logout', function (req, res) {
     req.flash("success", "You successfull logout!"); // pertama dari sini, trs dikirim ke app.js, trs dikirim ke header
     res.redirect('/index');
 });
-
-
-// =============================================================================
-// AUTHENTICATE (FIRST LOGIN) ==================================================
-// =============================================================================
 
 // locally --------------------------------
 // LOGIN ===============================
@@ -377,114 +345,6 @@ router.get('/verify/:tokenReg', function (req, res) {
         }
     });
 });
-
-// router.get("/uploadktp", function (req, res) {
-//     res.render("v_access/uploadktp");
-// });
-
-// router.post('/uploadktp', upload.any(), (req, res) => {
-//     var a = req.files[0].path;
-//     var b = req.files[1].path;
-//     var image_ktp = "";
-//     var image_ktp_selfie = "";
-//     cloudinary.v2.uploader.upload(a, function (error, result) {
-//         image_ktp = a;
-//         image_ktp = result.secure_url;
-//         console.log("hasil ktp " + image_ktp);
-
-//     });
-//     cloudinary.v2.uploader.upload(b, function (error, result) {
-//         image_ktp_selfie = b;
-//         image_ktp_selfie = result.secure_url;
-//         console.log("hasil selfie " + image_ktp_selfie);
-//         var userData = {
-//             "local.image_ktp": image_ktp,
-//             "local.image_ktp_selfie": image_ktp_selfie
-//         }
-//         User.updateOne({
-//             _id: req.user._id
-//         }, {
-//             $set: userData
-//         }, function (err, hasil) {
-//             if (err) {
-//                 res.send(err);
-//             } else {
-//                 res.send("berhasil");
-//             }
-//         });
-//     });
-// });
-
-
-// =============================================================================
-// MENAMPILKAN DATA USER ==================================================
-// =============================================================================
-// router.get("/alluser", middleware.asyncMiddleware(async (req, res, next) => {
-//     const allUser = await User.find({});
-//     res.render("v_access/alluser", {
-//         allUser: allUser
-//     });
-// }));
-
-// UPDATE STATUS AKUN
-// router.post('/statusAkun', middleware.asyncMiddleware(async (req, res, next) => {
-//     var userData = {
-//         "local.statusAkun": req.body.statusAkun
-//     }
-//     const update_statusAkun = await User.findByIdAndUpdate(req.body.id, {
-//         $set: userData
-//     });
-//     res.send(update_statusAkun)
-
-//     var smtpTransport = nodemailer.createTransport({
-//         service: 'Gmail',
-//         auth: {
-//             user: 'fadlurss@gmail.com',
-//             pass: process.env.GMAILPW
-//         }
-//     });
-
-//     var mailOptions = {
-//         to: update_statusAkun.local.email,
-//         from: 'fadlurss@gmail.com',
-//         subject: 'Akun yelpcamp kamu sudah terverifikasi',
-//         text: 'Halo, \n\n' +
-//             'Yelpcamp menginformasikan bahwa akun ' + update_statusAkun.local.email + ' sudah terverifikasi.\n\n' +
-//             'Kamu sekarang bisa membuat acara baru di yelpcamp! \n\n' +
-//             'Terima kasih, Yelpcamp'
-//     };
-
-//     smtpTransport.sendMail(mailOptions, function (err) {
-//         done(err);
-//     });
-
-// }))
-
-// // KIRIM EMAIL GAGAL VERIFIKASI USER
-// router.post("/gagalverifikasi", middleware.asyncMiddleware(async (req, res, next) => {
-//     var smtpTransport = nodemailer.createTransport({
-//         service: 'Gmail',
-//         auth: {
-//             user: 'fadlurss@gmail.com',
-//             pass: process.env.GMAILPW
-//         }
-//     });
-
-//     var mailOptions = {
-//         to: req.body.email,
-//         from: 'fadlurss@gmail.com',
-//         subject: 'Maaf, akun yelpcamp kamu gagal verifikasi',
-//         text: 'Halo, \n\n' +
-//             'Yelpcamp menginformasikan bahwa akun ' + req.body.email + ' gagal verifikasi.\n\n' +
-//             'Silakan upload photo KTP kamu dan photo selfie diri kamu dengan KTP \n\n' +
-//             'Terima kasih, Yelpcamp'
-//     };
-
-//     smtpTransport.sendMail(mailOptions, function (err) {
-//         res.redirect("/alluser");
-//     });
-// }))
-
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {

@@ -5,7 +5,7 @@ var tbl_agamaSchema = mongoose.Schema({
         type: String
     }
 }, {
-    timestamps: true,
+    timestamps: false,
     collection: 'tbl_agama',
     versionKey: false
 });
