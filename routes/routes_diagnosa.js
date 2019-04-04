@@ -34,8 +34,8 @@ router.get('/getgejala', middleware.asyncMiddleware(async (req, res, next) => {
     capsule = [];
     gejalaDb.forEach(function (el) {
         capsule.push({
-            kode_gejala: el.kode_gejala,
-            nama_gejala: el.nama_gejala,
+            kode: el.kode_gejala,
+            nama: el.nama_gejala,
             bobot: el.bobot
         });
     });
