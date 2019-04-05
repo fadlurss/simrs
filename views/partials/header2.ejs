@@ -62,8 +62,9 @@
 							<div class="top">
 								<div class="row">
 									<div class="col-md-4 col-md-push-4 text-center">
-										<div id="qbootstrap-logo"><a href="index.html"><i
-													class="icon-plus-outline"></i>Klinik Dokter Kita</span></a></div>
+										<div id="qbootstrap-logo"><a href="/index"><i
+													class="icon-plus-outline"></i>Klinik<span>Dokter Kita</span></a>
+										</div>
 									</div>
 									<div class="col-md-4 col-md-pull-4">
 										<div class="num">
@@ -107,6 +108,9 @@
 									<% } else { %>
 									<li class="has-dropdown">
 										<a href="/diagnosa">Diagnosa Penyakit</a>
+									</li>
+									<li class="has-dropdown">
+										<a href="/pendaftaran/daftar">Daftar Antrian</a>
 									</li>
 									<li><a href="/users/<%= currentUser.id %>">Halo,
 											<%= currentUser.local.firstName %></a>

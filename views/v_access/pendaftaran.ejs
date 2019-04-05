@@ -15,7 +15,7 @@
 <div class="container">
     <div class="col-sm-6 col-sm-offset-3"><br>
         <center>
-            <h1>Pendaftaran Berobat</h1>
+            <h1>Pendaftaran Antrian</h1>
             <p><span style="color:red">
                     *</span> = Wajib diisi</p>
         </center>
@@ -25,12 +25,14 @@
             <div class="form-group">
                 <label>No Registrasi<span style="color:red">
                         *</span></label>
-                <input type="text" required class="form-control" id="noreg" readonly  name="no_registrasi">
+                <input type="text" required class="form-control" id="noreg" readonly name="no_registrasi">
             </div>
             <div class="form-group">
                 <label for="">No Rawat<span style="color:red">
                         *</span></label>
-                <input type="text"  readonly id="no_rawat" onclick="no_rawat.value = tgl_daftar.value +'/'+ no_registrasi.value" name="no_rawat" class="form-control">
+                <input type="text" readonly id="no_rawat"
+                    onclick="no_rawat.value = tgl_daftar.value +'/'+ no_registrasi.value" name="no_rawat"
+                    class="form-control">
             </div>
             <div class="form-group">
                 <label for="">Tanggal daftar</label>
@@ -100,8 +102,8 @@
 </div>
 <% include ../partials/footer %>
 <script type="text/javascript">
-  $("#noreg").val("<%= counter %>");
-  $("#no_rawat").trigger('click');
+    $("#noreg").val("<%= counter %>");
+    $("#no_rawat").trigger('click');
 </script>
 <!-- </body>
 
