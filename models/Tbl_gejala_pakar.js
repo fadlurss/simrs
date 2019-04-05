@@ -11,7 +11,7 @@ var tbl_gejala_pakarSchema = mongoose.Schema({
         type: Number
     }
 }, {
-    timestamps: true,
+    timestamps: false,
     collection: 'tbl_gejala_pakar',
     versionKey: false
 });

@@ -16,7 +16,7 @@ var tbl_riwayattindakanSchema = mongoose.Schema({
         default: Date.now
     }
 }, {
-    timestamps: true,
+    timestamps: false,
     collection: 'tbl_riwayattindakan',
     versionKey: false
 });

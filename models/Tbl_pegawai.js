@@ -28,7 +28,7 @@ var tbl_pegawaiSchema = mongoose.Schema({
         ref: 'Tbl_jabatan'
     }
 }, {
-    timestamps: true,
+    timestamps: false,
     collection: 'tbl_pegawai',
     versionKey: false
 });

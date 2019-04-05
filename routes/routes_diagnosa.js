@@ -17,17 +17,12 @@ const schema = Joi.object().keys({
     submit: Joi.any()
 })
 
-router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
+router.get('/', middlewareObj.isLoggedIn, middleware.asyncMiddleware(async (req, res, next) => {
     const alldiagnosa_pakar = await Gejala_pakar.find({});
     res.render('v_access/diagnosa', {
         alldiagnosa_pakar: alldiagnosa_pakar
     });
 }))
-
-// router.get('/diagnosa', middleware.asyncMiddleware(async (req, res, next) => {
-//     res.render("v_access/diagnosa");
-// }));
-
 
 router.get('/getgejala', middleware.asyncMiddleware(async (req, res, next) => {
     const gejalaDb = await Gejala_pakar.find({});

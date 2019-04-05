@@ -156,13 +156,15 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Input Tindakan
                     <%= data_pendaftaran._id %>
                 </h4>
             </div>
-            <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayattindakan"
-                method="POST" id="tambah_pendaftaran">
+            <form class="form-horizontal" role="form"
+                action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayattindakan" method="POST"
+                id="tambah_pendaftaran">
                 <div class="modal-body">
                     <table class="table table-bordered">
                         <h4>
@@ -173,7 +175,8 @@
                         <tr>
                             <td width="200">Dilakukan Oleh</td>
                             <td>
-                                <input type="text" name="dilakukan_oleh" value="Dokter dan Petugas" readonly class="form-control">
+                                <input type="text" name="dilakukan_oleh" value="Dokter dan Petugas" readonly
+                                    class="form-control">
                             </td>
                         </tr>
                         <tr>
@@ -187,17 +190,17 @@
                         <tr>
                             <td>Nama Pegawai</td>
                             <td>
-                                <input type="text" name="nama_petugas" id="cari_petugas" placeholder="Masukan Nama Petugas"
-                                    class="form-control">
+                                <input type="text" name="nama_petugas" id="cari_petugas"
+                                    placeholder="Masukan Nama Petugas" class="form-control">
                                 <input type="hidden" name="id_petugas" id="id_petugas" class="form-control">
                             </td>
                         </tr>
                         <tr>
                             <td>Nama Tindakan</td>
                             <td>
-                                <input type="text" required placeholder="Masukan Nama Tindakan" name="nama_tindakan" id="cari_tindakan"
-                                    class="form-control ui-autocomplete-input"><input type="hidden" name="id_tindakan"
-                                    id="id_tindakan" class="form-control ui-autocomplete-input">
+                                <input type="text" required placeholder="Masukan Nama Tindakan" name="nama_tindakan"
+                                    id="cari_tindakan" class="form-control ui-autocomplete-input"><input type="hidden"
+                                    name="id_tindakan" id="id_tindakan" class="form-control ui-autocomplete-input">
                             </td>
                         </tr>
                         <tr>
@@ -207,8 +210,8 @@
                         </tr>
                         <tr>
                             <td>Perkembangan</td>
-                            <td><input type="text" required name="perkembangan" placeholder="masukan perkembangan sekarang"
-                                    class="form-control"></td>
+                            <td><input type="text" required name="perkembangan"
+                                    placeholder="masukan perkembangan sekarang" class="form-control"></td>
                         </tr>
                     </table>
 
@@ -248,13 +251,15 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Input Obat
                     <%= data_pendaftaran._id %>
                 </h4>
             </div>
-            <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayatberiobat"
-                method="POST" id="tambah_pendaftaran">
+            <form class="form-horizontal" role="form"
+                action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayatberiobat" method="POST"
+                id="tambah_pendaftaran">
                 <div class="modal-body">
                     <table class="table table-bordered">
                         <input value="<%= data_pendaftaran.id %>" type="hidden" name="id_pendaftaran">

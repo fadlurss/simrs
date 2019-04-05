@@ -73,6 +73,16 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
+    var start = new Date();
+    start.setHours(0, 0, 0, 0);
+    var end = new Date();
+    end.setHours(23, 59, 59, 999);
+    var counter = await Pendaftaran.find({
+        createdAt: {
+            $gte: start,
+            $lt: end
+        }
+    }).count();
     const data_dokter = await Dokter.find({});
     const data_jenis_bayar = await Jenis_bayar.find({});
     const data_pasien = await Pasien.find({});
@@ -82,31 +92,32 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
         data_dokter: data_dokter,
         data_jenis_bayar: data_jenis_bayar,
         data_pasien: data_pasien,
-        data_poliklinik: data_poli
+        data_poliklinik: data_poli,
+        counter: (counter + 1)
     });
 }))
 
-router.get('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
+router.get('/daftar', middlewareObj.isLoggedIn, middleware.asyncMiddleware(async (req, res, next) => {
     var start = new Date();
-    start.setHours(0,0,0,0);
+    start.setHours(0, 0, 0, 0);
     var end = new Date();
-    end.setHours(23,59,59,999);
+    end.setHours(23, 59, 59, 999);
     const data_user_sekarang = req.user;
     const data_dokter = await Dokter.find({});
     const data_user = await User.find({}).populate("id_pasien");
     const data_poli = await Poliklinik.find({});
-    var counter = await Pendaftaran.find({createdAt:{$gte: start, $lt: end}}).count();
-    // console.log(data_user_sekarang);
-
-    // console.log(data_user.local);
-    // console.log(req.user.local.id_pasien);
-
+    var counter = await Pendaftaran.find({
+        createdAt: {
+            $gte: start,
+            $lt: end
+        }
+    }).count();
     res.render('v_access/pendaftaran', {
         data_dokter: data_dokter,
         data_user: data_user,
         data_user_sekarang: data_user_sekarang,
         data_poliklinik: data_poli,
-        counter:(counter+1)
+        counter: (counter + 1)
     });
 }))
 

@@ -21,15 +21,16 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3">No Registrasi<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
-                                <input type="number" name="no_registrasi" id="no_registrasi" required
-                                    class="form-control">
+                                <input type="number" name="no_registrasi" id="noreg" readonly class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3">No Rawat<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
                                 <input type="date" hidden id="date" name="tanggal_sekarang" class="form-control">
-                                <input type="text" id="no_rawat" name="no_rawat" class="form-control">
+                                <input type="text" readonly id="no_rawat"
+                                    onclick="no_rawat.value = tgl_daftar.value +'/'+ no_registrasi.value"
+                                    name="no_rawat" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -122,3 +123,7 @@
     </div>
 </div>
 <% include ../partials/admin/footer %>
+<script type="text/javascript">
+    $("#noreg").val("<%= counter %>");
+    $("#no_rawat").trigger('click');
+</script>

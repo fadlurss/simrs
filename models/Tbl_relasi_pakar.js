@@ -13,7 +13,7 @@ var tbl_relasi_pakarSchema = mongoose.Schema({
         ref: 'Tbl_diagnosa_pakar'
     }
 }, {
-    timestamps: true,
+    timestamps: false,
     collection: 'tbl_relasi_pakar',
     versionKey: false
 });

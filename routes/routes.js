@@ -16,6 +16,8 @@ multer = require("multer")
 bcrypt = require('bcrypt-nodejs')
 middleware = require("../middleware")
 asyncMiddleware = require("../middleware")
+var moment = require('moment');
+var now = moment().toDate();
 
 const storage = multer.diskStorage({
     filename: function (req, file, callback) {

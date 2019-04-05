@@ -11,7 +11,7 @@ var tbl_diagnosa_pakarSchema = mongoose.Schema({
         type: String
     }
 }, {
-    timestamps: true,
+    timestamps: false,
     collection: 'tbl_diagnosa_pakar',
     versionKey: false
 });

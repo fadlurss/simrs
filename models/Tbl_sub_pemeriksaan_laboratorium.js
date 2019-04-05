@@ -18,7 +18,7 @@ var tbl_sub_pemeriksaanlaboratoriumSchema = mongoose.Schema({
         type: Number
     }
 }, {
-    timestamps: true,
+    timestamps: false,
     collection: 'tbl_sub_pemeriksaan_laboratorium',
     versionKey: false
 });
