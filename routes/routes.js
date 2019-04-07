@@ -8,6 +8,7 @@ Dokter = require("../models/Tbl_dokter")
 Poliklinik = require("../models/Tbl_poliklinik")
 Agama = require("../models/Tbl_agama")
 Status_menikah = require("../models/Tbl_status_menikah")
+Pasien = require("../models/Tbl_pasien")
 async = require('async')
 nodemailer = require('nodemailer')
 crypto = require('crypto')
@@ -104,11 +105,18 @@ router.get('/jadwaldokter', middleware.asyncMiddleware(async (req, res, next) =>
 }));
 
 router.get('/signup', middleware.asyncMiddleware(async (req, res, next) => {
+    // var start = await Pasien.find({
+    //     no_rm
+    // });
+    // console.log(start);
+
+    var counter = await Pasien.find({}).count();
     const data_agama = await Agama.find({});
     const data_status_menikah = await Status_menikah.find({});
     res.render('v_access/signup', {
         data_agama: data_agama,
         data_status_menikah: data_status_menikah,
+        counter: (counter + 1),
         message: req.flash('signupMessage')
     });
 }));

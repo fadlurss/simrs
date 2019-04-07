@@ -15,6 +15,7 @@ var userSchema = mongoose.Schema({
         firstName: String,
         lastName: String,
         username: String,
+        no_rm: String,
         jenis_kelamin: String,
         tanggal_lahir: String,
         umur: String,

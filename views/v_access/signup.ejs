@@ -29,6 +29,10 @@
       <!-- LOGIN FORM -->
       <form id="register-form" action="/signup" method="POST">
         <div class="form-group">
+          <label>No Rekam Medis</label>
+          <input type="text" class="form-control" name="no_rm" id="norm" readonly>
+        </div>
+        <div class="form-group">
           <label>Nama depan</label>
           <input type="text" class="form-control" name="firstName" placeholder="Nama depan anda">
         </div>
@@ -211,6 +215,9 @@
       var theBday = document.getElementById('resultBday');
       document.getElementById("umurku").value = Q4A;
     }
+  </script>
+  <script type="text/javascript">
+    $("#norm").val("<%= counter %>");
   </script>
 </body>
 

@@ -111,6 +111,7 @@ module.exports = function (passport) {
             alamat = req.body.alamat;
             pekerjaan = req.body.pekerjaan;
             no_hp = req.body.no_hp;
+            no_rm = req.body.no_rm;
 
 
             if (email)
@@ -173,8 +174,9 @@ module.exports = function (passport) {
                             newUser2.pekerjaan = pekerjaan;
                             newUser2.no_hp = no_hp;
                             newUser2.jenis_kelamin = jenis_kelamin;
-                            newUser2.id_agama = agama;
+                            newUser2.agama = agama;
                             newUser2.status_menikah = status_menikah;
+                            newUser2.no_rm = no_rm;
 
 
                             //create a token
@@ -204,6 +206,7 @@ module.exports = function (passport) {
                                 newUser.local.alamat = alamat;
                                 newUser.local.pekerjaan = pekerjaan;
                                 newUser.local.no_hp = no_hp;
+                                newUser.local.no_rm = no_rm;
                                 newUser.local.activeReg = false;
 
                                 newUser.save(function (err) {
