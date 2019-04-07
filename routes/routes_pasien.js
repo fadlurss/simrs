@@ -38,11 +38,13 @@ router.get(
 router.get(
 	'/new',
 	middleware.asyncMiddleware(async (req, res, next) => {
+		var counter = await Pasien.find().count();
 		const data_agama = await Agama.find({});
 		const data_status_menikah = await Status_menikah.find({});
 		res.render('v_pasien/new', {
 			data_agama: data_agama,
 			data_status_menikah: data_status_menikah,
+			counter: (counter + 1)
 		});
 	})
 );
@@ -50,8 +52,13 @@ router.get(
 router.post(
 	'/new',
 	middleware.asyncMiddleware(async (req, res, next) => {
-		const result = Joi.validate({ ...req.body }, schema);
-		const { value, error } = result;
+		const result = Joi.validate({
+			...req.body
+		}, schema);
+		const {
+			value,
+			error
+		} = result;
 		const valid = error == null;
 		if (!valid) {
 			// jika tidak valid, atau salah...
@@ -85,15 +92,16 @@ router.get(
 router.put(
 	'/:id',
 	middleware.asyncMiddleware(async (req, res, next) => {
-		const result = Joi.validate({ ...req.body }, schema);
-		const hasilUpdate = await Pasien.findOneAndUpdate(
-			{
-				_id: req.params.id,
+		const result = Joi.validate({
+			...req.body
+		}, schema);
+		const hasilUpdate = await Pasien.findOneAndUpdate({
+			_id: req.params.id,
+		}, {
+			$set: {
+				...req.body
 			},
-			{
-				$set: { ...req.body },
-			}
-		);
+		});
 		res.redirect('/pasien');
 	})
 );

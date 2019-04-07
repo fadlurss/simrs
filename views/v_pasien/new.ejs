@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3">No Rekamedis<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
-                                <input type="text" name="no_rm" required class="form-control">
+                                <input type="text" readonly id="norm" name="no_rm" required class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -52,7 +52,8 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3">Umur</label>
                             <div class="col-sm-9">
-                                <input type="text" name="umur" id="umurku" min="1" max="80" required readonly class="form-control">
+                                <input type="text" name="umur" id="umurku" min="1" max="80" required readonly
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -94,7 +95,8 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3">No HP</label>
                             <div class="col-sm-9">
-                                <input name="no_hp" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                <input name="no_hp"
+                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                     type="number" maxlength="12" class="form-control" />
                             </div>
                         </div>
@@ -114,3 +116,6 @@
     </div>
 </div>
 <% include ../partials/admin/footer %>
+<script type="text/javascript">
+    $("#norm").val("<%= counter %>");
+</script>

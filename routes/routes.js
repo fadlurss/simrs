@@ -108,9 +108,10 @@ router.get('/signup', middleware.asyncMiddleware(async (req, res, next) => {
     // var start = await Pasien.find({
     //     no_rm
     // });
+    // var end = start.no_rm;
     // console.log(start);
 
-    var counter = await Pasien.find({}).count();
+    var counter = await Pasien.find().count();
     const data_agama = await Agama.find({});
     const data_status_menikah = await Status_menikah.find({});
     res.render('v_access/signup', {
