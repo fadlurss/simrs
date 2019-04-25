@@ -228,7 +228,9 @@ module.exports = function (passport) {
                             //     }
                             // }));
                             var transporter = nodemailer.createTransport({
-                                service: 'gmail',
+                                host: "smtp.ethereal.email",
+                                port: 587,
+                                secure: false,
                                 auth: {
                                     user: 'jhieber7@gmail.com',
                                     pass: 'xtcbandung97' // GMAILPW=your password in terminal node app.js
@@ -250,8 +252,6 @@ module.exports = function (passport) {
                                     console.log('Email sent: ' + info.response);
                                 }
                             });
-
-
                         }
 
                     });
