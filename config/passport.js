@@ -229,7 +229,6 @@ module.exports = function (passport) {
                             // }));
                             var transporter = nodemailer.createTransport({
                                 host: "smtp.ethereal.email",
-                                port: 587,
                                 secure: false,
                                 auth: {
                                     user: 'jhieber7@gmail.com',
