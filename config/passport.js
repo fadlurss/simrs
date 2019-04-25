@@ -8,6 +8,8 @@ var querystring = require('querystring');
 var randomstring = require('randomstring');
 var async = require('async');
 var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+
 var crypto = require('crypto');
 
 // load up the user model
@@ -217,17 +219,24 @@ module.exports = function (passport) {
                             });
 
 
-
+                            // var transporter = nodemailer.createTransport(smtpTransport({
+                            //     service: 'gmail',
+                            //     host: 'smtp.gmail.com',
+                            //     auth: {
+                            //         user: 'jhieber7@gmail.com',
+                            //         pass: 'xtcbandung97'
+                            //     }
+                            // }));
                             var transporter = nodemailer.createTransport({
                                 service: 'gmail',
                                 auth: {
-                                    user: 'fadlurss@gmail.com',
-                                    pass: process.env.GMAILPW // GMAILPW=your password in terminal node app.js
+                                    user: 'jhieber7@gmail.com',
+                                    pass: 'xtcbandung97' // GMAILPW=your password in terminal node app.js
                                 }
                             });
 
                             var mailOptions = {
-                                from: 'fadlurss@gmail.com',
+                                from: 'jhieber7@gmail.com',
                                 to: newUser.local.email,
                                 subject: 'Verify your email',
                                 text: 'Hello, ' + newUser.local.username + '. Terima kasih sudah menjadi anggota Klinik Dokter Kita, silakan verifikasi terlebih dahulu melalui email .\n\n' +

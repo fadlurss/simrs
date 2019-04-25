@@ -19,6 +19,7 @@ middleware = require("../middleware")
 asyncMiddleware = require("../middleware")
 var moment = require('moment');
 var now = moment().toDate();
+var smtpTransport = require('nodemailer-smtp-transport');
 
 const storage = multer.diskStorage({
     filename: function (req, file, callback) {
@@ -220,14 +221,14 @@ router.post('/forgot', function (req, res, next) {
             var smtpTransport = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
-                    user: 'fadlurss@gmail.com',
-                    pass: process.env.GMAILPW
+                    user: 'jhieber7@gmail.com',
+                    pass: 'xtcbandung97'
                 }
 
             });
             var mailOptions = {
                 to: user.local.email,
-                from: 'fadlurss@gmail.com',
+                from: 'jhieber7@gmail.com',
                 subject: 'Password Reset',
                 text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -300,17 +301,19 @@ router.post('/reset/:token', function (req, res) {
             });
         },
         function (user, done) {
+
+
             var smtpTransport = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
-                    user: 'fadlurss@gmail.com',
-                    pass: process.env.GMAILPW // GMAILPW=your password in terminal node app.js
+                    user: 'jhieber7@gmail.com',
+                    pass: 'xtcbandung97' // GMAILPW=your password in terminal node app.js
                 }
             });
 
             var mailOptions = {
                 to: user.local.email,
-                from: 'fadlurss@gmail.com',
+                from: 'jhieber7@gmail.com',
                 subject: 'Your password has been changed',
                 text: 'Hello, \n\n' +
                     'This is a confirmation that the password for your account ' + user.local.email + ' has just been changed.\n'
