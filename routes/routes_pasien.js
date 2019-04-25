@@ -38,7 +38,7 @@ router.get(
 router.get(
 	'/new',
 	middleware.asyncMiddleware(async (req, res, next) => {
-		var counter = await Pasien.find().count();
+		var counter = await Pasien.countDocuments();
 		const data_agama = await Agama.find({});
 		const data_status_menikah = await Status_menikah.find({});
 		res.render('v_pasien/new', {
