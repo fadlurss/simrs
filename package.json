@@ -3,8 +3,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "build": "webpack"
+    "start": "nodemon app.js"
   },
   "heroku-run-build-script": true,
 
