@@ -595,7 +595,9 @@
         });
     }
     // Call the function with table attr on which you want automatic serial number
-    addRowCount('.js-serial');
+    if ($("#datatable").length > 10) {
+      addRowCount('.js-serial');
+    }
 
 
     (function () {
