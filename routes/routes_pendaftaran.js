@@ -11,7 +11,8 @@ Pegawai = require("../models/Tbl_pegawai")
 Poliklinik = require("../models/Tbl_poliklinik")
 Riwayattindakan = require("../models/Tbl_riwayattindakan")
 PJRiwayattindakan = require("../models/Tbl_pj_riwayattindakan")
-Riwayatberiobat = require("../models/Tbl_riwayatberiobat")
+Riwayatdiagnosa = require("../models/Tbl_riwayatdiagnosa")
+PJRiwayatdiagnosa = require("../models/Tbl_pj_riwayatdiagnosa")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
@@ -207,12 +208,10 @@ router.post('/:id/new_riwayattindakan', middleware.asyncMiddleware(async (req, r
         hasil_pendaftaran.save();
         const id_riwayat_tindakan = newR.id;
         const id_dokter = req.body.id_dokter;
-        const id_petugas = req.body.id_petugas;
         const keterangan = req.body.dilakukan_oleh;
         const new_pj_riwayat_tindakan = {
             id_riwayat_tindakan: id_riwayat_tindakan,
-            id_dokter: id_dokter,
-            id_pegawai: id_petugas,
+            id_dokter: id_dokter._id,
             keterangan: keterangan
         }
         const input_pj_riwayat_tindakan = await PJRiwayattindakan.create(new_pj_riwayat_tindakan);
@@ -220,11 +219,20 @@ router.post('/:id/new_riwayattindakan', middleware.asyncMiddleware(async (req, r
     });
 }))
 
-router.post('/:id/new_riwayatberiobat', middleware.asyncMiddleware(async (req, res, next) => {
+router.post('/:id/new_riwayatdiagnosa', middleware.asyncMiddleware(async (req, res, next) => {
     Pendaftaran.findById(req.params.id, async (err, hasil_pendaftaran) => {
-        const newR = await Riwayatberiobat.create(req.body);
-        hasil_pendaftaran.id_riwayatberiobat.push(newR);
+        const newR = await Riwayatdiagnosa.create(req.body);
+        hasil_pendaftaran.id_riwayatdiagnosa.push(newR);
         hasil_pendaftaran.save();
+        const id_riwayat_diagnosa = newR.id;
+        const id_dokter = req.body.id_dokter;
+        const dilakukan_oleh = req.body.dilakukan_oleh;
+        const new_pj_riwayat_diagnosa = {
+            id_riwayat_diagnosa: id_riwayat_diagnosa,
+            id_dokter: id_dokter._id,
+            dilakukan_oleh: dilakukan_oleh
+        }
+        const input_pj_riwayat_diagnosa = await PJRiwayatdiagnosa.create(new_pj_riwayat_diagnosa);
         res.redirect("/pendaftaran/" + req.params.id + "/detail");
     });
 }))
@@ -233,10 +241,11 @@ router.post('/:id/new_riwayatberiobat', middleware.asyncMiddleware(async (req, r
 router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
     const data_pendaftaran = await Pendaftaran.findById(req.params.id)
         .populate("id_pasien")
+        .populate("id_dokter_penanggung_jawab")
         .populate({
-            path: "id_riwayatberiobat",
+            path: "id_riwayatdiagnosa",
             populate: {
-                path: "id_obat"
+                path: "id_diagnosa"
             }
         })
         .populate({
@@ -252,9 +261,7 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
         total = total + comment.id_tindakan.tarif;
     });
 
-    data_pendaftaran.id_riwayatberiobat.forEach(function (comment) {
-        subtotal = subtotal + (comment.qty * comment.id_obat.harga);
-    });
+
 
     res.render("v_pendaftaran/detail", {
         data_pendaftaran: data_pendaftaran,

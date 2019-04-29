@@ -11,6 +11,9 @@ var tbl_riwayattindakanSchema = mongoose.Schema({
     perkembangan: {
         type: String
     },
+    resep_obat: {
+        type: String
+    },
     tanggal: {
         type: Date,
         default: Date.now

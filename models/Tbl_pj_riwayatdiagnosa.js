@@ -1,21 +1,21 @@
 var mongoose = require("mongoose");
 
-var tbl_pj_riwayattindakanSchema = mongoose.Schema({
-    id_riwayat_tindakan: {
+var tbl_pj_riwayatdiagnosaSchema = mongoose.Schema({
+    id_riwayat_diagnosa: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tbl_riwayattindakan'
+        ref: 'Tbl_riwayatdiagnosa'
     },
     id_dokter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_dokter'
     },
-    keterangan: {
+    dilakukan_oleh: {
         type: String
     }
 }, {
     timestamps: true,
-    collection: 'tbl_pj_riwayattindakan',
+    collection: 'tbl_pj_riwayatdiagnosa',
     versionKey: false
 });
 
-module.exports = mongoose.model("Tbl_pj_riwayattindakan", tbl_pj_riwayattindakanSchema);
+module.exports = mongoose.model("tbl_pj_riwayatdiagnosa", tbl_pj_riwayatdiagnosaSchema);
