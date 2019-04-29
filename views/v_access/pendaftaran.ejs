@@ -12,6 +12,20 @@
 
 <body> -->
 <% include ../partials/header2 %>
+
+<% if(!currentUser) { %>
+<div class="container">
+    <div class="col-sm-6 col-sm-offset-3"><br>
+        <center>
+            <h1>Silakan login terlebih dahulu.</h1>
+            <!--If the user is not logged in, direct him to the login page-->
+            <h5>Sebelum daftar antrian secara online. Silakan login disini terlebih dahulu. <a href="/login">Klik
+                    disini</a></h5>
+        </center>
+    </div>
+</div>
+<% } %>
+<% if(currentUser) { %>
 <div class="container">
     <div class="col-sm-6 col-sm-offset-3"><br>
         <center>
@@ -100,6 +114,7 @@
 
     </div>
 </div>
+<% } %>
 <% include ../partials/footer %>
 <script type="text/javascript">
     $("#noreg").val("<%= counter %>");

@@ -108,30 +108,21 @@
 									<li class="active"><a href="index.html">Halaman utama</a></li>
 									<li><a href="/pelayanan">Pelayanan</a></li>
 									<li class="has-dropdown">
-										<a href="departments.html">Kelas edukasi</a>
-										<ul class="dropdown">
-											<li><a href="/abses">Abses periapikal</a></li>
-											<li><a href="/kariesgigi">Karies gigi</a></li>
-											<li><a href="/gingivitis">Gingivitis</a></li>
-											<li><a href="/periodontitis">Periodontitis</a></li>
-											<li><a href="/pulpitisreversibel">Pulpitis reversibel</a></li>
-											<li><a href="/pulpitisireversibel">Pulpitis ireversibel</a></li>
-										</ul>
-									</li>
-									<li class="has-dropdown">
 										<a href="/jadwaldokter">Jadwal Dokter</a>
 									</li>
 
 									<!-- <li><a href="/hubungikami">Hubungi kami</a></li> -->
 									<% if(!currentUser){%>
+									<li class="has-dropdown">
+										<a href="/pendaftaran/daftar">Daftar Antrian</a>
+									</li>
 									<li><a href="/login">Login</a></li>
+
 									<% } else { %>
 									<li class="has-dropdown">
 										<a href="/diagnosa">Diagnosa Penyakit</a>
 									</li>
-									<li class="has-dropdown">
-										<a href="/pendaftaran/daftar">Daftar Antrian</a>
-									</li>
+
 									<li><a href="/users/<%= currentUser.id %>">Halo,
 											<%= currentUser.local.firstName %></a> </li>
 									<li> <a class="nav-link" href="/logout">Keluar</a></li>

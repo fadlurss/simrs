@@ -98,7 +98,7 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
     });
 }))
 
-router.get('/daftar', middlewareObj.isLoggedIn, middleware.asyncMiddleware(async (req, res, next) => {
+router.get('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
     var start = new Date();
     start.setHours(0, 0, 0, 0);
     var end = new Date();
