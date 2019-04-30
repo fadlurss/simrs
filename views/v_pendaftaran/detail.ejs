@@ -38,6 +38,14 @@
                   <%= data_pendaftaran.id_pasien.nama_pasien %>
                 </td>
               </tr>
+              <tr>
+                <td width='200'>Riwayat Diagnosa Pakar Pasien</td>
+                <td>
+                  <% data_pendaftaran.id_pasien.id_diagnosa_pakar.forEach(function(comment) { %>
+                  <%= comment.nama_diagnosa %>
+                  <% }) %>
+                </td>
+              </tr>
             </table>
 
           </div>

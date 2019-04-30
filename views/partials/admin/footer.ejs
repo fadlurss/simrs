@@ -639,7 +639,7 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost/pendaftaran/cari_dokter").then((
+            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_dokter").then((
                 res) => {
                 var choices = res;
                 var suggestions = [];
@@ -683,23 +683,23 @@
         }
     });
 
-    // var demo6 = new autoComplete({
-    //     selector: '#cari_dokter',
-    //     // selector: '#cari_dokter2',
-    //     minChars: 1,
-    //     source: function (term, suggest) {
-    //         term = term.toLowerCase();
-    //         var contoh = $.getJSON("http://localhost/pendaftaran/cari_dokter").then((
-    //             res) => {
-    //             var choices = res;
-    //             var suggestions = [];
-    //             for (i = 0; i < choices.length; i++)
-    //                 if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
-    //             suggest(suggestions);
-    //         });
+    var demo6 = new autoComplete({
+        selector: '#cari_dokter',
+        // selector: '#cari_dokter2',
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_dokter").then((
+                res) => {
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
 
-    //     }
-    // });
+        }
+    });
 
     var demo7 = new autoComplete({
         selector: '#cari_petugas',
@@ -1033,7 +1033,7 @@
 
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost/pendaftaran/cariibu", {
+        $.post("http://localhost:4000/pendaftaran/cariibu", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -1047,7 +1047,7 @@
 
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost/pendaftaran/cariibu", {
+        $.post("http://localhost:4000/pendaftaran/cariibu", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -1061,7 +1061,7 @@
 
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost/pendaftaran/cariibu", {
+        $.post("http://localhost:4000/pendaftaran/cariibu", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -1077,7 +1077,7 @@
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
 
-        $.post("http://localhost/pendaftaran/cariibu", {
+        $.post("http://localhost:4000/pendaftaran/cariibu", {
             np: np
         }).then((r) => {
             console.log(r);

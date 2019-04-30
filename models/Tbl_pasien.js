@@ -36,7 +36,11 @@ var tbl_pasienSchema = mongoose.Schema({
     status_menikah: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_status_menikah'
-    }
+    },
+    id_diagnosa_pakar: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tbl_riwayat_diagnosa'
+    }]
 }, {
     timestamps: true,
     collection: 'tbl_pasien',

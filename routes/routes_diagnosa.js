@@ -4,6 +4,7 @@ Diagnosa_pakar = require("../models/Tbl_diagnosa_pakar")
 Gejala_pakar = require("../models/Tbl_gejala_pakar")
 Relasi_pakar = require("../models/Tbl_relasi_pakar")
 Riwayat_diagnosa = require("../models/Tbl_riwayat_diagnosa")
+Pasien = require("../models/Tbl_pasien")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
@@ -67,7 +68,19 @@ router.post("/insertriwayat", middleware.asyncMiddleware(async (req, res, next) 
     var get_data = req.body;
     // req.user
     get_data.id_user = req.user;
+    const cari_user = req.user;
+    const a = cari_user.local.id_pasien;
+
     const add_riwayat_diagnosa = await Riwayat_diagnosa.create(get_data);
+
+    // Tambah riwayat diagnosa ke tabel pasien
+    Pasien.findById(a, async (err, hasilnya) => {
+        // console.log(hasilnya);
+        const alpha = await Riwayat_diagnosa.create(req.body);
+        hasilnya.id_diagnosa_pakar.push(alpha);
+        hasilnya.save();
+    });
+
     if (add_riwayat_diagnosa) {
         res.json({
             "status": 1,
