@@ -14,6 +14,7 @@ PJRiwayattindakan = require("../models/Tbl_pj_riwayattindakan")
 Riwayatdiagnosa = require("../models/Tbl_riwayatdiagnosa")
 PJRiwayatdiagnosa = require("../models/Tbl_pj_riwayatdiagnosa")
 Riwayat_diagnosa_pakar = require("../models/Tbl_riwayat_diagnosa")
+Riwayat_periksa_lab = require("../models/Tbl_hasil_periksa_lab")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
@@ -238,6 +239,15 @@ router.post('/:id/new_riwayatdiagnosa', middleware.asyncMiddleware(async (req, r
     });
 }))
 
+router.post('/:id/new_riwayatlab', middleware.asyncMiddleware(async (req, res, next) => {
+    Pendaftaran.findById(req.params.id, async (err, hasil) => {
+        const newR = await Riwayat_periksa_lab.create(req.body);
+        hasil.id_riwayat_periksa_lab.push(newR);
+        hasil.save();
+        res.redirect("/pendaftaran/" + req.params.id + "/detail");
+    });
+}))
+
 
 router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
     const data_pendaftaran = await Pendaftaran.findById(req.params.id)
@@ -249,10 +259,10 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
         })
         .populate("id_dokter_penanggung_jawab")
         .populate({
-            path: "id_riwayatdiagnosa",
-            populate: {
-                path: "id_diagnosa"
-            }
+            path: "id_riwayatdiagnosa"
+        })
+        .populate({
+            path: "id_riwayat_periksa_lab"
         })
         .populate({
             path: "id_riwayattindakan",
@@ -260,16 +270,6 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
                 path: "id_tindakan"
             }
         });
-    const rdp = await Riwayat_diagnosa_pakar.find();
-    // const riwayat_diagnosa_pakar = await Riwayat_diagnosa_pakar.find()
-    //     .populate({
-    //         path: "id_user",
-    //         populate: {
-    //             path: "id_pasien"
-    //         }
-    //     });
-    // console.log(riwayat_diagnosa_pakar);
-
 
     total = 0;
     subtotal = 0;
@@ -278,11 +278,8 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
         total = total + comment.id_tindakan.tarif;
     });
 
-
-
     res.render("v_pendaftaran/detail", {
         data_pendaftaran: data_pendaftaran,
-        rdp: rdp,
         total: total,
         subtotal: subtotal
     });

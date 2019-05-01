@@ -10,161 +10,51 @@
   </div>
   <!-- /.row -->
   <div class="row">
-    <div class="col-lg-12">
 
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Biodata Pasien
-          </div>
-          <!-- /.panel-heading -->
-          <div class="panel-body table-responsive">
-            <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
-              <tr>
-                <td width='200'>No Rawat</td>
-                <td>
-                  <%= data_pendaftaran.no_rawat %>
-                </td>
-              </tr>
-              <tr>
-                <td width='200'>No Rekamedis</td>
-                <td>
-                  <%= data_pendaftaran.id_pasien.no_rm %>
-                </td>
-              </tr>
-              <tr>
-                <td width='200'>Nama Pasien</td>
-                <td>
-                  <%= data_pendaftaran.id_pasien.nama_pasien %>
-                </td>
-              </tr>
-              <tr>
-                <td width='200'>Riwayat Diagnosa Pakar Pasien</td>
-                <td>
-                  <% data_pendaftaran.id_pasien.id_diagnosa_pakar.forEach(function(comment) { %>
-                  <%= comment.nama_diagnosa %>
-                  <% }) %>
-                </td>
-              </tr>
-            </table>
 
-          </div>
-
-          <!-- /.panel-body -->
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Biodata Pasien
         </div>
-      </div>
-
-      <div class="col-md-6">
-        <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayatdiagnosa"
-          method="POST" id="tambah_pendaftaran">
-          <table class="table table-bordered">
-
-            <input value="<%= data_pendaftaran.id %>" type="hidden" name="id_pendaftaran">
+        <!-- /.panel-heading -->
+        <div class="panel-body table-responsive">
+          <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
             <tr>
-              <td colspan="2">
-                <center>Input Diagnosa</center>
+              <td width='200'>No Rawat</td>
+              <td>
+                <%= data_pendaftaran.no_rawat %>
               </td>
             </tr>
             <tr>
-              <td width="200">Dilakukan Oleh</td>
+              <td width='200'>No Rekamedis</td>
               <td>
-                <input type="text" name="dilakukan_oleh" value="Dokter" readonly class="form-control">
+                <%= data_pendaftaran.id_pasien.no_rm %>
               </td>
             </tr>
             <tr>
-              <td>Nama Dokter</td>
+              <td width='200'>Nama Pasien</td>
               <td>
-                <input type="text" name="nama_dokter" readonly
-                  value="<%= data_pendaftaran.id_dokter_penanggung_jawab.nama_dokter %>"
-                  placeholder="Masukan Nama Dokter" class="form-control">
-                <input type="hidden" name="id_dokter" value="<%= data_pendaftaran.id_dokter_penanggung_jawab %>"
-                  class="form-control">
+                <%= data_pendaftaran.id_pasien.nama_pasien %>
               </td>
             </tr>
             <tr>
-              <td>DS</td>
+              <td width='200'>Riwayat Diagnosa Pakar Pasien</td>
               <td>
-                <input type="text" required name="ds" class="form-control ui-autocomplete-input">
-            </tr>
-            <tr>
-              <td>DO</td>
-              <td>
-                <input type="text" required name="do" class="form-control ui-autocomplete-input">
-            </tr>
-            <tr>
-              <td>Keterangan</td>
-              <td><textarea class="form-control" name="keterangan" id="" cols="2" rows="2"></textarea></td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <center><button type="submit" class="btn btn-primary">Simpan Data</button></center>
+                <% data_pendaftaran.id_pasien.id_diagnosa_pakar.forEach(function(comment) { %>
+                <%= comment.nama_diagnosa %>
+                <% }) %>
               </td>
             </tr>
           </table>
-        </form>
+
+        </div>
+
+        <!-- /.panel-body -->
       </div>
-
-      <div class="col-md-6">
-        <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayattindakan"
-          method="POST" id="tambah_pendaftaran">
-          <table class="table table-bordered">
-
-            <input value="<%= data_pendaftaran.id %>" type="hidden" name="id_pendaftaran">
-            <tr>
-              <td colspan="2">
-                <center>Input Tindakan</center>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">Dilakukan Oleh</td>
-              <td>
-                <input type="text" name="dilakukan_oleh" value="Dokter" readonly class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td>Nama Dokter</td>
-              <td>
-                <input type="text" name="nama_dokter" readonly
-                  value="<%= data_pendaftaran.id_dokter_penanggung_jawab.nama_dokter %>"
-                  placeholder="Masukan Nama Dokter" class="form-control">
-                <input type="hidden" name="id_dokter" value="<%= data_pendaftaran.id_dokter_penanggung_jawab %>"
-                  class="form-control">
-              </td>
-            </tr>
-
-            <tr>
-              <td>Nama Tindakan</td>
-              <td>
-                <input type="text" required placeholder="Masukan Nama Tindakan" name="nama_tindakan" id="cari_tindakan"
-                  class="form-control ui-autocomplete-input"><input type="hidden" name="id_tindakan" id="id_tindakan"
-                  class="form-control ui-autocomplete-input">
-              </td>
-            </tr>
-            <tr>
-              <td>Hasil Periksa</td>
-              <td><input type="text" required name="hasil_periksa" placeholder="masukan hasil Periksa"
-                  class="form-control"></td>
-            </tr>
-            <tr>
-              <td>Perkembangan</td>
-              <td><input type="text" required name="perkembangan" placeholder="masukan perkembangan sekarang"
-                  class="form-control"></td>
-            </tr>
-            <tr>
-              <td>Resep Obat</td>
-              <td><textarea class="form-control" name="resep_obat" id="" cols="2" rows="2"></textarea></td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <center><button type="submit" class="btn btn-primary">Simpan Data</button></center>
-              </td>
-            </tr>
-          </table>
-        </form>
-      </div>
-
-
     </div>
+
+
 
 
     <div class="col-md-12">
@@ -262,6 +152,237 @@
       </div>
     </div>
 
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Riwayat Pemeriksaan Laboratorium
+        </div>
+        <!-- /.panel-heading -->
+
+        <div class="panel-body table-responsive">
+          <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
+            <thead>
+              <tr>
+                <th>Jenis Pemeriksaan</th>
+                <th>Hasil Pemeriksaan</th>
+                <th>Satuan</th>
+                <th>Nilai Rujukan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data_pendaftaran.id_riwayat_periksa_lab.forEach(function(comment) { %>
+              <tr>
+                <td>
+                  <%= comment.jenis_pemeriksaan %>
+                </td>
+                <td>
+                  <%= comment.hasil_pemeriksaan %>
+                </td>
+                <td>
+                  <%= comment.satuan %>
+                </td>
+                <td>
+                  <%= comment.nilai_rujukan %>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+
+        </div>
+        <!-- /.panel-body -->
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayatdiagnosa"
+        method="POST" id="tambah_pendaftaran">
+        <table class="table table-bordered">
+
+          <input value="<%= data_pendaftaran.id %>" type="hidden" name="id_pendaftaran">
+          <tr>
+            <td colspan="2">
+              <center>Input Diagnosa</center>
+            </td>
+          </tr>
+          <tr>
+            <td width="200">Dilakukan Oleh</td>
+            <td>
+              <input type="text" name="dilakukan_oleh" value="Dokter" readonly class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Dokter</td>
+            <td>
+              <input type="text" name="nama_dokter" readonly
+                value="<%= data_pendaftaran.id_dokter_penanggung_jawab.nama_dokter %>" placeholder="Masukan Nama Dokter"
+                class="form-control">
+              <input type="hidden" name="id_dokter" value="<%= data_pendaftaran.id_dokter_penanggung_jawab %>"
+                class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>DS</td>
+            <td>
+              <input type="text" required name="ds" class="form-control ui-autocomplete-input">
+          </tr>
+          <tr>
+            <td>DO</td>
+            <td>
+              <input type="text" required name="do" class="form-control ui-autocomplete-input">
+          </tr>
+          <tr>
+            <td>Keterangan</td>
+            <td><textarea class="form-control" name="keterangan" id="" cols="2" rows="2"></textarea></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <center><button type="submit" class="btn btn-primary">Simpan Data</button></center>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayattindakan"
+        method="POST" id="tambah_pendaftaran">
+        <table class="table table-bordered">
+
+          <input value="<%= data_pendaftaran.id %>" type="hidden" name="id_pendaftaran">
+          <tr>
+            <td colspan="2">
+              <center>Input Tindakan</center>
+            </td>
+          </tr>
+          <tr>
+            <td width="200">Dilakukan Oleh</td>
+            <td>
+              <input type="text" name="dilakukan_oleh" value="Dokter" readonly class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Dokter</td>
+            <td>
+              <input type="text" name="nama_dokter" readonly
+                value="<%= data_pendaftaran.id_dokter_penanggung_jawab.nama_dokter %>" placeholder="Masukan Nama Dokter"
+                class="form-control">
+              <input type="hidden" name="id_dokter" value="<%= data_pendaftaran.id_dokter_penanggung_jawab %>"
+                class="form-control">
+            </td>
+          </tr>
+
+          <tr>
+            <td>Nama Tindakan</td>
+            <td>
+              <input type="text" required placeholder="Masukan Nama Tindakan" name="nama_tindakan" id="cari_tindakan"
+                class="form-control ui-autocomplete-input"><input type="hidden" name="id_tindakan" id="id_tindakan"
+                class="form-control ui-autocomplete-input">
+            </td>
+          </tr>
+          <tr>
+            <td>Hasil Periksa</td>
+            <td><input type="text" required name="hasil_periksa" placeholder="masukan hasil Periksa"
+                class="form-control"></td>
+          </tr>
+          <tr>
+            <td>Perkembangan</td>
+            <td><input type="text" required name="perkembangan" placeholder="masukan perkembangan sekarang"
+                class="form-control"></td>
+          </tr>
+          <tr>
+            <td>Resep Obat</td>
+            <td><textarea class="form-control" name="resep_obat" id="" cols="2" rows="2"></textarea></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <center><button type="submit" class="btn btn-primary">Simpan Data</button></center>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+
+    <div>
+      <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayatlab"
+        method="POST" id="tambah_pendaftaran">
+        <table class="table table-bordered">
+
+          <input value="<%= data_pendaftaran.id %>" type="hidden" name="id_pendaftaran">
+          <tr>
+            <td colspan="2">
+              <center>Input Pemeriksaan Laboratorium</center>
+            </td>
+          </tr>
+          <tr>
+            <td width="200">Dilakukan Oleh</td>
+            <td>
+              <input type="text" name="dilakukan_oleh" value="Dokter" readonly class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Dokter</td>
+            <td>
+              <input type="text" name="nama_dokter" readonly
+                value="<%= data_pendaftaran.id_dokter_penanggung_jawab.nama_dokter %>" placeholder="Masukan Nama Dokter"
+                class="form-control">
+              <input type="hidden" name="id_dokter" value="<%= data_pendaftaran.id_dokter_penanggung_jawab.id %>"
+                class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Pasien</td>
+            <td>
+              <input type="text" readonly name="nama_pasien" value="<%= data_pendaftaran.id_pasien.nama_pasien %>"
+                class="form-control ui-autocomplete-input"><input type="hidden" name="id_pasien"
+                value="<%= data_pendaftaran.id_pasien.id %>">
+            </td>
+          </tr>
+          <tr>
+          <tr>
+            <td>Umur</td>
+            <td>
+              <input type="text" readonly name="umur_pasien" value="<%= data_pendaftaran.id_pasien.umur %>"
+                class="form-control ui-autocomplete-input">
+            </td>
+          </tr>
+          <tr>
+            <td>Alamat</td>
+            <td>
+              <input type="text" readonly name="alamat_pasien" value="<%= data_pendaftaran.id_pasien.alamat %>"
+                class="form-control ui-autocomplete-input">
+            </td>
+          </tr>
+          <tr>
+            <td>Tanggal Periksa</td>
+            <td>
+              <input type="date" id="date" readonly name="tanggal_periksa" class="form-control ui-autocomplete-input">
+            </td>
+          </tr>
+          <tr>
+            <td>Jenis Pemeriksaan</td>
+            <td><input type="text" placeholder="Contoh: asam urat" name="jenis_pemeriksaan" class="form-control"></td>
+          </tr>
+          <tr>
+            <td>Hasil Pemeriksaan</td>
+            <td><input type="text" placeholder="Contoh: 3.1" name="hasil_pemeriksaan" class="form-control"></td>
+          </tr>
+          <tr>
+            <td>Satuan</td>
+            <td><input type="text" name="satuan" placeholder="Contoh: mg/dl" class="form-control"></td>
+          </tr>
+          <tr>
+            <td>Nilai Rujukan</td>
+            <td><input type="text" name="nilai_rujukan" placeholder="Contoh: 4.7-7" class="form-control"></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <center><button type="submit" class="btn btn-primary">Simpan Data</button></center>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
     <!-- /.panel -->
   </div>
   <!-- /.col-lg-12 -->

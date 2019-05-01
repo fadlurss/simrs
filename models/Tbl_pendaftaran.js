@@ -38,6 +38,10 @@ var tbl_pendaftaranSchema = mongoose.Schema({
     id_riwayatdiagnosa: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_riwayatdiagnosa'
+    }],
+    id_riwayat_periksa_lab: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tbl_hasil_periksa_lab'
     }]
 }, {
     timestamps: true,
