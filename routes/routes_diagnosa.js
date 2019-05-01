@@ -18,7 +18,7 @@ const schema = Joi.object().keys({
     submit: Joi.any()
 })
 
-router.get('/', middlewareObj.isLoggedIn, middleware.asyncMiddleware(async (req, res, next) => {
+router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     const alldiagnosa_pakar = await Gejala_pakar.find({});
     res.render('v_access/diagnosa', {
         alldiagnosa_pakar: alldiagnosa_pakar

@@ -92,6 +92,9 @@
 										<a href="/jadwaldokter">Jadwal Dokter</a>
 									</li>
 									<li class="has-dropdown">
+										<a href="/diagnosa">Diagnosa Penyakit</a>
+									</li>
+									<li class="has-dropdown">
 										<a href="/pendaftaran/daftar">Daftar Antrian</a>
 									</li>
 									<!-- <li><a href="/hubungikami">Hubungi Kami</a></li> -->
@@ -100,9 +103,7 @@
 									<li><a href="/login">Login</a></li>
 
 									<% } else { %>
-									<li class="has-dropdown">
-										<a href="/diagnosa">Diagnosa Penyakit</a>
-									</li>
+
 
 									<li><a href="/users/<%= currentUser.id %>">Halo,
 											<%= currentUser.local.firstName %></a>
