@@ -1,6 +1,11 @@
 var mongoose = require("mongoose");
 
 var tbl_hasil_periksa_labSchema = mongoose.Schema({
+
+    id_riwayat_diagnosa: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tbl_riwayatdiagnosa'
+    },
     id_dokter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_dokter'
@@ -12,7 +17,7 @@ var tbl_hasil_periksa_labSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_pasien'
     },
-    alamat: {
+    alamat_pasien: {
         type: String
     },
     tanggal_periksa: {

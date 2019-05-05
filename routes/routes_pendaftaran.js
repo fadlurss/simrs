@@ -221,20 +221,101 @@ router.post('/:id/new_riwayattindakan', middleware.asyncMiddleware(async (req, r
     });
 }))
 
+// router.post('/:id/new_riwayatdiagnosa', middleware.asyncMiddleware(async (req, res, next) => {
+//     Pendaftaran.findById(req.params.id, async (err, hasil_pendaftaran) => {
+//         const newR = await Riwayatdiagnosa.create(req.body);
+//         hasil_pendaftaran.id_riwayatdiagnosa.push(newR);
+//         hasil_pendaftaran.save();
+//         const id_riwayat_diagnosa = newR.id;
+//         const id_dokter = req.body.id_dokter;
+//         const dilakukan_oleh = req.body.dilakukan_oleh;
+//         const id_pasien = req.body.id_pasien;
+//         const umur_pasien = req.body.umur_pasien;
+//         const alamat_pasien = req.body.alamat_pasien;
+//         const tanggal_periksa = req.body.tanggal_periksa;
+//         const jenis_pemeriksaan = req.body.jenis_pemeriksaan;
+//         const hasil_pemeriksaan = req.body.hasil_pemeriksaan;
+//         const satuan = req.body.satuan;
+//         const nilai_rujukan = req.body.nilai_rujukan;
+//         const new_pj_riwayat_diagnosa = {
+//             id_riwayat_diagnosa: id_riwayat_diagnosa,
+//             id_dokter: id_dokter._id,
+//             dilakukan_oleh: dilakukan_oleh
+//         }
+//         const new_riwayat_lab = {
+//             id_riwayat_diagnosa: id_riwayat_diagnosa,
+//             id_dokter: id_dokter._id,
+//             dilakukan_oleh: dilakukan_oleh,
+//             id_pasien: id_pasien,
+//             umur_pasien: umur_pasien,
+//             alamat_pasien: alamat_pasien,
+//             tanggal_periksa: tanggal_periksa,
+//             jenis_pemeriksaan: jenis_pemeriksaan,
+//             hasil_pemeriksaan: hasil_pemeriksaan,
+//             satuan: satuan,
+//             nilai_rujukan: nilai_rujukan
+//         }
+//         const input_pj_riwayat_diagnosa = await PJRiwayatdiagnosa.create(new_pj_riwayat_diagnosa);
+//         const input_riwayat_lab = await Riwayat_periksa_lab.create(new_riwayat_lab);
+//         res.redirect("/pendaftaran/" + req.params.id + "/detail");
+//     });
+// }))
+
 router.post('/:id/new_riwayatdiagnosa', middleware.asyncMiddleware(async (req, res, next) => {
     Pendaftaran.findById(req.params.id, async (err, hasil_pendaftaran) => {
-        const newR = await Riwayatdiagnosa.create(req.body);
+        const id_dokter = req.body.id_dokter;
+        const dilakukan_oleh = req.body.dilakukan_oleh;
+        const id_pasien = req.body.id_pasien;
+        const umur_pasien = req.body.umur_pasien;
+        const alamat_pasien = req.body.alamat_pasien;
+        const tanggal_periksa = req.body.tanggal_periksa;
+        const jenis_pemeriksaan = req.body.jenis_pemeriksaan;
+        const hasil_pemeriksaan = req.body.hasil_pemeriksaan;
+        const satuan = req.body.satuan;
+        const nilai_rujukan = req.body.nilai_rujukan;
+        const new_riwayat_lab = {
+            id_dokter: id_dokter._id,
+            dilakukan_oleh: dilakukan_oleh,
+            id_pasien: id_pasien,
+            umur_pasien: umur_pasien,
+            alamat_pasien: alamat_pasien,
+            tanggal_periksa: tanggal_periksa,
+            jenis_pemeriksaan: jenis_pemeriksaan,
+            hasil_pemeriksaan: hasil_pemeriksaan,
+            satuan: satuan,
+            nilai_rujukan: nilai_rujukan
+        }
+        const input_riwayat_lab = await Riwayat_periksa_lab.create(new_riwayat_lab);
+        const get_id_riwayatlab = input_riwayat_lab.id;
+
+
+        const ds = req.body.ds;
+        const doo = req.body.do;
+        const keterangan = req.body.keterangan;
+        const input_data_riwayat_diagnosa = {
+            ds: ds,
+            do: doo,
+            keterangan: keterangan,
+            id_riwayat_periksa_lab: get_id_riwayatlab
+        };
+        const newR = await Riwayatdiagnosa.create(input_data_riwayat_diagnosa);
         hasil_pendaftaran.id_riwayatdiagnosa.push(newR);
         hasil_pendaftaran.save();
         const id_riwayat_diagnosa = newR.id;
-        const id_dokter = req.body.id_dokter;
-        const dilakukan_oleh = req.body.dilakukan_oleh;
+
+
         const new_pj_riwayat_diagnosa = {
             id_riwayat_diagnosa: id_riwayat_diagnosa,
             id_dokter: id_dokter._id,
             dilakukan_oleh: dilakukan_oleh
         }
+
         const input_pj_riwayat_diagnosa = await PJRiwayatdiagnosa.create(new_pj_riwayat_diagnosa);
+
+        const add = {
+            id_riwayat_periksa_lab: get_id_riwayatlab
+        }
+        // const gamma = await Riwayatdiagnosa.findOneAndUpdate(add);
         res.redirect("/pendaftaran/" + req.params.id + "/detail");
     });
 }))
@@ -259,10 +340,10 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
         })
         .populate("id_dokter_penanggung_jawab")
         .populate({
-            path: "id_riwayatdiagnosa"
-        })
-        .populate({
-            path: "id_riwayat_periksa_lab"
+            path: "id_riwayatdiagnosa",
+            populate: {
+                path: "id_riwayat_periksa_lab"
+            }
         })
         .populate({
             path: "id_riwayattindakan",
@@ -270,6 +351,9 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
                 path: "id_tindakan"
             }
         });
+    // console.log(data_pendaftaran.id_riwayatdiagnosa[0].id_riwayat_periksa_lab);
+
+    const data_periksa_lab = await Riwayat_periksa_lab.find().populate("id_riwayat_diagnosa");
 
     total = 0;
     subtotal = 0;

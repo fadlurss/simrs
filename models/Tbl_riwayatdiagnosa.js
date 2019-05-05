@@ -13,6 +13,10 @@ var tbl_riwayatdiagnosaSchema = mongoose.Schema({
     tanggal: {
         type: Date,
         default: Date.now
+    },
+    id_riwayat_periksa_lab: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tbl_hasil_periksa_lab'
     }
 }, {
     timestamps: false,
