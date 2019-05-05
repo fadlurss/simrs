@@ -370,7 +370,7 @@
               );
               $("#block").find(".gejala").html("<h3>Gejala Yang Di Pilih</h3><hr>" + gejala_set);
               $.post("diagnosa/insertriwayat", {
-                persentansi: (set.value * 100) + "%",
+                persentansi: (Math.trunc((set.value * 100))) + "%",
                 nama_diagnosa: penyakit
               }, function (rs) {
                 if (rs.status == 1) {
