@@ -1,6 +1,92 @@
 <% include ../partials/header2 %>
-<div id="page-wrapper">
+<style media="screen">
+  #text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
+  #overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+  .spinner {
+  margin: 100px auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px;
+}
 
+.spinner > div {
+  background-color: #333;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+  20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% {
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
+}
+</style>
+<div id="page-wrapper">
+  <div id="overlay">
+    <div id="text">
+      <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
+    </div>
+  </div>
 
   <% if(!currentUser) { %>
   <div class="container">
@@ -79,6 +165,13 @@
 <% include ../partials/footer %>
 <script type="text/javascript">
   $(document).ready(function () {
+    function on() {
+      document.getElementById("overlay").style.display = "block";
+    }
+
+    function off() {
+      document.getElementById("overlay").style.display = "none";
+    }
     function algoritmaDS(selected, g, r, d) {
       console.log(selected);
       console.log(g);
@@ -242,6 +335,7 @@
       });
       console.log("Terpilih");
       if (selected.length > 0) {
+        on();
         $.get("diagnosa/getgejala", function (rs) {
           gejala = rs;
           $.get("diagnosa/getrelasi", function (rx) {
@@ -260,8 +354,8 @@
               $.each(selected, function (index, e) {
                 setit = "";
                 $.each(gejala, function (i, el) {
-                  if (e == el.kode_gejala) {
-                    setit = el.nama_gejala;
+                  if (e == el.kode) {
+                    setit = el.nama;
                   }
                 });
                 gejala_set += "<p>" + setit + "</p>";
@@ -287,6 +381,8 @@
                   $("#block").find("#diagnosa_riwayat").DataTable({
                     ajax: "diagnosa/getriwayat"
                   });
+                  off();
+                  location.href = "#block";
                 } else {
                   toastr.error(rs.msg);
                 }

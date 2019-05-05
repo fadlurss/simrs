@@ -6,12 +6,10 @@
     "start": "nodemon app.js"
   },
   "heroku-run-build-script": true,
-
   "engines": {
     "node": "10.14.0",
     "npm": "6.4.1"
   },
-
   "dependencies": {
     "async": "^2.6.1",
     "bcrypt-nodejs": "0.0.3",
