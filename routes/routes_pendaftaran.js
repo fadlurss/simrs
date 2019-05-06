@@ -21,6 +21,7 @@ asyncMiddleware = require("../middleware");
 var moment = require('moment');
 var now = moment().toDate();
 
+
 const schema = Joi.object().keys({
     no_registrasi: Joi.number().required(),
     no_rawat: Joi.string(),
@@ -352,8 +353,31 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
             }
         });
     // console.log(data_pendaftaran.id_riwayatdiagnosa[0].id_riwayat_periksa_lab);
+    const pipeline = [{
+            $project: {
+                _id: 0,
+                Riwayatdiagnosa: "$$ROOT"
+            }
+        },
+        {
+            $lookup: {
+                "localField": Riwayatdiagnosa.id_riwayat_periksa_lab,
+                "from": Riwayat_periksa_lab,
+                "foreignField": "_id",
+                "as": Riwayat_periksa_lab
+            }
+        },
+        {
+            $unwind: {
+                "path": "$Riwayat_periksa_lab",
+                "preserveNullAndEmptyArrays": false
+            }
+        }
+    ];
 
-    const data_periksa_lab = await Riwayat_periksa_lab.find().populate("id_riwayat_diagnosa");
+    console.log(pipeline);
+
+
 
     total = 0;
     subtotal = 0;
