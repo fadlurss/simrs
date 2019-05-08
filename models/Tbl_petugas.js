@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
-var tbl_dokterSchema = new mongoose.Schema({
+var tbl_petugasSchema = new mongoose.Schema({
     id_users: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    nama_dokter: {
+    nama_petugas: {
         type: String
     },
     jenis_kelamin: {
@@ -30,25 +30,18 @@ var tbl_dokterSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_status_menikah'
     },
-    spesialis: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tbl_spesialis'
-    },
-    no_izin_praktek: {
+    sk_pengangkatan: {
         type: String
     },
     gaji_pokok: {
-        type: Number
-    },
-    tarif_dokter: {
         type: Number
     }
 
 }, {
     timestamps: false,
-    collection: 'tbl_dokter',
+    collection: 'tbl_petugas',
     versionKey: false
 });
 
 
-module.exports = mongoose.model("Tbl_dokter", tbl_dokterSchema);
+module.exports = mongoose.model("Tbl_petugas", tbl_petugasSchema);

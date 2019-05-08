@@ -123,9 +123,11 @@
 
 									<% } else { %>
 
-
+									<% if(currentUser.local.level === "Dokter" || currentUser.local.level === "Petugas"){ %>
+									<li><a href="/pendaftaran">Dashboard</a></li>
+									<%  } %>
 									<li><a href="/users/<%= currentUser.id %>">Halo,
-											<%= currentUser.local.firstName %></a> </li>
+											<%= currentUser.local.username %></a> </li>
 									<li> <a class="nav-link" href="/logout">Keluar</a></li>
 									<% }  %>
 

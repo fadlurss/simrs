@@ -15,6 +15,7 @@ var crypto = require('crypto');
 // load up the user model
 var User = require('../models/user');
 var User2 = require('../models/Tbl_pasien');
+var User3 = require('../models/Tbl_dokter');
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing
@@ -64,10 +65,10 @@ module.exports = function (passport) {
 
                     // if no user is found, return the message
                     if (!user)
-                        return done(null, false, req.flash('loginMessage', 'No user found.'));
+                        return done(null, false, req.flash('loginMessage', 'User tidak ditemukan.'));
 
                     if (!user.local.activeReg)
-                        return done(null, false, req.flash('loginMessage', 'You must verify email address.'));
+                        return done(null, false, req.flash('loginMessage', 'Kamu harus verifikasi akun di email kamu.'));
 
 
                     if (user.validPassword(password)) {
@@ -102,8 +103,7 @@ module.exports = function (passport) {
                 return this.charAt(0).toUpperCase() + this.slice(1);
             }
 
-            var firstName = req.body.firstName.capitalize();
-            lastName = req.body.lastName.replace(/[^A-Za-z]/g, '').toLowerCase();
+            var firstName = req.body.firstName;
             username = req.body.username.split(" ").join("");
             jenis_kelamin = req.body.jenis_kelamin;
             tanggal_lahir = req.body.tanggal_lahir;
@@ -124,11 +124,10 @@ module.exports = function (passport) {
             process.nextTick(function () {
                 // if the user is not already logged in:
                 if (!req.user) {
-                    req.checkBody('email', 'Invalid email format').notEmpty().isEmail();
-                    req.checkBody('firstName', 'Invalid first name').notEmpty();
-                    req.checkBody('lastName', 'Invalid last name').notEmpty();
-                    req.checkBody('username', 'Invalid username').notEmpty();
-                    req.checkBody('password', 'Invalid password, min password length is 8').notEmpty().isLength({
+                    req.checkBody('email', 'Email tidak benar!').notEmpty().isEmail();
+                    req.checkBody('firstName', 'Nama lengkap harus diisi!').notEmpty();
+                    req.checkBody('username', 'Username tidak benar!').notEmpty();
+                    req.checkBody('password', 'Password minimal 8 karakter!').notEmpty().isLength({
                         min: 8,
                         max: 100
                     });
@@ -156,29 +155,25 @@ module.exports = function (passport) {
                             // create the user
                             var newUser = new User();
                             var newUser2 = new User2();
+                            var Dokter = new User3();
                             // eval(require('locus'))
                             if (req.body.adminCode === 'kode_admin') {
                                 newUser.local.isAdmin = true;
                             }
-                            if (req.body.dokterCode === 'kode_dokter') {
+                            if (req.body.dokterCode === 'dokter') {
                                 newUser.local.isDokter = true;
                             }
 
                             //BUAT NGIRIM EMAIL, klw disimpan dibawah, akan error
+                            // INPUT KE database users
                             newUser.local.email = email;
+                            newUser.local.firstName = firstName;
                             newUser.local.username = username;
+                            newUser.local.password = newUser.generateHash(password);
                             newUser.local.tokenReg = randomToken;
+                            newUser.local.activeReg = true;
+                            newUser.local.level = "Pasien";
 
-                            newUser2.nama_pasien = firstName + " " + lastName;
-                            newUser2.tanggal_lahir = tanggal_lahir;
-                            newUser2.umur = umur;
-                            newUser2.alamat = alamat;
-                            newUser2.pekerjaan = pekerjaan;
-                            newUser2.no_hp = no_hp;
-                            newUser2.jenis_kelamin = jenis_kelamin;
-                            newUser2.agama = agama;
-                            newUser2.status_menikah = status_menikah;
-                            newUser2.no_rm = no_rm;
 
 
                             //create a token
@@ -188,35 +183,29 @@ module.exports = function (passport) {
                                 expiresIn: 86400 //expires in 24 hours
                             });
 
-                            // req.flash('success', 'This is your token '+token);
-                            // res.status(200).send({auth:true, token: token});
 
-                            newUser2.save(function (err) {
-                                const id_pasien = newUser2._id;
-                                newUser.local.id_pasien = id_pasien;
-                                newUser.local.email = email;
-                                newUser.local.firstName = firstName;
-                                newUser.local.lastName = lastName;
-                                newUser.local.username = username;
-                                newUser.local.password = newUser.generateHash(password);
-                                newUser.local.tokenReg = randomToken;
-                                newUser.local.jenis_kelamin = jenis_kelamin;
-                                newUser.local.tanggal_lahir = tanggal_lahir;
-                                newUser.local.umur = umur;
-                                newUser.local.id_agama = agama;
-                                newUser.local.status_menikah = status_menikah;
-                                newUser.local.alamat = alamat;
-                                newUser.local.pekerjaan = pekerjaan;
-                                newUser.local.no_hp = no_hp;
-                                newUser.local.no_rm = no_rm;
-                                newUser.local.activeReg = false;
+                            newUser.save(function (err) {
+                                newUser2.id_users = newUser._id;
+                                newUser2.nama_pasien = firstName;
+                                newUser2.tanggal_lahir = tanggal_lahir;
+                                newUser2.umur = umur;
+                                newUser2.alamat = alamat;
+                                newUser2.pekerjaan = pekerjaan;
+                                newUser2.no_hp = no_hp;
+                                newUser2.jenis_kelamin = jenis_kelamin;
+                                newUser2.agama = agama;
+                                newUser2.status_menikah = status_menikah;
+                                newUser2.no_rm = no_rm;
 
-                                newUser.save(function (err) {
+                                newUser2.save(function (err) {
                                     if (err)
                                         return done(err);
                                     return done(null, newUser, req.flash('success', 'Selamat anda berhasil registrasi, silakan cek alamat email anda sekarang!'));
                                 });
+
                             });
+
+
 
 
                             // var transporter = nodemailer.createTransport(smtpTransport({

@@ -13,36 +13,9 @@ var userSchema = mongoose.Schema({
             unique: true
         },
         firstName: String,
-        lastName: String,
         username: String,
-        no_rm: String,
-        jenis_kelamin: String,
-        tanggal_lahir: String,
-        umur: String,
-        id_agama: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Tbl_agama'
-        },
-        status_menikah: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Tbl_status_menikah'
-        },
-        id_pasien: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Tbl_pasien'
-        },
-        alamat: String,
-        pekerjaan: String,
-        no_hp: String,
         password: String,
-        isAdmin: {
-            type: Boolean,
-            default: false
-        },
-        isDokter: {
-            type: Boolean,
-            default: false
-        },
+        level: String,
         resetPasswordToken: {
             type: String,
             default: null
@@ -52,13 +25,7 @@ var userSchema = mongoose.Schema({
             default: Date.Now
         },
         tokenReg: String,
-        activeReg: Boolean,
-        statusAkun: {
-            type: Boolean,
-            default: false
-        },
-        image_ktp: String,
-        image_ktp_selfie: String
+        activeReg: Boolean
     }
 
 });

@@ -40,7 +40,11 @@ var tbl_pasienSchema = mongoose.Schema({
     id_diagnosa_pakar: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_riwayat_diagnosa'
-    }]
+    }],
+    id_users: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
 }, {
     timestamps: true,
     collection: 'tbl_pasien',

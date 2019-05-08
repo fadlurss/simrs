@@ -15,8 +15,9 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>?_method=PUT"
-                        method="POST" id="tambah_pendaftaran">
+                    <form class="form-horizontal" role="form"
+                        action="/pendaftaran/<%= data_pendaftaran._id %>?_method=PUT" method="POST"
+                        id="tambah_pendaftaran">
                         <div class="form-group">
                             <label for="" class="col-sm-3">No Registrasi<span style="color:red"> *</span></label>
                             <div class="col-sm-9">
@@ -47,12 +48,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-sm-3">Dokter penanggung jawab<span style="color:red"> *</span></label>
+                            <label for="" class="col-sm-3">Dokter penanggung jawab<span style="color:red">
+                                    *</span></label>
                             <div class="col-sm-9">
-                                <input type="text" name="nama_dokter" value="<%= data_pendaftaran.id_dokter_penanggung_jawab.nama_dokter %>"
+                                <input type="text" name="nama_dokter"
+                                    value="<%= data_pendaftaran.id_dokter_penanggung_jawab.nama_dokter %>"
                                     id="cari_dokter_pj" class="form-control">
-                                <input type="hidden" value="<%= data_pendaftaran.id_dokter_penanggung_jawab.id %>" name="id_dokter_penanggung_jawab"
-                                    id="id_dokter_penanggung_jawab" class="form-control">
+                                <input type="hidden" value="<%= data_pendaftaran.id_dokter_penanggung_jawab.id %>"
+                                    name="id_dokter_penanggung_jawab" id="id_dokter_penanggung_jawab"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -90,8 +94,8 @@
                     <div class="form-group">
                         <label for="" class="col-sm-3">No Rekamedis<span style="color:red"> *</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="no_rm" value="<%= data_pendaftaran.id_pasien.no_rm %>" id="cari_no_rm"
-                                required class="form-control">
+                            <input type="text" name="no_rm" value="<%= data_pendaftaran.id_pasien.no_rm %>"
+                                id="cari_no_rm" required class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -99,50 +103,24 @@
                         <div class="col-sm-9">
                             <input type="text" name="nama_pasien" value="<%= data_pendaftaran.id_pasien.nama_pasien %>"
                                 id="nama_pasien" required class="form-control">
-                            <input type="hidden" value="<%= data_pendaftaran.id_pasien.id %>" name="id_pasien" id="id_pasien"
-                                required class="form-control">
+                            <input type="hidden" value="<%= data_pendaftaran.id_pasien.id %>" name="id_pasien"
+                                id="id_pasien" required class="form-control">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="" class="col-sm-3">Tanggal lahir<span style="color:red"> *</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="" value="<%= moment(data_pendaftaran.id_pasien.tanggal_lahir).format('LL') %>"
+                            <input type="text" name=""
+                                value="<%= moment(data_pendaftaran.id_pasien.tanggal_lahir).format('LL') %>"
                                 id="tanggal_lahir" class="form-control">
-                            <input type="hidden" name="tanggal_lahir" value="<%= data_pendaftaran.id_pasien.tanggal_lahir %>"
-                                id="tanggal_lahir" class="form-control">
+                            <input type="hidden" name="tanggal_lahir"
+                                value="<%= data_pendaftaran.id_pasien.tanggal_lahir %>" id="tanggal_lahir"
+                                class="form-control">
                             <span class="help-block">Formatnya : Bulan/Tanggal/Tahun, Contoh 05/10/1997</span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="" class="col-sm-3">Nama penanggung jawab</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="nama_penanggung_jawab" value="<%= data_pendaftaran.nama_penanggung_jawab %>"
-                                class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-sm-3">Hubungan dengan penanggung jawab</label>
-                        <div class="col-sm-9">
 
-                            <select name="hubungan_penanggung_jawab" class="form-control" id="">
-                                <option value="" disabled>
-                                    Pilihan sebelumnya :
-                                    <%= data_pendaftaran.hubungan_penanggung_jawab %>
-                                </option>
-                                <option value="orang_tua">Orang tua</option>
-                                <option value="saudara">Saudara</option>
-                                <option value="teman">Teman</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-sm-3">Alamat penanggung jawab</label>
-                        <div class="col-sm-9">
-                            <textarea name="alamat_penanggung_jawab" value="<%= %>" class="form-control" id="" cols="30"
-                                rows="10"></textarea>
-                        </div>
-                    </div>
                     </form>
 
                 </div>

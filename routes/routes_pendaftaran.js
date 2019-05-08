@@ -33,9 +33,6 @@ const schema = Joi.object().keys({
     id_poliklinik: Joi.string().required(),
     nama_pasien: Joi.string(),
     tanggal_lahir: Joi.date().required(),
-    nama_penanggung_jawab: Joi.string().required(),
-    hubungan_penanggung_jawab: Joi.string().required(),
-    alamat_penanggung_jawab: Joi.string().required(),
     tanggal_sekarang: Joi.any(),
     submit: Joi.any()
 })
@@ -62,7 +59,7 @@ const schema2 = Joi.object().keys({
     submit: Joi.any()
 })
 
-router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
+router.get('/', middleware.DokterdanPetugas, middleware.asyncMiddleware(async (req, res, next) => {
     const allpendaftaran = await Pendaftaran.find({})
         .sort({
             createdAt: -1
@@ -76,7 +73,7 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     });
 }))
 
-router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
+router.get('/new', middleware.Petugas, middleware.asyncMiddleware(async (req, res, next) => {
     var start = new Date();
     start.setHours(0, 0, 0, 0);
     var end = new Date();
@@ -101,6 +98,46 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
     });
 }))
 
+router.post('/new', middleware.Petugas, middleware.asyncMiddleware(async (req, res, next) => {
+    const result = Joi.validate({
+        ...req.body
+    }, schema);
+    const {
+        value,
+        error
+    } = result;
+    const valid = error == null;
+    if (!valid) { // jika tidak valid, atau salah...
+        res.status(422).json({
+            message: 'Terdapat kesalahan input data, silakan kembali dan refresh halamannya',
+            data: 'error'
+        })
+        console.log(error);
+
+    } else {
+        const result = Joi.validate({
+            ...req.body
+        }, schema);
+        const {
+            value,
+            error
+        } = result;
+        const valid = error == null;
+        if (!valid) { // jika tidak valid, atau salah...
+            res.status(422).json({
+                message: 'Terdapat kesalahan input data, silakan kembali dan refresh halamannya',
+                data: 'error'
+            })
+            console.log(error);
+
+        } else {
+            const input_pendaftaran_baru = await Pendaftaran.create(result.value);
+            res.redirect("/pendaftaran");
+        }
+    }
+}))
+
+// daftar antrian online
 router.get('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
     var start = new Date();
     start.setHours(0, 0, 0, 0);
@@ -125,46 +162,8 @@ router.get('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
     });
 }))
 
-router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({
-        ...req.body
-    }, schema);
-    const {
-        value,
-        error
-    } = result;
-    const valid = error == null;
-    if (!valid) { // jika tidak valid, atau salah...
-        res.status(422).json({
-            message: 'Invalid request',
-            data: 'error'
-        })
-        console.log(error);
 
-    } else {
-        const result = Joi.validate({
-            ...req.body
-        }, schema);
-        const {
-            value,
-            error
-        } = result;
-        const valid = error == null;
-        if (!valid) { // jika tidak valid, atau salah...
-            res.status(422).json({
-                message: 'Invalid request',
-                data: 'error'
-            })
-            console.log(error);
-
-        } else {
-            const input_pendaftaran_baru = await Pendaftaran.create(result.value);
-            res.redirect("/pendaftaran");
-        }
-    }
-}))
-
-router.post('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
+router.post('/daftar', middleware.Petugas, middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({
         ...req.body
     }, schema);
@@ -204,7 +203,7 @@ router.post('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
     }
 }))
 
-router.post('/:id/new_riwayattindakan', middleware.asyncMiddleware(async (req, res, next) => {
+router.post('/:id/new_riwayattindakan', middleware.Dokter, middleware.asyncMiddleware(async (req, res, next) => {
     Pendaftaran.findById(req.params.id, async (err, hasil_pendaftaran) => {
         const newR = await Riwayattindakan.create(req.body);
         hasil_pendaftaran.id_riwayattindakan.push(newR);
@@ -262,7 +261,7 @@ router.post('/:id/new_riwayattindakan', middleware.asyncMiddleware(async (req, r
 //     });
 // }))
 
-router.post('/:id/new_riwayatdiagnosa', middleware.asyncMiddleware(async (req, res, next) => {
+router.post('/:id/new_riwayatdiagnosa', middleware.Dokter, middleware.asyncMiddleware(async (req, res, next) => {
     Pendaftaran.findById(req.params.id, async (err, hasil_pendaftaran) => {
         const id_dokter = req.body.id_dokter;
         const dilakukan_oleh = req.body.dilakukan_oleh;
@@ -288,8 +287,6 @@ router.post('/:id/new_riwayatdiagnosa', middleware.asyncMiddleware(async (req, r
         }
         const input_riwayat_lab = await Riwayat_periksa_lab.create(new_riwayat_lab);
         const get_id_riwayatlab = input_riwayat_lab.id;
-
-
         const ds = req.body.ds;
         const doo = req.body.do;
         const keterangan = req.body.keterangan;
@@ -303,7 +300,6 @@ router.post('/:id/new_riwayatdiagnosa', middleware.asyncMiddleware(async (req, r
         hasil_pendaftaran.id_riwayatdiagnosa.push(newR);
         hasil_pendaftaran.save();
         const id_riwayat_diagnosa = newR.id;
-
 
         const new_pj_riwayat_diagnosa = {
             id_riwayat_diagnosa: id_riwayat_diagnosa,
@@ -321,7 +317,7 @@ router.post('/:id/new_riwayatdiagnosa', middleware.asyncMiddleware(async (req, r
     });
 }))
 
-router.post('/:id/new_riwayatlab', middleware.asyncMiddleware(async (req, res, next) => {
+router.post('/:id/new_riwayatlab', middleware.Dokter, middleware.asyncMiddleware(async (req, res, next) => {
     Pendaftaran.findById(req.params.id, async (err, hasil) => {
         const newR = await Riwayat_periksa_lab.create(req.body);
         hasil.id_riwayat_periksa_lab.push(newR);
@@ -331,7 +327,7 @@ router.post('/:id/new_riwayatlab', middleware.asyncMiddleware(async (req, res, n
 }))
 
 
-router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
+router.get("/:id/detail", middleware.Dokter, middleware.asyncMiddleware(async (req, res, next) => {
     const data_pendaftaran = await Pendaftaran.findById(req.params.id)
         .populate({
             path: "id_pasien",
@@ -353,29 +349,29 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
             }
         });
     // console.log(data_pendaftaran.id_riwayatdiagnosa[0].id_riwayat_periksa_lab);
-    const pipeline = [{
-            $project: {
-                _id: 0,
-                Riwayatdiagnosa: "$$ROOT"
-            }
-        },
-        {
-            $lookup: {
-                "localField": Riwayatdiagnosa.id_riwayat_periksa_lab,
-                "from": Riwayat_periksa_lab,
-                "foreignField": "_id",
-                "as": Riwayat_periksa_lab
-            }
-        },
-        {
-            $unwind: {
-                "path": "$Riwayat_periksa_lab",
-                "preserveNullAndEmptyArrays": false
-            }
-        }
-    ];
+    // const pipeline = [{
+    //         $project: {
+    //             _id: 0,
+    //             Riwayatdiagnosa: "$$ROOT"
+    //         }
+    //     },
+    //     {
+    //         $lookup: {
+    //             "localField": Riwayatdiagnosa.id_riwayat_periksa_lab,
+    //             "from": Riwayat_periksa_lab,
+    //             "foreignField": "_id",
+    //             "as": Riwayat_periksa_lab
+    //         }
+    //     },
+    //     {
+    //         $unwind: {
+    //             "path": "$Riwayat_periksa_lab",
+    //             "preserveNullAndEmptyArrays": false
+    //         }
+    //     }
+    // ];
 
-    console.log(pipeline);
+    // console.log(pipeline);
 
 
 
@@ -393,7 +389,7 @@ router.get("/:id/detail", middleware.asyncMiddleware(async (req, res, next) => {
     });
 }))
 
-router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
+router.get("/:id/edit", middleware.Petugas, middleware.asyncMiddleware(async (req, res, next) => {
     const data_poliklinik = await Poliklinik.find({});
     const data_jenis_bayar = await Jenis_bayar.find({});
     const data_pendaftaran = await Pendaftaran.findById(req.params.id)
@@ -418,7 +414,7 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
     });
 }))
 
-router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
+router.put("/:id", middleware.Petugas, middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({
         ...req.body
     }, schema);
@@ -432,7 +428,7 @@ router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
     res.redirect("/pendaftaran");
 }))
 
-router.delete("/:id", middleware.asyncMiddleware(async (req, res, next) => {
+router.delete("/:id", middleware.Petugas, middleware.asyncMiddleware(async (req, res, next) => {
     const delete_pendaftaran = await Pendaftaran.findByIdAndRemove(req.params.id);
     res.redirect("/pendaftaran");
 }))
