@@ -389,6 +389,68 @@ router.get("/:id/detail", middleware.Dokter, middleware.asyncMiddleware(async (r
     });
 }))
 
+router.get("/:id/cetak", middleware.Dokter, middleware.asyncMiddleware(async (req, res, next) => {
+    const data_pendaftaran = await Pendaftaran.findById(req.params.id)
+        .populate({
+            path: "id_pasien",
+            populate: {
+                path: "id_diagnosa_pakar"
+            }
+        })
+        .populate("id_dokter_penanggung_jawab")
+        .populate({
+            path: "id_riwayatdiagnosa",
+            populate: {
+                path: "id_riwayat_periksa_lab"
+            }
+        })
+        .populate({
+            path: "id_riwayattindakan",
+            populate: {
+                path: "id_tindakan"
+            }
+        });
+    // console.log(data_pendaftaran.id_riwayatdiagnosa[0].id_riwayat_periksa_lab);
+    // const pipeline = [{
+    //         $project: {
+    //             _id: 0,
+    //             Riwayatdiagnosa: "$$ROOT"
+    //         }
+    //     },
+    //     {
+    //         $lookup: {
+    //             "localField": Riwayatdiagnosa.id_riwayat_periksa_lab,
+    //             "from": Riwayat_periksa_lab,
+    //             "foreignField": "_id",
+    //             "as": Riwayat_periksa_lab
+    //         }
+    //     },
+    //     {
+    //         $unwind: {
+    //             "path": "$Riwayat_periksa_lab",
+    //             "preserveNullAndEmptyArrays": false
+    //         }
+    //     }
+    // ];
+
+    // console.log(pipeline);
+
+
+
+    total = 0;
+    subtotal = 0;
+
+    data_pendaftaran.id_riwayattindakan.forEach(function (comment) {
+        total = total + comment.id_tindakan.tarif;
+    });
+
+    res.render("v_pendaftaran/cetak", {
+        data_pendaftaran: data_pendaftaran,
+        total: total,
+        subtotal: subtotal
+    });
+}))
+
 router.get("/:id/edit", middleware.Petugas, middleware.asyncMiddleware(async (req, res, next) => {
     const data_poliklinik = await Poliklinik.find({});
     const data_jenis_bayar = await Jenis_bayar.find({});
