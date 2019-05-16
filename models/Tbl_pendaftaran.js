@@ -22,15 +22,6 @@ var tbl_pendaftaranSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_poliklinik'
     },
-    nama_penanggung_jawab: {
-        type: String
-    },
-    hubungan_dengan_penanggung_jawab: {
-        type: String
-    },
-    alamat_penanggung_jawab: {
-        type: String
-    },
     id_riwayattindakan: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_riwayattindakan'

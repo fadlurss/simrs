@@ -7,6 +7,7 @@ Tindakan = require("../models/Tbl_tindakan")
 Obat = require("../models/Tbl_obat_alkes_bhp")
 Jenis_bayar = require("../models/Tbl_jenis_bayar")
 Dokter = require("../models/Tbl_dokter")
+Jadwal_praktek_dokter = require("../models/Tbl_jadwal_praktek_dokter")
 Pegawai = require("../models/Tbl_pegawai")
 Poliklinik = require("../models/Tbl_poliklinik")
 Riwayattindakan = require("../models/Tbl_riwayattindakan")
@@ -25,14 +26,15 @@ var now = moment().toDate();
 const schema = Joi.object().keys({
     no_registrasi: Joi.number().required(),
     no_rawat: Joi.string(),
+    id_users: Joi.string(),
     no_rm: Joi.any(),
     tgl_daftar: Joi.date().required(),
-    id_pasien: Joi.string().required(),
     id_dokter_penanggung_jawab: Joi.string().required(),
     nama_dokter: Joi.any(),
-    id_poliklinik: Joi.string().required(),
     nama_pasien: Joi.string(),
-    tanggal_lahir: Joi.date().required(),
+    id_pasien: Joi.string(),
+    id_poliklinik: Joi.string(),
+    tanggal_lahir: Joi.string(),
     tanggal_sekarang: Joi.any(),
     submit: Joi.any()
 })
@@ -67,7 +69,6 @@ router.get('/', middleware.DokterdanPetugas, middleware.asyncMiddleware(async (r
         .populate("id_pasien")
         .populate("id_dokter_penanggung_jawab")
         .populate("id_jenis_bayar")
-        .populate("id_poliklinik");
     res.render('v_pendaftaran/index', {
         data_pendaftaran: allpendaftaran
     });
@@ -91,6 +92,7 @@ router.get('/new', middleware.Petugas, middleware.asyncMiddleware(async (req, re
 
     res.render('v_pendaftaran/new', {
         data_dokter: data_dokter,
+
         data_jenis_bayar: data_jenis_bayar,
         data_pasien: data_pasien,
         data_poliklinik: data_poli,
@@ -139,13 +141,18 @@ router.post('/new', middleware.Petugas, middleware.asyncMiddleware(async (req, r
 
 // daftar antrian online
 router.get('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
+    // 
+
     var start = new Date();
     start.setHours(0, 0, 0, 0);
     var end = new Date();
     end.setHours(23, 59, 59, 999);
+    const nowmoment = moment().format('dddd');
     const data_user_sekarang = req.user;
     const data_dokter = await Dokter.find({});
-    const data_user = await User.find({}).populate("id_pasien");
+    const data_jadwal_praktek_dokter = await Jadwal_praktek_dokter.find({}).populate("nama_dokter").populate("poliklinik");
+
+
     const data_poli = await Poliklinik.find({});
     var counter = await Pendaftaran.find({
         createdAt: {
@@ -155,7 +162,8 @@ router.get('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
     }).count();
     res.render('v_access/pendaftaran', {
         data_dokter: data_dokter,
-        data_user: data_user,
+        nowmoment: nowmoment,
+        data_jadwal_praktek_dokter: data_jadwal_praktek_dokter,
         data_user_sekarang: data_user_sekarang,
         data_poliklinik: data_poli,
         counter: (counter + 1)
@@ -163,7 +171,7 @@ router.get('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 
-router.post('/daftar', middleware.Petugas, middleware.asyncMiddleware(async (req, res, next) => {
+router.post('/daftar', middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({
         ...req.body
     }, schema);
@@ -171,6 +179,7 @@ router.post('/daftar', middleware.Petugas, middleware.asyncMiddleware(async (req
         value,
         error
     } = result;
+
     const valid = error == null;
     if (!valid) { // jika tidak valid, atau salah...
         res.status(422).json({
@@ -180,26 +189,23 @@ router.post('/daftar', middleware.Petugas, middleware.asyncMiddleware(async (req
         console.log(error);
 
     } else {
-        const result = Joi.validate({
-            ...req.body
-        }, schema);
-        const {
-            value,
-            error
-        } = result;
-        const valid = error == null;
-        if (!valid) { // jika tidak valid, atau salah...
-            res.status(422).json({
-                message: 'Invalid request',
-                data: 'error'
-            })
-            console.log(error);
-        } else {
-            const input_pendaftaran_baru = await Pendaftaran.create(result.value);
-            res.redirect("/index", {
-                message: "Pendaftaran berhasil"
-            });
+
+        const dataPasien = await Pasien.findOne({
+            id_users: req.body.id_users
+        });
+        // console.log(dataPasien);
+
+        const dataSave = {
+            ...value,
+            id_pasien: dataPasien._id,
+            no_rm: dataPasien.no_rm
         }
+        console.log("data save " + JSON.stringify(req.body));
+
+        const input_pendaftaran_baru = await Pendaftaran.create(dataSave);
+        console.log(input_pendaftaran_baru);
+
+        res.redirect("/index");
     }
 }))
 

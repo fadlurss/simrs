@@ -14,7 +14,7 @@ var crypto = require('crypto');
 
 // load up the user model
 var User = require('../models/user');
-var User2 = require('../models/Tbl_pasien');
+var Pasien = require('../models/Tbl_pasien');
 var User3 = require('../models/Tbl_dokter');
 var User4 = require('../models/Tbl_petugas');
 
@@ -155,7 +155,7 @@ module.exports = function (passport) {
 
                             // create the user
                             var newUser = new User();
-                            var newUser2 = new User2();
+
                             var Dokter = new User3();
                             var newUser4 = new User4();
                             // eval(require('locus'))
@@ -185,25 +185,29 @@ module.exports = function (passport) {
                                 expiresIn: 86400 //expires in 24 hours
                             });
 
+                            var pasien = new Pasien();
+
+                            pasien.id_users = newUser._id;
+                            pasien.nama_pasien = firstName;
+                            pasien.tanggal_lahir = tanggal_lahir;
+                            pasien.umur = umur;
+                            pasien.alamat = alamat;
+                            pasien.pekerjaan = pekerjaan;
+                            pasien.no_hp = no_hp;
+                            pasien.jenis_kelamin = jenis_kelamin;
+                            pasien.agama = agama;
+                            pasien.status_menikah = status_menikah;
+                            pasien.no_rm = no_rm;
+
+                            pasien.save(function (err) {});
+
+
+                            newUser.local.pasien = pasien;
 
                             newUser.save(function (err) {
-                                newUser2.id_users = newUser._id;
-                                newUser2.nama_pasien = firstName;
-                                newUser2.tanggal_lahir = tanggal_lahir;
-                                newUser2.umur = umur;
-                                newUser2.alamat = alamat;
-                                newUser2.pekerjaan = pekerjaan;
-                                newUser2.no_hp = no_hp;
-                                newUser2.jenis_kelamin = jenis_kelamin;
-                                newUser2.agama = agama;
-                                newUser2.status_menikah = status_menikah;
-                                newUser2.no_rm = no_rm;
-
-                                newUser2.save(function (err) {
-                                    if (err)
-                                        return done(err);
-                                    return done(null, newUser, req.flash('success', 'Selamat anda berhasil registrasi, silakan cek alamat email anda sekarang!'));
-                                });
+                                if (err)
+                                    return done(err);
+                                return done(null, newUser, req.flash('success', 'Selamat anda berhasil registrasi, silakan cek alamat email anda sekarang!'));
 
                             });
 

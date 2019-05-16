@@ -25,7 +25,12 @@ var userSchema = mongoose.Schema({
             default: Date.Now
         },
         tokenReg: String,
-        activeReg: Boolean
+        activeReg: Boolean,
+        pasien: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Tbl_pasien'
+        }]
+
     }
 
 });
