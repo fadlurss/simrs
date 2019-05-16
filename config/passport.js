@@ -16,6 +16,7 @@ var crypto = require('crypto');
 var User = require('../models/user');
 var User2 = require('../models/Tbl_pasien');
 var User3 = require('../models/Tbl_dokter');
+var User4 = require('../models/Tbl_petugas');
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing
@@ -156,6 +157,7 @@ module.exports = function (passport) {
                             var newUser = new User();
                             var newUser2 = new User2();
                             var Dokter = new User3();
+                            var newUser4 = new User4();
                             // eval(require('locus'))
                             if (req.body.adminCode === 'kode_admin') {
                                 newUser.local.isAdmin = true;
@@ -171,7 +173,7 @@ module.exports = function (passport) {
                             newUser.local.username = username;
                             newUser.local.password = newUser.generateHash(password);
                             newUser.local.tokenReg = randomToken;
-                            newUser.local.activeReg = true;
+                            newUser.local.activeReg = false;
                             newUser.local.level = "Pasien";
 
 

@@ -8,6 +8,8 @@ Dokter = require("../models/Tbl_dokter")
 Poliklinik = require("../models/Tbl_poliklinik")
 Agama = require("../models/Tbl_agama")
 Status_menikah = require("../models/Tbl_status_menikah")
+Pendaftaran = require("../models/Tbl_pendaftaran")
+
 Pasien = require("../models/Tbl_pasien")
 async = require('async')
 nodemailer = require('nodemailer')
@@ -44,6 +46,21 @@ router.get('/', function (req, res) {
 router.get('/index', function (req, res) {
     res.render('v_access/index');
 });
+
+
+router.get('/pendaftaran', middleware.DokterdanPetugas, middleware.asyncMiddleware(async (req, res, next) => {
+    const allpendaftaran = await Pendaftaran.find({})
+        .sort({
+            createdAt: -1
+        })
+        .populate("id_pasien")
+        .populate("id_dokter_penanggung_jawab")
+        .populate("id_jenis_bayar")
+        .populate("id_poliklinik");
+    res.render('v_pendaftaran/index', {
+        data_pendaftaran: allpendaftaran
+    });
+}))
 
 router.get('/pelayanan', function (req, res) {
     res.render('v_access/pelayanan');
@@ -88,12 +105,26 @@ router.get('/login', function (req, res) {
     });
 });
 
-// process the login form
 router.post('/login', passport.authenticate('local-login', {
     successRedirect: '/', //redirect to homepage campground
     failureRedirect: '/login', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
 }));
+
+router.get('/loginpetugas', function (req, res) {
+    res.render("v_access/loginpetugas", {
+        message: req.flash('loginMessage')
+    });
+});
+
+// process the login form
+router.post('/loginpetugas', passport.authenticate('local-login', {
+    successRedirect: '/pendaftaran', //redirect to homepage campground
+    failureRedirect: '/login', // redirect back to the signup page if there is an error
+    failureFlash: true, // allow flash messages
+}));
+
+
 
 // SIGNUP =================================
 // show the signup form
