@@ -1,4 +1,5 @@
 <% include ../partials/header2 %>
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <style media="screen">
   #text {
     position: absolute;
@@ -30,7 +31,12 @@
     cursor: pointer;
     /* Add a pointer on hover */
   }
-
+  .btn span.fa {
+	opacity: 0;
+  }
+  .btn.active span.fa {
+  	opacity: 1;
+  }
   .spinner {
     margin: 100px auto;
     width: 50px;
@@ -38,7 +44,9 @@
     text-align: center;
     font-size: 10px;
   }
-
+  .carousel-control {
+    background:none !important;
+  }
   .spinner>div {
     background-color: #333;
     height: 100%;
@@ -96,6 +104,30 @@
       -webkit-transform: scaleY(1.0);
     }
   }
+  .btn {
+    border-radius:0px;
+  }
+  .form-group input[type="checkbox"] {
+    display: none;
+  }
+
+  .form-group input[type="checkbox"] + .btn-group > label span {
+      width: 20px;
+  }
+
+  .form-group input[type="checkbox"] + .btn-group > label span:first-child {
+      display: none;
+  }
+  .form-group input[type="checkbox"] + .btn-group > label span:last-child {
+      display: inline-block;
+  }
+
+  .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+      display: inline-block;
+  }
+  .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+      display: none;
+  }
 </style>
 <div id="page-wrapper">
   <div id="overlay">
@@ -116,8 +148,7 @@
       <center>
         <h1>Silakan login terlebih dahulu.</h1>
         <!--If the user is not logged in, direct him to the login page-->
-        <h5>Sebelum mengetahui diagnosa penyakit gigi dan mulut anda. Silakan login terlebih dahulu <a
-            href="/login">Klik
+        <h5>Sebelum mengetahui diagnosa penyakit gigi dan mulut anda. Silakan login terlebih dahulu <a href="/login">Klik
             disini</a></h5>
       </center>
     </div>
@@ -137,19 +168,57 @@
       <!-- Gejala apa saja yang dialami oleh anda ? -->
     </div>
     <div class="panel-body">
+
       <div class="row">
         <div class="col-md-6 col-md-offset-3" id="form_data">
           <form class="form-horizontal" action="" onsubmit="return false" id="set" method="post">
             <p>Pilih gejala yang dialami oleh anda :</p>
-            <% alldiagnosa_pakar.forEach(function(rs){ %>
             <div class="col-md-12">
-              <div class="checkbox">
-                <input type="checkbox" name="select" value="<%= rs.kode_gejala %>">
-                <label>
-                  <%= rs.nama_gejala %></label>
+              <div id="car01" style="background: none;!important" class="carousel slide" data-ride="carousel" data-wrap="false" data-interval="false" data-keyboard="true">
+                <div class="carousel-inner" role="listbox">
+                  <% i = 0; %>
+                  <% alldiagnosa_pakar.forEach(function(rs){ %>
+                  <div class="item <%=(i++ == 1)?" active":"" %>">
+                    <div class="col-md-12">
+                      <div class="panel panel-primary">
+                        <div class="panel-heading">
+                          <h4 style="color:#fff">
+                            <%= rs.nama_gejala %>
+                          </h4>
+                        </div>
+                        <div class="panel-body">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <span class="button-checkbox">
+                                <button type="button" class="btn" id="uncheckit<%= rs.kode_gejala %>" name="selecttidak" onclick="uncheck('checkit<%= rs.kode_gejala %>')" data-color="primary">Tidak</button>
+                                <input type="checkbox" class="hidden" />
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-md-6 ">
+                            <div class="form-group pull-right">
+                              <span class="button-checkbox">
+                                <button type="button" class="btn" id="checkit<%= rs.kode_gejala %>" onclick="uncheck('uncheckit<%= rs.kode_gejala %>')"  value="<%= rs.kode_gejala %>" data-color="primary">Iya</button>
+                                <input type="checkbox" name="select" class="hidden" />
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="panel-footer">
+                          <a class="btn btn-primary cursors" href="#car01" role="button" data-slide="prev">
+                            <i class="fa fa-arrow-left"></i>
+                          </a>
+                          <a class="btn btn-primary pull-right cursors" href="#car01" role="button" data-slide="next">
+                            <i class="fa fa-arrow-right"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% }) %>
+                </div>
               </div>
             </div>
-            <% }) %>
             <div class="col-md-12" style="padding-top:20px">
               <div class="form-group">
                 <button type="submit" class="btn btn-block btn-success">
@@ -186,7 +255,86 @@
 </div>
 <% include ../partials/footer %>
 <script type="text/javascript">
-  $(document).ready(function () {
+  var i = 1;
+  function uncheck(val){
+    if (i == 0) {
+      i++;
+      $("#"+val).trigger('click');
+    }else {
+      i = 0;
+    }
+  }
+  $(".cursors").on('click',function(event) {
+    event.preventDefault();
+    i = 1;
+  });
+  $(document).ready(function() {
+
+    $(function() {
+      $('.button-checkbox').each(function() {
+
+        // Settings
+        var $widget = $(this),
+          $button = $widget.find('button'),
+          $checkbox = $widget.find('input:checkbox'),
+          color = $button.data('color'),
+          settings = {
+            on: {
+              icon: 'fa fa-check'
+            },
+            off: {
+              icon: 'fa fa-ban'
+            }
+          };
+
+        // Event Handlers
+        $button.on('click', function() {
+          $checkbox.prop('checked', !$checkbox.is(':checked'));
+          $checkbox.triggerHandler('change');
+          updateDisplay();
+        });
+        $checkbox.on('change', function() {
+          updateDisplay();
+        });
+
+        // Actions
+        function updateDisplay() {
+          var isChecked = $checkbox.is(':checked');
+
+          // Set the button's state
+          $button.data('state', (isChecked) ? "on" : "off");
+
+          // Set the button's icon
+          $button.find('.state-icon')
+            .removeClass()
+            .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+          // Update the button's color
+          if (isChecked) {
+            $button
+              .removeClass('btn-default')
+              .addClass('btn-' + color + ' active');
+          } else {
+            $button
+              .removeClass('btn-' + color + ' active')
+              .addClass('btn-default');
+          }
+        }
+
+        // Initialization
+        function init() {
+
+          updateDisplay();
+
+          // Inject the icon if applicable
+          if ($button.find('.state-icon').length == 0) {
+            $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+          }
+        }
+        init();
+      });
+    });
+
     function on() {
       document.getElementById("overlay").style.display = "block";
     }
@@ -217,7 +365,7 @@
       function DS_total_nilai($name, $data) {
         $arr = [];
         // console.log("Hitung Nilai");
-        $.each($data, function ($key, $val) {
+        $.each($data, function($key, $val) {
           if ($val['name'] == $name) {
             $arr.push($val['value']);
           }
@@ -228,7 +376,7 @@
       function DS_get_best($hasil) {
         $num = 0;
         $max = [];
-        $.each($hasil, function ($key, $val) {
+        $.each($hasil, function($key, $val) {
           if ($val['value'] > $num) {
             $num = $val['value'];
             $max = $val;
@@ -240,7 +388,7 @@
       function DS_get_diagnosa($kode, $dataset) {
         $data = [];
         // console.log("Kode : "+$kode);
-        $.each($dataset, function ($key, $val) {
+        $.each($dataset, function($key, $val) {
           if ($val["kode_gejala"] == $kode) {
             // console.log("Kode Gejalan : "+$val["kode_gejala"]);
             // console.log("Bandingan  : "+$kode);
@@ -264,7 +412,7 @@
         // console.log("Hitung");
         // console.log($arr);
         $kosong = DS_total_nilai('', $data);
-        $.each($unik, function ($key, $val) {
+        $.each($unik, function($key, $val) {
           if ($key != '') {
             $arr_x = DS_total_nilai($key, $data);
             // console.log($arr_x);
@@ -282,7 +430,7 @@
 
       function array_keys(input) {
         var output = [];
-        $.each(input, function (index, el) {
+        $.each(input, function(index, el) {
           output.push(index);
         });
         return output;
@@ -290,7 +438,7 @@
 
       function findIndex(kode, set) {
         a = 0;
-        $.each(set, function (index, el) {
+        $.each(set, function(index, el) {
           if (el["kode"] == kode) {
             a = index;
           }
@@ -311,11 +459,11 @@
       });
       // console.log($hasil);
       var data_hasil = [];
-      $.each(selected, function (index, el) {
+      $.each(selected, function(index, el) {
         var $kode = el;
         $new_hasil = [];
         $arr_diagnosa = DS_get_diagnosa($kode, data_relasi);
-        $.each($hasil, function (key, row) {
+        $.each($hasil, function(key, row) {
           $arr = row['arr'].filter(value => $arr_diagnosa.includes(value));
           $name = $arr.join(",");
           $value = row['value'] * gejala[findIndex($kode, gejala)]['bobot'];
@@ -325,7 +473,7 @@
             'value': $value,
           });
           ext = [];
-          $.each(diagnosa, function (i, v) {
+          $.each(diagnosa, function(i, v) {
             ext.push(i);
           });
           $arr2 = row['arr'].filter(value => ext.includes(value));
@@ -339,7 +487,7 @@
           $hasil = $new_hasil;
         });
         $unik = {};
-        $.each($hasil, function (index, $row) {
+        $.each($hasil, function(index, $row) {
           $unik[$row['name']] = $row['arr'];
         });
         $new_hasil = DS_hitung($unik, $hasil);
@@ -350,33 +498,33 @@
       $best = DS_get_best($hasil);
       return $best;
     }
-    $("#set").on('submit', function (event) {
+    $("#set").on('submit', function(event) {
       event.preventDefault();
       selected = [];
-      $.each($("input[name='select']:checked"), function () {
+      $.each($("input[name='select']:checked"), function() {
         selected.push($(this).val());
       });
       console.log("Terpilih");
       if (selected.length > 0) {
         on();
-        $.get("diagnosa/getgejala", function (rs) {
+        $.get("diagnosa/getgejala", function(rs) {
           gejala = rs;
-          $.get("diagnosa/getrelasi", function (rx) {
+          $.get("diagnosa/getrelasi", function(rx) {
             relasi = rx;
-            $.get("diagnosa/getdiagnosa", function (ra) {
+            $.get("diagnosa/getdiagnosa", function(ra) {
               diagnosa = ra;
               set = algoritmaDS(selected, gejala, relasi, diagnosa);
               console.log(set);
               penyakit = "";
               gejala_set = "";
-              $.each(diagnosa, function (index, el) {
+              $.each(diagnosa, function(index, el) {
                 if (el.kode == set.name) {
                   penyakit = el.nama;
                 }
               });
-              $.each(selected, function (index, e) {
+              $.each(selected, function(index, e) {
                 setit = "";
-                $.each(gejala, function (i, el) {
+                $.each(gejala, function(i, el) {
                   if (e == el.kode) {
                     setit = el.nama;
                   }
@@ -395,7 +543,7 @@
               $.post("diagnosa/insertriwayat", {
                 persentansi: (Math.trunc((set.value * 100))) + "%",
                 nama_diagnosa: penyakit
-              }, function (rs) {
+              }, function(rs) {
                 if (rs.status == 1) {
                   toastr.success(rs.msg);
                   $("#block").find(".content_body").html(
