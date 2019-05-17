@@ -37,20 +37,19 @@
         <!-- PENDAFTARAN FORM -->
         <form action="/pendaftaran/daftar" method="post">
             <div class="form-group">
-                <label>No Registrasi<span style="color:red">
-                        *</span></label>
+                <label>No Registrasi
+                    *</span></label>
                 <input type="text" required class="form-control" id="noreg" readonly name="no_registrasi">
             </div>
             <div class="form-group">
-                <label for="">No Rawat<span style="color:red">
-                        *</span></label>
+                <label for="">No Rawat
+                    *</span></label>
                 <input type="text" readonly id="no_rawat"
                     onclick="no_rawat.value = tgl_daftar.value +'/'+ no_registrasi.value" name="no_rawat"
                     class="form-control">
             </div>
             <div class="form-group">
-                <label for="">Tanggal daftar</label>
-                <input type="date" readonly id="date" name="tgl_daftar" class="form-control">
+                <input type="date" readonly id="date" style="display:none" name="tgl_daftar" class="form-control">
             </div>
             <div class="form-group">
                 <label for="">Dokter yang tersedia hari ini<span style="color:red">
@@ -62,10 +61,11 @@
                         <%= hasil.nama_dokter.nama_dokter %> - <%= hasil.poliklinik.nama_poliklinik %> - Mulai
                         <%= hasil.jam_mulai %> sampai <%= hasil.jam_selesai %>
                     </option>
-                    <% } else { %>
-                    <option value="">Tidak tersedia</option>
                     <% } %>
                     <% }); %>
+
+
+
                 </select>
             </div>
             <div class="form-group">
