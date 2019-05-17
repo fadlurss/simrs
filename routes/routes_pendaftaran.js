@@ -62,20 +62,30 @@ const schema2 = Joi.object().keys({
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
+    const dada = await Pendaftaran.find({
+        "id_dokter_penanggung_jawab.id_users": req.user._id
+    }).populate("id_dokter_penanggung_jawab");
 
+    console.log(req.user._id);
+
+
+    console.log(dada);
+
+    // for(var i = 0; i < dada.length; i++){
+
+    // }
     const allpendaftaran = await Pendaftaran.find({})
         .sort({
             createdAt: -1
         })
         .populate("id_pasien")
         .populate("id_dokter_penanggung_jawab")
-
     res.render('v_pendaftaran/index', {
         data_pendaftaran: allpendaftaran
     });
 
-
 }))
+
 
 router.get('/new', middleware.Petugas, middleware.asyncMiddleware(async (req, res, next) => {
     var start = new Date();

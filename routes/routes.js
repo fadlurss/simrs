@@ -49,19 +49,19 @@ router.get('/index', function (req, res) {
 });
 
 
-router.get('/pendaftaran', middleware.DokterdanPetugas, middleware.asyncMiddleware(async (req, res, next) => {
-    const allpendaftaran = await Pendaftaran.find({})
-        .sort({
-            createdAt: -1
-        })
-        .populate("id_pasien")
-        .populate("id_dokter_penanggung_jawab")
-        .populate("id_jenis_bayar")
-        .populate("id_poliklinik");
-    res.render('v_pendaftaran/index', {
-        data_pendaftaran: allpendaftaran
-    });
-}))
+// router.get('/pendaftaran', middleware.DokterdanPetugas, middleware.asyncMiddleware(async (req, res, next) => {
+//     const allpendaftaran = await Pendaftaran.find({})
+//         .sort({
+//             createdAt: -1
+//         })
+//         .populate("id_pasien")
+//         .populate("id_dokter_penanggung_jawab")
+//         .populate("id_jenis_bayar")
+//         .populate("id_poliklinik");
+//     res.render('v_pendaftaran/index', {
+//         data_pendaftaran: allpendaftaran
+//     });
+// }))
 
 router.get('/pelayanan', function (req, res) {
     res.render('v_access/pelayanan');
