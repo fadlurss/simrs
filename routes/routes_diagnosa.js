@@ -62,8 +62,9 @@ router.get('/getrelasi', middleware.asyncMiddleware(async (req, res, next) => {
     });
     res.json(capsule);
 }))
-
-
+router.get("/test", middleware.asyncMiddleware(async (req, res, next) => {
+    console.log(req.user._id);
+}));
 
 router.post("/insertriwayat", middleware.asyncMiddleware(async (req, res, next) => {
     const get_data = req.body;
