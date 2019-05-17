@@ -1,5 +1,6 @@
 var express = require('express')
 router = express.Router()
+multer = require("multer")
 Pasien = require("../models/Tbl_pasien")
 User = require("../models/user")
 Pendaftaran = require("../models/Tbl_pendaftaran")
@@ -22,6 +23,31 @@ asyncMiddleware = require("../middleware");
 var moment = require('moment');
 var now = moment().toDate();
 
+const storage = multer.diskStorage({
+    filename: function (req, file, callback) {
+        callback(null, Date.now() + file.originalname);
+    }
+});
+
+const imageFilter = function (req, file, cb) {
+    //accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+
+const upload = multer({
+    storage: storage,
+    fileFilter: imageFilter
+})
+
+const cloudinary = require('cloudinary');
+cloudinary.config({
+    cloud_name: 'ikutanevent',
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const schema = Joi.object().keys({
     no_registrasi: Joi.number().required(),
@@ -62,26 +88,23 @@ const schema2 = Joi.object().keys({
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const dada = await Pendaftaran.find({
-        "id_dokter_penanggung_jawab.id_users": req.user._id
-    }).populate("id_dokter_penanggung_jawab");
+    const dada = await Pendaftaran.find({}).populate(
+        "id_dokter_penanggung_jawab",
+        null, {
+            id_users: req.user._id
+        }
+    ).populate("id_pasien");
+    dadabaru = [];
+    for (var i = 0; i < dada.length; i++) {
+        if (dada[i].id_dokter_penanggung_jawab != null) {
+            dadabaru[i] = dada[i];
+        }
+    }
 
-    console.log(req.user._id);
-
-
-    console.log(dada);
-
-    // for(var i = 0; i < dada.length; i++){
-
-    // }
-    const allpendaftaran = await Pendaftaran.find({})
-        .sort({
-            createdAt: -1
-        })
-        .populate("id_pasien")
-        .populate("id_dokter_penanggung_jawab")
+    const data_pendaftaran = await Pendaftaran.find({}).populate("id_dokter_penanggung_jawab").populate("id_pasien");
     res.render('v_pendaftaran/index', {
-        data_pendaftaran: allpendaftaran
+        databaru: dadabaru,
+        data_pendaftaran: data_pendaftaran
     });
 
 }))

@@ -25,6 +25,7 @@
                                 <th>Kode Gejala</th>
                                 <th>Nama Gejala</th>
                                 <th>Bobot</th>
+                                <th>Image</th>
                                 <th width="120px">Action</th>
                             </tr>
                         </thead>
@@ -41,11 +42,16 @@
                                     <%= hasil.bobot %>
                                 </td>
                                 <td>
+                                    <img class="img-responsive" src="<%= hasil.image.link %>">
+                                </td>
+                                <td>
                                     <a class="btn btn-warning btn-sm" href="/gejalapakar/<%= hasil._id %>/edit"><i
                                             class="fa fa-pencil-square-o"></i></a>
                                     <a class="btn btn-white btn-sm" href="">
-                                        <form action="/gejalapakar/<%= hasil._id %>?_method=DELETE" method="POST" class="delete-form">
-                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Kamu Yakin Ingin Menghapus Data <%= hasil.nama_penyakit  %> ?')"><i
+                                        <form action="/gejalapakar/<%= hasil._id %>?_method=DELETE" method="POST"
+                                            class="delete-form">
+                                            <button class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah Kamu Yakin Ingin Menghapus Data <%= hasil.nama_penyakit  %> ?')"><i
                                                     class="fa fa-trash-o"></i></button>
                                         </form>
                                     </a>

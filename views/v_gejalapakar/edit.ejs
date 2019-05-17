@@ -17,25 +17,35 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" action="/gejalapakar/<%= cari_gejalapakar._id %>?_method=PUT"
-                        method="POST" id="tambah_barang">
+                    <form class="form-horizontal" role="form" enctype="multipart/form-data"
+                        action="/gejalapakar/<%= cari_gejalapakar._id %>?_method=PUT" method="POST" id="tambah_barang">
                         <div class="form-group">
                             <label for="" class="col-sm-3">Kode gejala</label>
                             <div class="col-sm-9">
-                                <input type="text" name="kode_gejala" required class="form-control" value="<%= cari_gejalapakar.kode_gejala %>">
+                                <input type="text" name="kode_gejala" required class="form-control"
+                                    value="<%= cari_gejalapakar.kode_gejala %>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3">Nama gejala</label>
                             <div class="col-sm-9">
-                                <input type="text" name="nama_gejala" required class="form-control" value="<%= cari_gejalapakar.nama_gejala %>">
+                                <input type="text" name="nama_gejala" required class="form-control"
+                                    value="<%= cari_gejalapakar.nama_gejala %>">
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="" class="col-sm-3">Bobot</label>
                             <div class="col-sm-9">
-                                <input type="text" name="bobot" required class="form-control" value="<%= cari_gejalapakar.bobot %>">
+                                <input type="text" name="bobot" required class="form-control"
+                                    value="<%= cari_gejalapakar.bobot %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3">Image</label>
+                            <div class="col-sm-9">
+                                <input type="file" id="image" class="form-control" name="image"
+                                    value="<%= cari_gejalapakar.image %>" required>
                             </div>
                         </div>
                         <div class="form-group">

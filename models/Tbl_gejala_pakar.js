@@ -9,7 +9,11 @@ var tbl_gejala_pakarSchema = mongoose.Schema({
     },
     bobot: {
         type: Number
-    }
+    },
+    image: {
+        link: String,
+        public_id: String
+    },
 }, {
     timestamps: false,
     collection: 'tbl_gejala_pakar',
