@@ -61,17 +61,20 @@ const schema2 = Joi.object().keys({
     submit: Joi.any()
 })
 
-router.get('/', middleware.DokterdanPetugas, middleware.asyncMiddleware(async (req, res, next) => {
+router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
+
     const allpendaftaran = await Pendaftaran.find({})
         .sort({
             createdAt: -1
         })
         .populate("id_pasien")
         .populate("id_dokter_penanggung_jawab")
-        .populate("id_jenis_bayar")
+
     res.render('v_pendaftaran/index', {
         data_pendaftaran: allpendaftaran
     });
+
+
 }))
 
 router.get('/new', middleware.Petugas, middleware.asyncMiddleware(async (req, res, next) => {
@@ -89,6 +92,9 @@ router.get('/new', middleware.Petugas, middleware.asyncMiddleware(async (req, re
     const data_jenis_bayar = await Jenis_bayar.find({});
     const data_pasien = await Pasien.find({});
     const data_poli = await Poliklinik.find({});
+
+
+
 
     res.render('v_pendaftaran/new', {
         data_dokter: data_dokter,
@@ -333,14 +339,7 @@ router.post('/:id/new_riwayatlab', middleware.Dokter, middleware.asyncMiddleware
 }))
 
 
-router.get("/:id/detail", middleware.Dokter, middleware.asyncMiddleware(async (req, res, next) => {
-    const data_pasien = await Pasien.find({});
-    // const dataPendaftaran = await Pendaftaran.find({
-    //     id_riwayat_diagnosa
-    // });
-    // console.log(dataPendaftaran);
-
-
+router.get("/:id/detail", middleware.DokterdanPetugas, middleware.asyncMiddleware(async (req, res, next) => {
     const data_pendaftaran = await Pendaftaran.findById(req.params.id)
         .populate({
             path: "id_pasien",

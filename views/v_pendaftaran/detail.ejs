@@ -204,6 +204,8 @@
       </div>
     </div>
 
+    <% if (currentUser.local.level === "Dokter") { %>
+
     <div>
       <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayatdiagnosa"
         method="POST" id="tambah_pendaftaran">
@@ -363,6 +365,8 @@
         </table>
       </form>
     </div>
+
+    <% } %>
 
     <!-- /.panel -->
   </div>
