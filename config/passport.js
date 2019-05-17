@@ -236,7 +236,7 @@ module.exports = function (passport) {
                                 to: newUser.local.email,
                                 subject: 'Verify your email',
                                 text: 'Hello, ' + newUser.local.username + '. Terima kasih sudah menjadi anggota Klinik Dokter Kita, silakan verifikasi terlebih dahulu melalui email .\n\n' +
-                                    'Click on the following link http://' + req.headers.host + '/verify/' + newUser.local.tokenReg
+                                    'Click on the following link http://klinikdokterkita.web.id/verify/' + newUser.local.tokenReg
                             };
 
                             transporter.sendMail(mailOptions, function (error, info) {
