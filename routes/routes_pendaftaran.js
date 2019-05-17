@@ -334,12 +334,16 @@ router.post('/:id/new_riwayatlab', middleware.Dokter, middleware.asyncMiddleware
 
 
 router.get("/:id/detail", middleware.Dokter, middleware.asyncMiddleware(async (req, res, next) => {
+    const data_pasien = await Pasien.find({});
+    // const dataPendaftaran = await Pendaftaran.find({
+    //     id_riwayat_diagnosa
+    // });
+    // console.log(dataPendaftaran);
+
+
     const data_pendaftaran = await Pendaftaran.findById(req.params.id)
         .populate({
             path: "id_pasien",
-            populate: {
-                path: "id_diagnosa_pakar"
-            }
         })
         .populate("id_dokter_penanggung_jawab")
         .populate({
@@ -354,6 +358,12 @@ router.get("/:id/detail", middleware.Dokter, middleware.asyncMiddleware(async (r
                 path: "id_tindakan"
             }
         });
+    const data_riwayat_diagnosa_pakar = await Riwayat_diagnosa_pakar.find({
+        id_pasien: data_pendaftaran.id_pasien
+    });
+
+
+
     // console.log(data_pendaftaran.id_riwayatdiagnosa[0].id_riwayat_periksa_lab);
     // const pipeline = [{
     //         $project: {
@@ -390,6 +400,7 @@ router.get("/:id/detail", middleware.Dokter, middleware.asyncMiddleware(async (r
 
     res.render("v_pendaftaran/detail", {
         data_pendaftaran: data_pendaftaran,
+        data_riwayat_diagnosa_pakar: data_riwayat_diagnosa_pakar,
         total: total,
         subtotal: subtotal
     });

@@ -42,7 +42,7 @@
             <tr>
               <td width='200'>Riwayat Diagnosa Pakar Pasien</td>
               <td>
-                <% data_pendaftaran.id_pasien.id_diagnosa_pakar.forEach(function(comment) { %>
+                <% data_riwayat_diagnosa_pakar.forEach(function(comment) { %>
                 <%= comment.nama_diagnosa %>
                 <% }) %>
               </td>
@@ -165,6 +165,7 @@
                 <th>Hasil Periksa</th>
                 <th>Perkembangan</th>
                 <th>Tanggal</th>
+                <th>Resep Obat</th>
                 <th>Tarif</th>
               </tr>
             </thead>
@@ -183,14 +184,16 @@
                 <td>
                   <%= moment(comment.tanggal).format('LL') %>
                 </td>
+                <td><%= comment.resep_obat %></td>
                 <td id="tarif">
                   <%= comment.id_tindakan.tarif %>
                 </td>
+
               </tr>
               <% }) %>
             </tbody>
             <tr>
-              <td colspan="4" align="right">Total</td>
+              <td colspan="5" align="right">Total</td>
               <td><b>
                   <%= total %></b></td>
             </tr>
