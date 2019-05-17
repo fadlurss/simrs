@@ -1,9 +1,9 @@
 var mongoose = require("mongoose");
 
 var tbl_riwayat_diagnosaSchema = mongoose.Schema({
-    id_user: {
+    id_pasien: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'Tbl_pasien'
     },
     persentansi: {
         type: String

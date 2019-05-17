@@ -20,6 +20,9 @@ const schema = Joi.object().keys({
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     const alldiagnosa_pakar = await Gejala_pakar.find({});
+    const data_pasien = await Pasien.findOne({
+        id_users: req.user._id
+    });
     res.render('v_access/diagnosa', {
         alldiagnosa_pakar: alldiagnosa_pakar
     });
@@ -60,26 +63,26 @@ router.get('/getrelasi', middleware.asyncMiddleware(async (req, res, next) => {
     res.json(capsule);
 }))
 
-router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    res.render('v_diagnosapakar/new');
-}))
+
 
 router.post("/insertriwayat", middleware.asyncMiddleware(async (req, res, next) => {
-    var get_data = req.body;
-    // req.user
-    get_data.id_user = req.user;
-    const cari_user = req.user;
-    const a = cari_user.local.id_pasien;
-
-    const add_riwayat_diagnosa = await Riwayat_diagnosa.create(get_data);
+    const get_data = req.body;
+    const data_pasien = await Pasien.findOne({
+        id_users: req.user._id
+    });
+    const dataSave = {
+        ...req.body,
+        id_pasien: data_pasien._id
+    }
+    const add_riwayat_diagnosa = await Riwayat_diagnosa.create(dataSave);
 
     // Tambah riwayat diagnosa ke tabel pasien
-    Pasien.findById(a, async (err, hasilnya) => {
-        // console.log(hasilnya);
-        const alpha = await Riwayat_diagnosa.create(req.body);
-        hasilnya.id_diagnosa_pakar.push(alpha);
-        hasilnya.save();
-    });
+    // Pasien.findById(a, async (err, hasilnya) => {
+    //     // console.log(hasilnya);
+    //     const alpha = await Riwayat_diagnosa.create(req.body);
+    //     hasilnya.id_diagnosa_pakar.push(alpha);
+    //     hasilnya.save();
+    // });
 
     if (add_riwayat_diagnosa) {
         res.json({
@@ -95,8 +98,11 @@ router.post("/insertriwayat", middleware.asyncMiddleware(async (req, res, next) 
 }))
 
 router.get("/getriwayat", middleware.asyncMiddleware(async (req, res, next) => {
+    const data_pasien = await Pasien.findOne({
+        id_users: req.user._id
+    });
     const get_data = await Riwayat_diagnosa.find({
-        id_user: req.user
+        id_pasien: data_pasien._id
     });
     var data = [];
     for (var i = 0; i < get_data.length; i++) {

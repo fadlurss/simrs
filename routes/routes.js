@@ -102,7 +102,9 @@ router.get("/users/:id", middleware.isLoggedIn, middleware.asyncMiddleware(async
                 path: "id_tindakan"
             }
         });
-    const data_riwayat_diagnosa = await Riwayat_diagnosa.find().where('id_user').equals(data_user._id);
+    const data_riwayat_diagnosa = await Riwayat_diagnosa.find({
+        id_pasien: data_pasien._id
+    });
     res.render("v_access/profile", {
         user: data_user,
         data_pasien: data_pasien,

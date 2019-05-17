@@ -154,34 +154,47 @@
                     </div>
                 </div>
 
-                <h4 class="text-center">Riwayat diagnosa pakar</h4>
-                <div class="panel-body table-responsive">
-                    <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
-                        <thead>
-                            <tr>
-                                <th>Nama diagnosa</th>
-                                <th>Persentase</th>
-                                <th>Tanggal diagnosa</th>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% data_riwayat_diagnosa.forEach(function(hasil){ %>
-                            <tr>
-                                <td>
-                                    <%= hasil.nama_diagnosa %>
-                                </td>
-                                <td>
-                                    <%= hasil.persentansi %>
-                                </td>
-                                <td>
-                                    <%= moment(hasil.tanggal_diagnosa).format('LL') %>
-                                </td>
-                            </tr>
-                            <% }); %>
-                        </tbody>
-                    </table>
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Riwayat diagnosa pakar
+                        </div>
+                        <!-- /.panel-heading -->
+
+                        <div class="panel-body table-responsive">
+                            <table width="100%" class="table table-striped table-bordered table-hover js-serial"
+                                id="datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Nama diagnosa</th>
+                                        <th>Persentase</th>
+                                        <th>Tanggal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% data_riwayat_diagnosa.forEach(function(comment) { %>
+                                    <tr>
+                                        <td>
+                                            <%= comment.nama_diagnosa %>
+                                        </td>
+                                        <td>
+                                            <%= comment.persentansi %>
+                                        </td>
+                                        <td>
+                                            <%= moment(comment.createdAt).format('LL') %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
                 </div>
+
+
             </div>
         </div>
     </div>
