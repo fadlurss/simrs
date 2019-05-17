@@ -28,3 +28,11 @@ cara export from mlab to json :
 3.  contoh mau export collection users, maka mongoexport -h ds213896.mlab.com:13896 -d simrs -c NAMATABELNYA -u fadlurss -p Xtcbandung97 -o NAMAEXPORTNYA.json
 
 git pull
+
+REVISI
+
+1. Perbaikan UI cek diagnosa tampilannya seperti slide PPT, ada ya/tidak
+
+SARAN
+
+1. Misalkan kalo user daftar antrian secara online, terus datang untuk konfirmasi kemudian resepsionis mengecek pendaftarannya, maka resepsionis perlu memberikan kartu kecil berupa nomor antrian untuk diberikan kepada pasien.
