@@ -738,7 +738,8 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_tindakan").then((res) => {
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_tindakan").then((
+            res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -1005,7 +1006,7 @@
 
     $("#cari_tindakan").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cari_id_tindakan", {
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cari_id_tindakan", {
             np: np
         }).then((r) => {
             console.log(r);

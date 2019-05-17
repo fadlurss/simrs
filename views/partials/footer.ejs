@@ -16,39 +16,6 @@
                     <li><a href="/signup">Signup</a></li>
                 </ul>
             </div>
-
-            <!-- <div class="col-md-2 col-sm-4 col-xs-6 qbootstrap-widget">
-                <h3>Our Services</h3>
-                <ul class="qbootstrap-footer-links">
-                    <li><a href="#">Heart Surgery</a></li>
-                    <li><a href="#">Surgical Treatment</a></li>
-                    <li><a href="#">General Treatment</a></li>
-                    <li><a href="#">Medical Treatment</a></li>
-                    <li><a href="#">Help Desk</a></li>
-                </ul>
-            </div> -->
-
-            <!-- <div class="col-md-5 col-sm-4 col-xs-12 qbootstrap-widget">
-                <h3>Let's Talk</h3>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label for="name" class="sr-only">Name</label>
-                        <input type="name" class="form-control" id="name" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="sr-only">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="message" class="sr-only">Message</label>
-                        <textarea class="form-control" id="message" rows="3" placeholder="Message"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" id="btn-submit" class="btn btn-primary btn-send-message btn-md"
-                            value="Send Message">
-                    </div>
-                </form>
-            </div> -->
         </div>
     </div>
     <div class="row copyright">
@@ -117,37 +84,6 @@
             field = document.querySelector('#date2');
         field.value = date2;
     })()
-
-
-    var demo12 = new autoComplete({
-        selector: '#cari_dokter_pj',
-        minChars: 1,
-        source: function (term, suggest) {
-            term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_dokter").then((res) => {
-                var choices = res;
-                var suggestions = [];
-                for (i = 0; i < choices.length; i++)
-                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
-                suggest(suggestions);
-            });
-
-        }
-    });
-
-    $("#cari_dokter_pj").on("change", function () {
-        np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cari_id_dokter", {
-            np: np
-        }).then((r) => {
-            console.log(r);
-            if (r.length > 0) {
-                $("#id_dokter_penanggung_jawab").val(r[0]._id);
-            } else {
-                alert("Nama Tidak Ditemukan");
-            }
-        });
-    });
 </script>
 
 </body>
