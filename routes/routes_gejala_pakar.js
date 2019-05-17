@@ -80,18 +80,25 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
     });
 }))
 
-router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({
-        ...req.body
-    }, schema);
-    const hasilUpdate = await Gejala_pakar.findOneAndUpdate({
-        _id: req.params.id
-    }, {
-        $set: {
-            ...req.body
+router.put("/:id", upload.single('image'), middleware.asyncMiddleware(async (req, res, next) => {
+    cloudinary.uploader.upload(req.file.path, async (result) => {
+        const kode_gejala = req.body.kode_gejala;
+        const nama_gejala = req.body.nama_gejala;
+        const bobot = req.body.bobot;
+        var image = req.body.image;
+        image = {
+            link: result.secure_url,
+            public_id: result.public_id
+        };
+        const newGejala = {
+            kode_gejala: kode_gejala,
+            nama_gejala: nama_gejala,
+            bobot: bobot,
+            image: image
         }
-    });
-    res.redirect("/gejalapakar");
+        const input_bidang_baru = await Gejala_pakar.findOneAndUpdate(req.params.id, newGejala);
+        res.redirect("/gejalapakar");
+    })
 }))
 
 router.delete("/:id", middleware.asyncMiddleware(async (req, res, next) => {
