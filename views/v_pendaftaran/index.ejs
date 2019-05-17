@@ -27,12 +27,11 @@
                                 <th>No Rawat</th>
                                 <th>No RM</th>
                                 <th>Nama pasien</th>
-                                <th>Dokter</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% data_pendaftaran.forEach(function(hasil){ %>
+                            <% databaru.forEach(function(hasil){ %>
                             <tr>
                                 <td>
                                     <%= hasil.no_registrasi %>
@@ -45,9 +44,6 @@
                                 </td>
                                 <td>
                                     <%= hasil.id_pasien.nama_pasien %>
-                                </td>
-                                <td>
-                                    <%= hasil.id_dokter_penanggung_jawab.nama_dokter %>
                                 </td>
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="/pendaftaran/<%= hasil._id %>/detail"><i
