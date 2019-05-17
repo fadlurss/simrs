@@ -739,7 +739,7 @@
         source: function (term, suggest) {
             term = term.toLowerCase();
             var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_tindakan").then((
-            res) => {
+                res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
