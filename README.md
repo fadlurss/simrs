@@ -2,6 +2,8 @@
 
 SIM RS Menggunakan Node js
 
+GMAILPW=your password in terminal node app.js
+
 Yang belum :
 
 SELESAI

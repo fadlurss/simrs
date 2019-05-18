@@ -227,7 +227,7 @@ module.exports = function (passport) {
                                 secure: false,
                                 auth: {
                                     user: 'jhieber7@gmail.com',
-                                    pass: 'xtcbandung97' // GMAILPW=your password in terminal node app.js
+                                    pass: process.env.GMAILPW // GMAILPW=your password in terminal node app.js
                                 }
                             });
 
