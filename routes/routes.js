@@ -277,7 +277,7 @@ router.post('/forgot', function (req, res, next) {
                 service: 'Gmail',
                 auth: {
                     user: 'jhieber7@gmail.com',
-                    pass: 'xtcbandung97'
+                    pass: process.env.GMAILPW
                 }
 
             });
@@ -362,7 +362,7 @@ router.post('/reset/:token', function (req, res) {
                 service: 'Gmail',
                 auth: {
                     user: 'jhieber7@gmail.com',
-                    pass: 'xtcbandung97' // GMAILPW=your password in terminal node app.js
+                    pass: process.env.GMAILPW // GMAILPW=your password in terminal node app.js
                 }
             });
 

@@ -234,7 +234,7 @@ module.exports = function (passport) {
                             var mailOptions = {
                                 from: 'jhieber7@gmail.com',
                                 to: newUser.local.email,
-                                subject: 'Verify your email',
+                                subject: 'Verifikasi akun anda',
                                 text: 'Hello, ' + newUser.local.username + '. Terima kasih sudah menjadi anggota Klinik Dokter Kita, silakan verifikasi terlebih dahulu melalui email .\n\n' +
                                     'Click on the following link http://klinikdokterkita.web.id/verify/' + newUser.local.tokenReg
                             };
