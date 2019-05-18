@@ -623,7 +623,7 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pendaftaran/contoh").then((res) => {
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/contoh").then((res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -639,7 +639,7 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_dokter").then((
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_dokter").then((
                 res) => {
                 var choices = res;
                 var suggestions = [];
@@ -656,13 +656,14 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pengadaanobat/cari_supplier").then((res) => {
-                var choices = res;
-                var suggestions = [];
-                for (i = 0; i < choices.length; i++)
-                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
-                suggest(suggestions);
-            });
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pengadaanobat/cari_supplier").then((
+                res) => {
+                    var choices = res;
+                    var suggestions = [];
+                    for (i = 0; i < choices.length; i++)
+                        if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                    suggest(suggestions);
+                });
 
         }
     });
@@ -672,7 +673,8 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pengadaanobat/cari_barang").then((res) => {
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pengadaanobat/cari_barang").then((
+            res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -689,7 +691,7 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_dokter").then((
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_dokter").then((
                 res) => {
                 var choices = res;
                 var suggestions = [];
@@ -706,7 +708,8 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_pegawai").then((res) => {
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_pegawai").then((
+            res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -722,7 +725,8 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_pegawai").then((res) => {
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_pegawai").then((
+            res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -755,7 +759,7 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_obat").then((res) => {
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_obat").then((res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -771,7 +775,8 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/penjualanobat/cari_barang").then((res) => {
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/penjualanobat/cari_barang").then((
+            res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -787,7 +792,7 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_dokter").then((
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_dokter").then((
                 res) => {
                 var choices = res;
                 var suggestions = [];
@@ -804,7 +809,7 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/penjualan/cari_barang").then((res) => {
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/penjualan/cari_barang").then((res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -819,7 +824,7 @@
         minChars: 1,
         source: function (term, suggest) {
             term = term.toLowerCase();
-            var contoh = $.getJSON("http://localhost:4000/pendaftaran/cari_dokter").then((
+            var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_dokter").then((
                 res) => {
                 var choices = res;
                 var suggestions = [];
@@ -833,7 +838,7 @@
 
     $("#cari_supplier").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pengadaanobat/cari_id_supplier", {
+        $.post("http://klinikdokterkita.web.id/pengadaanobat/cari_id_supplier", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -847,7 +852,7 @@
 
     $("#cari_barang").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pengadaanobat/cari_id_barang", {
+        $.post("http://klinikdokterkita.web.id/pengadaanobat/cari_id_barang", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -861,7 +866,7 @@
 
     $("#cari_barang_penjualan").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/penjualanobat/cari_id_barang", {
+        $.post("http://klinikdokterkita.web.id/penjualanobat/cari_id_barang", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -875,7 +880,7 @@
 
     $("#cari_barang").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pengadaanobat/cari_harga_barang", {
+        $.post("http://klinikdokterkita.web.id/pengadaanobat/cari_harga_barang", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -891,7 +896,7 @@
     //routes_barang_keluar
     $("#cari_item").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/penjualan/cari_stok_item", {
+        $.post("http://klinikdokterkita.web.id/penjualan/cari_stok_item", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -906,7 +911,7 @@
     //routes_barang_keluar
     $("#cari_item").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/penjualan/id_item", {
+        $.post("http://klinikdokterkita.web.id/penjualan/id_item", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -921,7 +926,7 @@
     //routes_barang_keluar
     $("#cari_item").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/penjualan/harga_item", {
+        $.post("http://klinikdokterkita.web.id/penjualan/harga_item", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -936,7 +941,7 @@
     //routes_barang_keluar
     $("#cari_item").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/penjualan/harga_modal", {
+        $.post("http://klinikdokterkita.web.id/penjualan/harga_modal", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -950,7 +955,7 @@
 
     $("#cari_barang").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/penjualanobat/cari_harga_barang", {
+        $.post("http://klinikdokterkita.web.id/penjualanobat/cari_harga_barang", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -964,7 +969,7 @@
 
     $("#cari_dokter").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cari_id_dokter", {
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cari_id_dokter", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -978,7 +983,7 @@
 
     $("#cari_dokter_pj").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cari_id_dokter", {
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cari_id_dokter", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -992,7 +997,7 @@
 
     $("#cari_petugas").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cari_id_pegawai", {
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cari_id_pegawai", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -1020,7 +1025,7 @@
 
     $("#cari_obat").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cari_id_obat", {
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cari_id_obat", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -1034,7 +1039,7 @@
 
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cariibu", {
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cariibu", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -1048,7 +1053,7 @@
 
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cariibu", {
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cariibu", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -1062,7 +1067,7 @@
 
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cariibu", {
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cariibu", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -1078,7 +1083,7 @@
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
 
-        $.post("http://localhost:4000/pendaftaran/cariibu", {
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cariibu", {
             np: np
         }).then((r) => {
             console.log(r);
@@ -1093,7 +1098,7 @@
 
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cariibu", {
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cariibu", {
             np: np
         }).then((r) => {
             console.log(r);
