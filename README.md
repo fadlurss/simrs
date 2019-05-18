@@ -6,6 +6,8 @@ GMAILPW=your password in terminal node app.js
 
 Yang belum :
 
+1. Buat histori daftar antrian pasien di profil pasien.
+
 SELESAI
 
 1. ketika menambahkan penerimaan barang > total barang jika lebih dari total masuk, maka pas klik button tidak bisa disimpan, di stokopname
