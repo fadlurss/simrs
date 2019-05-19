@@ -15,9 +15,9 @@ const schema = Joi.object().keys({
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-  const data_gejala = await Gejala_pakar.find({});
-  const data_diagnosa = await Diagnosa_pakar.find({});
-    const allrelasi_pakar = await Relasi_pakar.find({}).populate("kode_diagnosa_pakar");
+    const data_gejala = await Gejala_pakar.find({});
+    const data_diagnosa = await Diagnosa_pakar.find({});
+    const allrelasi_pakar = await Relasi_pakar.find({}).populate("kode_diagnosa_pakar").populate("kode_gejala_pakar");
     res.render('v_relasipakar/index', {
         allrelasi_pakar: allrelasi_pakar,
         data_gejala: data_gejala,
@@ -54,29 +54,35 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
-    const cari_diagnosapenyakit = await Diagnosa_penyakit.findById(req.params.id);
-    res.render("v_diagnosapenyakit/edit", {
-        diagnosapenyakit_edit_id: cari_diagnosapenyakit
+    const data_gejala = await Gejala_pakar.find({});
+    const data_diagnosa = await Diagnosa_pakar.find({});
+    const cari_diagnosapenyakit = await Relasi_pakar.findById(req.params.id);
+    res.render("v_relasipakar/edit", {
+        relasipakar: cari_diagnosapenyakit,
+        data_diagnosa: data_diagnosa,
+        data_gejala: data_gejala
+
     });
+
 }))
 
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({
         ...req.body
     }, schema);
-    const hasilUpdate = await Diagnosa_penyakit.findOneAndUpdate({
+    const hasilUpdate = await Relasi_pakar.findOneAndUpdate({
         _id: req.params.id
     }, {
         $set: {
             ...req.body
         }
     });
-    res.redirect("/diagnosapenyakit");
+    res.redirect("/relasipakar");
 }))
 
 router.delete("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const delete_diagnosapenyakit = await Diagnosa_penyakit.findByIdAndRemove(req.params.id);
-    res.redirect("/diagnosapenyakit");
+    const delete_diagnosapakar = await Relasi_pakar.findByIdAndRemove(req.params.id);
+    res.redirect("/relasipakar");
 }))
 
 module.exports = router;

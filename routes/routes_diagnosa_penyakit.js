@@ -26,7 +26,8 @@ router.get('/new', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
+    const result = Joi.validate({
+        ...req.body
     }, schema);
     const {
         value,
@@ -51,12 +52,14 @@ router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const result = Joi.validate({ ...req.body
+    const result = Joi.validate({
+        ...req.body
     }, schema);
     const hasilUpdate = await Diagnosa_penyakit.findOneAndUpdate({
         _id: req.params.id
     }, {
-        $set: { ...req.body
+        $set: {
+            ...req.body
         }
     });
     res.redirect("/diagnosapenyakit");

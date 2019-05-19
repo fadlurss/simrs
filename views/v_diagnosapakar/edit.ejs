@@ -17,24 +17,28 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" action="/diagnosapakar/<%= cari_diagnosapenyakit._id %>?_method=PUT"
-                        method="POST" id="tambah_barang">
+                    <form class="form-horizontal" role="form"
+                        action="/diagnosapakar/<%= cari_diagnosapenyakit._id %>?_method=PUT" method="POST"
+                        id="tambah_barang">
                         <div class="form-group">
                             <label for="" class="col-sm-3">Kode diagnosa</label>
                             <div class="col-sm-9">
-                                <input type="text" name="kode_diagnosa" required class="form-control" value="<%= cari_diagnosapenyakit.kode_diagnosa %>">
+                                <input type="text" name="kode_diagnosa" required class="form-control"
+                                    value="<%= cari_diagnosapenyakit.kode_diagnosa %>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3">Nama Penyakit</label>
                             <div class="col-sm-9">
-                                <input type="text" name="nama_diagnosa" required class="form-control" value="<%= cari_diagnosapenyakit.nama_diagnosa %>">
+                                <input type="text" name="nama_diagnosa" required class="form-control"
+                                    value="<%= cari_diagnosapenyakit.nama_diagnosa %>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3">Keterangan</label>
                             <div class="col-sm-9">
-                                <input type="text" name="keterangan" class="form-control" value="<%= cari_diagnosapenyakit.keterangan %>">
+                                <input type="text" name="keterangan" class="form-control"
+                                    value="<%= cari_diagnosapenyakit.keterangan %>">
                             </div>
                         </div>
                         <div class="form-group">

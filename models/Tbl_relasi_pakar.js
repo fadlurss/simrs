@@ -11,6 +11,9 @@ var tbl_relasi_pakarSchema = mongoose.Schema({
     kode_diagnosa_pakar: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_diagnosa_pakar'
+    },
+    keterangan: {
+        type: String
     }
 }, {
     timestamps: false,
