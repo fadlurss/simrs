@@ -17,8 +17,8 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" enctype="multipart/form-data"
-                        action="/gejalapakar/<%= cari_gejalapakar._id %>?_method=PUT" method="POST" id="tambah_barang">
+                    <form class="form-horizontal" enctype="multipart/form-data"
+                        action="/gejalapakar/<%= cari_gejalapakar._id %>?_method=PUT" method="POST">
                         <div class="form-group">
                             <label for="" class="col-sm-3">Kode gejala</label>
                             <div class="col-sm-9">
@@ -45,7 +45,7 @@
                             <label for="" class="col-sm-3">Image</label>
                             <div class="col-sm-9">
                                 <input type="file" id="image" class="form-control" name="image"
-                                    value="<%= cari_gejalapakar.image %>" required>
+                                    value="<%= cari_gejalapakar.image %>">
                             </div>
                         </div>
                         <div class="form-group">

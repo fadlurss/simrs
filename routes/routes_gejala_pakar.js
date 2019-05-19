@@ -90,13 +90,13 @@ router.put("/:id", upload.single('image'), middleware.asyncMiddleware(async (req
             link: result.secure_url,
             public_id: result.public_id
         };
-        const newGejala = {
+        const updateGejala = {
             kode_gejala: kode_gejala,
             nama_gejala: nama_gejala,
             bobot: bobot,
             image: image
         }
-        const input_bidang_baru = await Gejala_pakar.findOneAndUpdate(req.params.id, newGejala);
+        const update = await Gejala_pakar.findByIdAndUpdate(req.params.id, updateGejala);
         res.redirect("/gejalapakar");
     })
 }))
