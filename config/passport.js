@@ -15,7 +15,7 @@ var crypto = require('crypto');
 // load up the user model
 var User = require('../models/user');
 var Pasien = require('../models/Tbl_pasien');
-var User3 = require('../models/Tbl_dokter');
+var Dokter = require('../models/Tbl_dokter');
 var User4 = require('../models/Tbl_petugas');
 
 // load the auth variables
@@ -156,7 +156,6 @@ module.exports = function (passport) {
                             // create the user
                             var newUser = new User();
 
-                            var Dokter = new User3();
                             var newUser4 = new User4();
                             // eval(require('locus'))
                             if (req.body.adminCode === 'kode_admin') {
@@ -186,6 +185,7 @@ module.exports = function (passport) {
                             });
 
                             var pasien = new Pasien();
+                            var dokter = new Dokter();
 
                             pasien.id_users = newUser._id;
                             pasien.nama_pasien = firstName;
@@ -198,6 +198,20 @@ module.exports = function (passport) {
                             pasien.agama = agama;
                             pasien.status_menikah = status_menikah;
                             pasien.no_rm = no_rm;
+
+
+                            // UNTUK INPUT USER BARU DOKTER
+                            // dokter.id_users = newUser._id;
+                            // dokter.nama_dokter = firstName;
+                            // dokter.tanggal_lahir = tanggal_lahir;
+                            // dokter.umur = umur;
+                            // dokter.alamat = alamat;
+                            // dokter.pekerjaan = pekerjaan;
+                            // dokter.no_hp = no_hp;
+                            // dokter.jenis_kelamin = jenis_kelamin;
+                            // dokter.agama = agama;
+                            // dokter.status_menikah = status_menikah;
+                            // dokter.no_izin_praktek = no_rm;
 
                             pasien.save(function (err) {});
 
