@@ -4,7 +4,8 @@ passport = require('passport')
 User = require('../models/user')
 Pasien = require('../models/Tbl_pasien')
 Jadwal_dokter = require("../models/Tbl_jadwal_praktek_dokter")
-Riwayat_diagnosa = require("../models/Tbl_riwayat_diagnosa")
+Riwayat_diagnosa = require("../models/Tbl_riwayat_diagnosa") //Riwayat diagnosa pakar
+Riwayat_dokter = require("../models/Tbl_riwayatdiagnosa") //Riwayat dokter
 Dokter = require("../models/Tbl_dokter")
 Poliklinik = require("../models/Tbl_poliklinik")
 Agama = require("../models/Tbl_agama")
@@ -78,6 +79,29 @@ router.get('/hubungikami', middleware.asyncMiddleware(async (req, res, next) => 
     res.render('v_access/kontak');
 }));
 
+
+router.get('/', middleware.DokterdanPetugas, middleware.asyncMiddleware(async (req, res, next) => {
+    const dada = await Pendaftaran.find({}).populate(
+        "id_dokter_penanggung_jawab",
+        null, {
+            id_users: req.user._id
+        }
+    ).populate("id_pasien");
+    dadabaru = [];
+    for (var i = 0; i < dada.length; i++) {
+        if (dada[i].id_dokter_penanggung_jawab != null) {
+            dadabaru[i] = dada[i];
+        }
+    }
+    const data_pendaftaran = await Pendaftaran.find({}).populate("id_dokter_penanggung_jawab").populate("id_pasien");
+    res.render('v_pendaftaran/index', {
+        databaru: dadabaru,
+        data_pendaftaran: data_pendaftaran
+    });
+
+}))
+
+
 // PROFILE SECTION =========================
 router.get("/users/:id", middleware.isLoggedIn, middleware.asyncMiddleware(async (req, res, next) => {
     const data_user = await User.findById(req.params.id);
@@ -105,8 +129,32 @@ router.get("/users/:id", middleware.isLoggedIn, middleware.asyncMiddleware(async
     const data_riwayat_diagnosa = await Riwayat_diagnosa.find({
         id_pasien: data_pasien._id
     });
+    const dada = await Pendaftaran.find({}).populate(
+        "id_pasien",
+        null, {
+            id_users: req.user._id
+        }
+    ).populate({
+        path: "id_riwayatdiagnosa",
+        populate: {
+            path: "id_riwayat_periksa_lab"
+        }
+    }).populate({
+        path: "id_riwayattindakan",
+        populate: {
+            path: "id_tindakan"
+        }
+    });
+    data_antrian = [];
+    for (var i = 0; i < dada.length; i++) {
+        if (dada[i].id_pasien != null) {
+            data_antrian[i] = dada[i];
+        }
+    }
+
     res.render("v_access/profile", {
         user: data_user,
+        data_antrian: data_antrian,
         data_pasien: data_pasien,
         data_pendaftaran: data_pendaftaran,
         data_riwayat_diagnosa: data_riwayat_diagnosa
