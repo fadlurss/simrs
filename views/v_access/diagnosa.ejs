@@ -1,4 +1,17 @@
 <% include ../partials/header2 %>
+<% if(!currentUser) { %>
+<div class="container">
+  <div class="col-sm-6 col-sm-offset-3"><br>
+    <center>
+      <h1>Silakan login terlebih dahulu.</h1>
+      <!--If the user is not logged in, direct him to the login page-->
+      <h5>Sebelum cek diagnosa awal penyakit anda. Silakan login disini terlebih dahulu. <a href="/login">Klik
+          disini</a></h5>
+    </center>
+  </div>
+</div>
+<% } %>
+<% if(currentUser) { %>
 <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.2/css/all.css"
   integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <style media="screen">
@@ -276,6 +289,7 @@
   </div>
   <% } %>
 </div>
+<% } %>
 <% include ../partials/footer %>
 <script type="text/javascript">
   var i = 1;
