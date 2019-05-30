@@ -49,6 +49,10 @@ router.get('/index', function (req, res) {
     res.render('v_access/index');
 });
 
+router.get('/profilku', function (req, res) {
+    res.render('v_access/profil');
+});
+
 
 // router.get('/pendaftaran', middleware.DokterdanPetugas, middleware.asyncMiddleware(async (req, res, next) => {
 //     const allpendaftaran = await Pendaftaran.find({})
@@ -152,7 +156,7 @@ router.get("/users/:id", middleware.isLoggedIn, middleware.asyncMiddleware(async
         }
     }
 
-    res.render("v_access/profile", {
+    res.render("v_access/profil", {
         user: data_user,
         data_antrian: data_antrian,
         data_pasien: data_pasien,

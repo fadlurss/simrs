@@ -33,6 +33,8 @@ var userSchema = mongoose.Schema({
 
     }
 
+}, {
+    timestamps: true
 });
 
 // generating a hash
