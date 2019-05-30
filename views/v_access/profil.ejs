@@ -34,20 +34,13 @@
                         <%= data_pasien.pekerjaan %></li>
                 </ul>
 
-                <ul class="list-group">
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Bergabung</strong></span>
-                        <%= moment(currentUser.createdAt).format('LL') %></li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Terakhir
-                                online</strong></span>
-                        <%= moment(currentUser.currentDate).startOf('hour').fromNow() %></li>
-                </ul>
             </div>
             <!--/col-3-->
             <div class="col-sm-9">
 
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active"><a href="#daftarantrian" data-toggle="tab">Daftar Antrian</a></li>
-                    <li><a href="#riwayatdiagnosa" data-toggle="tab">Riwayat Diagnosa Dokter</a></li>
+                    <li><a href="#riwayatdiagnosa" data-toggle="tab">Riwayat Diagnosa</a></li>
                     <li><a href="#riwayattindakan" data-toggle="tab">Riwayat Tindakan</a></li>
                     <li><a href="#riwayatpakar" data-toggle="tab">Diagnosa Awal</a></li>
                 </ul>
