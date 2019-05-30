@@ -3,7 +3,7 @@ Agama = require('../models/Tbl_agama');
 Status_menikah = require('../models/Tbl_status_menikah');
 middleware = require('../middleware');
 Joi = require('joi');
-asyncMiddleware = require('../middleware');
+// asyncMiddleware = require('../middleware');
 
 exports.read_pasien = middleware.asyncMiddleware(async (req, res, next) => {
     const allpasien = await Pasien.find({})

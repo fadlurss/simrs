@@ -225,17 +225,6 @@ module.exports = function (passport) {
 
                             });
 
-
-
-
-                            // var transporter = nodemailer.createTransport(smtpTransport({
-                            //     service: 'gmail',
-                            //     host: 'smtp.gmail.com',
-                            //     auth: {
-                            //         user: 'jhieber7@gmail.com',
-                            //         pass: 'xtcbandung97'
-                            //     }
-                            // }));
                             var transporter = nodemailer.createTransport({
                                 host: "smtp.gmail.com",
                                 secure: false,
@@ -249,7 +238,7 @@ module.exports = function (passport) {
                                 from: 'jhieber7@gmail.com',
                                 to: newUser.local.email,
                                 subject: 'Verifikasi akun anda',
-                                text: 'Hello, ' + newUser.local.username + '. Terima kasih sudah menjadi anggota Klinik Dokter Kita, silakan verifikasi terlebih dengan klik link ini .\n\n' +
+                                text: 'Hai, ' + newUser.local.username + '. Terima kasih sudah menjadi anggota Klinik Dokter Kita, silakan verifikasi terlebih dengan klik link ini .\n\n' +
                                     ' http://klinikdokterkita.web.id/verify/' + newUser.local.tokenReg
                             };
 
