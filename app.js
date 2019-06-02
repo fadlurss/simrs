@@ -11,7 +11,7 @@ const express = require('express'),
     configDB = require('./config/database.js'),
     session = require('express-session'),
     methodOverride = require('method-override'),
-    user = require('./models/user'),
+    User = require('./models/user'),
     cors = require('cors'),
     validator = require('express-validator'),
     MongoStore = require('connect-mongo')(session),
@@ -49,6 +49,7 @@ const express = require('express'),
     tindakanRoutes = require("./routes/routes_tindakan"),
     pemeriksaanlaboratoriumRoutes = require("./routes/routes_pemeriksaanlaboratorium"),
     subpemeriksaanlaboratoriumRoutes = require("./routes/routes_sub_pemeriksaanlaboratorium"),
+    notifikasiRoutes = require("./routes/routes_notifikasi"),
     app = express();
 mongoose.connect(configDB.url, {
     useNewUrlParser: true
@@ -84,8 +85,22 @@ app.use(passport.session()); // persistent login sessions
 app.use(express.static(__dirname + "/public")); // jangan pakai koma seperti config
 app.use(express.static(__dirname, +"/config"));
 
-app.use(function (req, res, next) { //buat melihat siapa yang login, ada di header welcome back!! semacam session bisa mengeluarkan email
+app.use(async function (req, res, next) { //buat melihat siapa yang login, ada di header welcome back!! semacam session bisa mengeluarkan email
     res.locals.currentUser = req.user;
+    if (req.user) {
+        try {
+            const user = await User.findById(req.user._id).populate('notification', null, {
+                isRead: false
+            }).exec();
+            res.locals.notif = user.local.notifications.reverse();
+            const a = user.local.notifications;
+
+
+            // console.log("datanya " + user);
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
     res.locals.session = req.session;
     res.locals.error = req.flash("error"); //utk mengirim pesan ke semua router
     res.locals.success = req.flash("success");
@@ -129,6 +144,7 @@ app.use("/tindakan", tindakanRoutes);
 app.use("/diagnosa", diagnosaRoutes);
 app.use("/pemeriksaanlaboratorium", pemeriksaanlaboratoriumRoutes);
 app.use("/subpemeriksaanlaboratorium", subpemeriksaanlaboratoriumRoutes);
+app.use("/notifikasi", notifikasiRoutes);
 
 app.get("*", function (req, res) {
     res.send("404");

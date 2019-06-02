@@ -17,6 +17,7 @@ Riwayatdiagnosa = require("../models/Tbl_riwayatdiagnosa")
 PJRiwayatdiagnosa = require("../models/Tbl_pj_riwayatdiagnosa")
 Riwayat_diagnosa_pakar = require("../models/Tbl_riwayat_diagnosa")
 Riwayat_periksa_lab = require("../models/Tbl_hasil_periksa_lab")
+Notification = require("../models/notification")
 middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
@@ -326,8 +327,25 @@ exports.post_daftarantrian = middleware.asyncMiddleware(async (req, res, next) =
             id_pasien: dataPasien._id,
             no_rm: dataPasien.no_rm
         }
+        var input_pendaftaran_baru = await Pendaftaran.create(dataSave);
+
+        var data_dokter = await Dokter.findById({
+            _id: req.body.id_dokter_penanggung_jawab
+        });
+
+        //menambahkan notifikasi ke dokter yang dipilih
+        User.findById({
+            _id: data_dokter.id_users
+        }, async (err, hasilnya) => {
+            const newNotification = {
+                username: req.user.local.username,
+                pendaftaran_id: input_pendaftaran_baru.id
+            }
+            const notification = await Notification.create(newNotification);
+            hasilnya.local.notifications.push(notification);
+            hasilnya.save();
+        });
         // console.log("data save " + JSON.stringify(req.body));
-        const input_pendaftaran_baru = await Pendaftaran.create(dataSave);
         res.redirect("/index");
     }
 })

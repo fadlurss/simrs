@@ -29,6 +29,10 @@ var userSchema = mongoose.Schema({
         pasien: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Tbl_pasien'
+        }],
+        notifications: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Notification'
         }]
 
     }
