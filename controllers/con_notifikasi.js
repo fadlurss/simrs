@@ -24,6 +24,6 @@ exports.detail_notifikasi = middleware.asyncMiddleware(async (req, res, next) =>
     const notification = await Notification.findById(req.params.id, async (err, hasilnya) => {
         hasilnya.isRead = true;
         hasilnya.save();
-        res.redirect(`/pendaftaran/${notification.pendaftaran_id}/detail`);
+        res.redirect(`/pendaftaran/${hasilnya.pendaftaran_id}/detail`);
     })
 });

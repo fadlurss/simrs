@@ -3,18 +3,18 @@ router = express.Router()
 const pendaftaran = require('../controllers/con_pendaftaran');
 middleware = require('../middleware');
 
-router.get('/', middleware.DokterdanPetugas, pendaftaran.read)
-router.get('/new', middleware.Petugas, pendaftaran.create)
-router.post('/new', middleware.Petugas, pendaftaran.post)
+router.get('/', middleware.DokterdanAdmin, pendaftaran.read)
+router.get('/new', middleware.Admin, pendaftaran.create)
+router.post('/new', middleware.Admin, pendaftaran.post)
 router.get('/daftar', pendaftaran.create_daftarantrian) // daftar antrian online
 router.post('/daftar', pendaftaran.post_daftarantrian)
 router.post('/:id/new_riwayattindakan', middleware.Dokter, pendaftaran.post_riwayat_tindakan)
 router.post('/:id/new_riwayatdiagnosa', middleware.Dokter, pendaftaran.post_riwayat_diagnosa)
-router.get("/:id/detail", middleware.DokterdanPetugas, pendaftaran.detail)
+router.get("/:id/detail", middleware.DokterdanAdmin, pendaftaran.detail)
 router.get("/:id/cetak", middleware.Dokter, pendaftaran.cetak)
-router.get("/:id/edit", middleware.Petugas, pendaftaran.edit)
-router.put("/:id", middleware.Petugas, pendaftaran.update)
-router.delete("/:id", middleware.Petugas, pendaftaran.delete)
+router.get("/:id/edit", middleware.Admin, pendaftaran.edit)
+router.put("/:id", middleware.Admin, pendaftaran.update)
+router.delete("/:id", middleware.Admin, pendaftaran.delete)
 router.get('/contoh', pendaftaran.contoh);
 router.post('/cariibu', pendaftaran.cari_ibu);
 router.post('/tindakan_oleh', pendaftaran.tindakan_oleh);

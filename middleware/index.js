@@ -51,6 +51,22 @@ middlewareObj.Petugas = function (req, res, next) {
     }
 }
 
+middlewareObj.DokterdanAdmin = function (req, res, next) {
+    if (req.isAuthenticated()) {
+        Users.findById(req.params.id, function (err, foundUsers) {
+            if (req.user.local.level === "Admin" || req.user.local.level === "Dokter") {
+                next();
+            } else {
+                req.flash("error", "You don't have permission to do that");
+                res.redirect("back");
+            }
+        });
+    } else {
+        req.flash("error", "You need to be logged in to do that");
+        res.redirect("back");
+    }
+}
+
 middlewareObj.DokterdanPetugas = function (req, res, next) {
     if (req.isAuthenticated()) {
         Users.findById(req.params.id, function (err, foundUsers) {

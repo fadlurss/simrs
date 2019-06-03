@@ -89,14 +89,15 @@ app.use(async function (req, res, next) { //buat melihat siapa yang login, ada d
     res.locals.currentUser = req.user;
     if (req.user) {
         try {
-            const user = await User.findById(req.user._id).populate('notification', null, {
+            let dada = await User.findById(req.user._id).populate('notifications', null, {
                 isRead: false
-            }).exec();
-            res.locals.notif = user.local.notifications.reverse();
-            const a = user.local.notifications;
-
-
-            // console.log("datanya " + user);
+            });
+            dadabaru = [];
+            for (var i = 0; i < dada.length; i++) {
+                if (dada[i].local.notifications != null) {
+                    res.locals.dadabaru[i] = dada[i];
+                }
+            }
         } catch (err) {
             console.log(err.message);
         }
