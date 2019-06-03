@@ -51,9 +51,24 @@ const express = require('express'),
     subpemeriksaanlaboratoriumRoutes = require("./routes/routes_sub_pemeriksaanlaboratorium"),
     notifikasiRoutes = require("./routes/routes_notifikasi"),
     app = express();
-mongoose.connect(configDB.url, {
-    useNewUrlParser: true
-}); // connect to our database
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+const dbName = 'test';
+mongoose
+    .connect(configDB.url, {
+        useNewUrlParser: true
+    }) // Let us remove that nasty deprecation warrning :)
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => console.log(err));
+// mongoose.connect(configDB.url, {
+//     useNewUrlParser: true
+// }); // connect to our database
+// MongoClient.connect(configDB.url, function (err, client) {
+//     assert.equal(null, err);
+//     console.log("Connected successfully to server");
+//     const db = client.db(dbName);
+//     client.close();
+// });
 require('./config/passport')(passport);
 app.set('view engine', 'ejs');
 app.enable("trust proxy");

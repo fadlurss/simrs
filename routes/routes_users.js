@@ -17,5 +17,8 @@ router.post('/loginpetugas', users.post_login_petugas);
 router.get('/jadwaldokter', users.jadwal_dokter);
 router.get('/signup', users.signup);
 router.post('/signup', users.post_signup);
+router.get("/verify", users.verify);
+router.get('/verify/:tokenReg', users.post_verify);
+
 
 module.exports = router;
