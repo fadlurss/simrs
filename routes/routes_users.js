@@ -19,6 +19,9 @@ router.get('/signup', users.signup);
 router.post('/signup', users.post_signup);
 router.get("/verify", users.verify);
 router.get('/verify/:tokenReg', users.post_verify);
-
+router.get("/forgot", users.forgot_password);
+router.post('/forgot', users.post_forgot_password);
+router.get('/reset/:token', users.reset_token);
+router.post('/reset/:token', users.post_reset_token);
 
 module.exports = router;
