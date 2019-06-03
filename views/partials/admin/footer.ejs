@@ -607,6 +607,9 @@
         var date2 = new Date().toISOString().substring(0, 10),
             field = document.querySelector('#date2');
         field.value = date2;
+        var date4 = new Date().toISOString().substring(0, 10),
+            field = document.querySelector('#date4');
+        field.value = date4;
     })()
 
     (function () {
@@ -658,12 +661,12 @@
             term = term.toLowerCase();
             var contoh = $.getJSON("http://klinikdokterkita.web.id/pengadaanobat/cari_supplier").then((
                 res) => {
-                    var choices = res;
-                    var suggestions = [];
-                    for (i = 0; i < choices.length; i++)
-                        if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
-                    suggest(suggestions);
-                });
+                var choices = res;
+                var suggestions = [];
+                for (i = 0; i < choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            });
 
         }
     });
@@ -674,7 +677,7 @@
         source: function (term, suggest) {
             term = term.toLowerCase();
             var contoh = $.getJSON("http://klinikdokterkita.web.id/pengadaanobat/cari_barang").then((
-            res) => {
+                res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -709,7 +712,7 @@
         source: function (term, suggest) {
             term = term.toLowerCase();
             var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_pegawai").then((
-            res) => {
+                res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -726,7 +729,7 @@
         source: function (term, suggest) {
             term = term.toLowerCase();
             var contoh = $.getJSON("http://klinikdokterkita.web.id/pendaftaran/cari_pegawai").then((
-            res) => {
+                res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)
@@ -776,7 +779,7 @@
         source: function (term, suggest) {
             term = term.toLowerCase();
             var contoh = $.getJSON("http://klinikdokterkita.web.id/penjualanobat/cari_barang").then((
-            res) => {
+                res) => {
                 var choices = res;
                 var suggestions = [];
                 for (i = 0; i < choices.length; i++)

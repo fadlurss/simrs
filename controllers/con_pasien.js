@@ -28,7 +28,7 @@ exports.create_pasien = middleware.asyncMiddleware(async (req, res, next) => {
 exports.post_pasien = middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({
         ...req.body
-    }, schema);
+    });
     const {
         value,
         error
@@ -62,7 +62,7 @@ exports.edit_pasien = middleware.asyncMiddleware(async (req, res, next) => {
 exports.update_pasien = middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({
         ...req.body
-    }, schema);
+    });
     const hasilUpdate = await Pasien.findOneAndUpdate({
         _id: req.params.id,
     }, {
