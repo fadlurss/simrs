@@ -23,6 +23,8 @@ router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
     res.render('v_access/diagnosa', {
         alldiagnosa_pakar: alldiagnosa_pakar
     });
+
+
 }))
 
 router.get('/getgejala', middleware.asyncMiddleware(async (req, res, next) => {
@@ -68,6 +70,9 @@ router.post("/insertriwayat", middleware.asyncMiddleware(async (req, res, next) 
     const data_pasien = await Pasien.findOne({
         id_users: req.user._id
     });
+    console.log(req.user._id);
+    console.log(data_pasien);
+
     const dataSave = {
         ...req.body,
         id_pasien: data_pasien._id

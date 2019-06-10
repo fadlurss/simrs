@@ -21,10 +21,13 @@ middleware = require("../middleware")
 asyncMiddleware = require("../middleware")
 
 exports.redirect_halaman_awal = function (req, res) {
+    // req.flash('success', 'Berhasil login');
+
     res.redirect("/index");
 };
 
 exports.halaman_awal = function (req, res) {
+    // req.flash('success', 'Your comment will reviewed in a moment in a hours');
     res.render('v_access/index');
 };
 

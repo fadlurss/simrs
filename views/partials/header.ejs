@@ -73,11 +73,18 @@
 			margin-top: 20px;
 		}
 	</style>
-
 </head>
 
 <body>
 
+	<div class="container">
+		<% if (success && success.length > 0) { %>
+		<div class="alert alert-success" role="alert"><%= success %></div>
+		<% } %>
+		<% if (error && error.length > 0) { %>
+		<div class="alert alert-danger" role="alert"><%= error %></div>
+		<% } %>
+	</div>
 	<div class="qbootstrap-loader"></div>
 
 	<div id="page">
@@ -134,8 +141,7 @@
 									<% if(currentUser.local.level === "Dokter" || currentUser.local.level === "Petugas"){ %>
 									<li><a href="/pendaftaran">Dashboard</a></li>
 									<%  } %>
-									<li><a href="/users/<%= currentUser.id %>">Halo,
-											<%= currentUser.local.username %></a> </li>
+									<li><a href="/users/<%= currentUser.id %>">Profilku </li>
 
 
 									<li> <a class="nav-link" href="/logout">Keluar</a></li>

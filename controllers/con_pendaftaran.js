@@ -346,6 +346,7 @@ exports.post_daftarantrian = middleware.asyncMiddleware(async (req, res, next) =
             hasilnya.save();
         });
         // console.log("data save " + JSON.stringify(req.body));
+        req.flash('success', 'Berhasil membuat daftar antrian, silakan cek di profil anda');
         res.redirect("/index");
     }
 })

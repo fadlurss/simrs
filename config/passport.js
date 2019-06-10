@@ -79,7 +79,7 @@ module.exports = function (passport) {
                         }, config.secret, {
                             expiresIn: 86400 //expires in 24 hours
                         });
-                        return done(null, user, req.flash('success', 'Welcome back to Klinik Dokter Kita, ' + user.local.email + ' This is your token ' + token));
+                        return done(null, user, req.flash('success', 'Selamat datang di Klinik Dokter Kita, ' + user.local.username));
                     } else {
                         return done(null, false, req.flash('loginMessage', 'Silakan isi kembali email dan password anda dengan benar'));
                     }

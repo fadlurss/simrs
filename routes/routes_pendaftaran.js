@@ -2,6 +2,7 @@ const express = require('express')
 router = express.Router()
 const pendaftaran = require('../controllers/con_pendaftaran');
 middleware = require('../middleware');
+flash = require('connect-flash');
 
 router.get('/', middleware.DokterdanAdmin, pendaftaran.read)
 router.get('/new', middleware.Admin, pendaftaran.create)

@@ -110,6 +110,7 @@ app.use(async function (req, res, next) { //buat melihat siapa yang login, ada d
     res.locals.error = req.flash("error"); //utk mengirim pesan ke semua router
     res.locals.success = req.flash("success");
     res.locals.pesan_cari = req.flash("pesan_cari");
+    res.locals.berhasil = req.flash("berhasil");
     // res.setHeader("Content-Type", "application/json");
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
