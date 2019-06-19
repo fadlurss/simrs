@@ -53,7 +53,7 @@
                                     <tr>
                                         <th>No Antrian</th>
                                         <th>Tanggal</th>
-
+                                        <th>Nama Dokter</th>
                                     </tr>
                                 </thead>
                                 <tbody id="items">
@@ -64,6 +64,9 @@
                                         </td>
                                         <td>
                                             <%= moment(comment.createdAt).format('LL') %>
+                                        </td>
+                                        <td>
+                                            <%= comment.id_dokter_penanggung_jawab.nama_dokter %>
                                         </td>
                                     </tr>
                                     <% }) %>

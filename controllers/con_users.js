@@ -69,7 +69,7 @@ exports.get_user = middleware.asyncMiddleware(async (req, res, next) => {
         populate: {
             path: "id_tindakan"
         }
-    });
+    }).populate("id_dokter_penanggung_jawab").populate("id_poliklinik");
     data_antrian = [];
     for (var i = 0; i < dada.length; i++) {
         if (dada[i].id_pasien != null) {
@@ -87,7 +87,7 @@ exports.get_user = middleware.asyncMiddleware(async (req, res, next) => {
 
 exports.logout = function (req, res) {
     req.logout();
-    req.flash("success", "You successfull logout!"); // pertama dari sini, trs dikirim ke app.js, trs dikirim ke header
+    req.flash("success", "Anda berhasil logout"); // pertama dari sini, trs dikirim ke app.js, trs dikirim ke header
     res.redirect('/index');
 }
 

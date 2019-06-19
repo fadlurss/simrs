@@ -263,7 +263,7 @@ module.exports = function (passport) {
                             return done(err);
 
                         if (user) {
-                            return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
+                            return done(null, false, req.flash('loginMessage', 'Email ini sudah digunakan.'));
                             // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
                         } else {
                             var user = req.user;
