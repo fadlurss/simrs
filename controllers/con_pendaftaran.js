@@ -99,13 +99,75 @@ exports.create = middleware.asyncMiddleware(async (req, res, next) => {
     });
 })
 
-exports.cari_laporan = middleware.asyncMiddleware(async (req, res, next) => {
+exports.hasil_laporan = middleware.asyncMiddleware(async (req, res, next) => {
     const start = req.body.tgl_awal;
     const end = req.body.tgl_akhir;
+
     const cari_data = await Pendaftaran.find({
         createdAt: {
             $gte: new Date(start),
             $lt: new Date(end)
+        }
+    }).populate("id_dokter_penanggung_jawab").populate("id_pasien");
+
+    res.render('v_pendaftaran/laporan', {
+        cari_data: cari_data
+    })
+})
+
+exports.hasil_laporan_bulanan = middleware.asyncMiddleware(async (req, res, next) => {
+
+    var cari_tanggal_sekarang = Date.now();
+    const nowmoment = moment(cari_tanggal_sekarang).format('l');
+    const bulan_ini = nowmoment.slice(2, 3) - 1; //mencari bulan dalam
+
+    // BULANAN
+    var mulai = new Date();
+    const al = moment(mulai.setMonth(bulan_ini, 1)).format('L');
+    const alarray = al.split("/");
+    const newdate = alarray[2] + '-' + alarray[1] + '-' + alarray[0];
+
+    var akhir = new Date();
+    const aw = moment(akhir.setMonth(bulan_ini, 31)).format('L');
+    const awarray = aw.split("/");
+    const newenddate = awarray[2] + '-' + awarray[1] + '-' + awarray[0];
+
+    const cari_data = await Pendaftaran.find({
+        createdAt: {
+            $gte: new Date(newdate),
+            $lt: new Date(newenddate)
+        }
+    }).populate("id_dokter_penanggung_jawab").populate("id_pasien");
+    // AKHIR LAPORAN BULANAN
+
+    res.render('v_pendaftaran/laporan', {
+        cari_data: cari_data
+    })
+})
+
+exports.hasil_laporan_tahunan = middleware.asyncMiddleware(async (req, res, next) => {
+
+    var cari_tanggal_sekarang = Date.now();
+    const nowmoment = moment(cari_tanggal_sekarang).format('l');
+    const tahun_ini = nowmoment.slice(4); // mencari tahun sekarangå
+
+    var mulai = new Date();
+    mulai.setFullYear(tahun_ini, 0, 1);
+    const al = moment(mulai.setFullYear(tahun_ini, 0, 1)).format('L');
+    const alarray = al.split("/");
+    const newdate = alarray[2] + '-' + alarray[1] + '-' + alarray[0];
+    console.log("Mulai " + newdate);
+
+    var akhir = new Date();
+    const aw = moment(akhir.setFullYear(tahun_ini, 11, 31)).format('L');
+    const awarray = aw.split("/");
+    const newenddate = awarray[2] + '-' + awarray[1] + '-' + awarray[0];
+    console.log("Akhir " + newenddate);
+
+    const cari_data = await Pendaftaran.find({
+        createdAt: {
+            $gte: new Date(newdate),
+            $lt: new Date(newenddate)
         }
     }).populate("id_dokter_penanggung_jawab").populate("id_pasien");
 

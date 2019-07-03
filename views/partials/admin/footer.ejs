@@ -24,6 +24,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var table = $('#datatable').DataTable({
+            fixedColumns: true,
+            fixedHeader: true,
             lengthChange: false,
             buttons: [{
                     extend: 'copy',
@@ -32,14 +34,14 @@
                 {
                     extend: 'excel',
                     text: 'Export ke  Excel',
-                    filename: 'Data Yelpcamp', //BAGAIMANA BISA DINAMIS NAMA FILENYA
-                    title: 'Data Yelpcamp' //JUDUL DI EXCELNYA
+                    filename: 'Data Klinik Dokter Kita', //BAGAIMANA BISA DINAMIS NAMA FILENYA
+                    title: 'Data Klinik Dokter Kita' //JUDUL DI EXCELNYA
                 },
                 {
                     extend: 'pdf',
                     text: 'Export ke Pdf',
-                    filename: 'Data Yelpcamp', //BAGAIMANA BISA DINAMIS NAMA FILENYA
-                    title: 'Data Yelpcamp' //JUDUL DI PDF NYA
+                    filename: 'Data Klinik Dokter Kita', //BAGAIMANA BISA DINAMIS NAMA FILENYA
+                    title: 'Data Klinik Dokter Kita' //JUDUL DI PDF NYA
                 },
                 'colvis'
             ]
