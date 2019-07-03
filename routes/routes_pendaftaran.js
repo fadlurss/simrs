@@ -7,6 +7,7 @@ flash = require('connect-flash');
 router.get('/', middleware.DokterdanAdmin, pendaftaran.read)
 router.get('/new', middleware.Admin, pendaftaran.create)
 router.post('/new', middleware.Admin, pendaftaran.post)
+router.post('/cari_laporan', middleware.Admin, pendaftaran.cari_laporan)
 router.get('/daftar', pendaftaran.create_daftarantrian) // daftar antrian online
 router.post('/daftar', pendaftaran.post_daftarantrian)
 router.post('/:id/new_riwayattindakan', middleware.Dokter, pendaftaran.post_riwayat_tindakan)

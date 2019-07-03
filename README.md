@@ -41,3 +41,19 @@ SARAN
 
 1. Misalkan kalo user daftar antrian secara online, terus datang untuk konfirmasi kemudian resepsionis mengecek pendaftarannya, maka resepsionis perlu memberikan kartu kecil berupa nomor antrian untuk diberikan kepada pasien.
 2. Saat proses upload ke server, kalau verifikasi email via smptp tidak jalan, maka yang perlu dilakukan adalah mengetik GMAILPW di terminal web server nya, atau mengetik nama variabel ENV di terminal servernya
+
+
+<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Pasien masuk <span class="badge"><%= x %></span></i>
+                        <ul class="dropdown-menu">
+                            <% dadabaru.forEach(function(notification){ 
+                                if(notification == undefined){
+                                   return;
+                                }
+                            %>
+                            <li><a
+                                    href="/notifikasi/<%= notification._id %>"><%= notification.id_pasien.nama_pasien %></a>
+                            </li>
+                            <% }); %>
+                        </ul>
+                    </a>

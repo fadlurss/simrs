@@ -112,14 +112,17 @@
             </ul>
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Pasien masuk <span class="badge"><%= dadabaru.length %></span></i>
-                        <ul class="dropdown-menu">
-                            <% dadabaru.forEach(function(notification){ %>
-                            <li><a href="/notifikasi/<%= notification._id %>"><%= notification.username %></a></li>
-                            <% }); %>
-                        </ul>
-                    </a>
+                    <% 
+                    var x = 0;
+                    var skip = 0;
+                    var xo = [];
+                    dadabaru.forEach(function(notification){
+                        if(notification != null){
+                            x++; 
+                        }
+                     });
+                    %>
+
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->

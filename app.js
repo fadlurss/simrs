@@ -98,10 +98,14 @@ app.use(async function (req, res, next) { //buat melihat siapa yang login, ada d
             });
             dadabaru = [];
             for (var i = 0; i < dada.length; i++) {
+
                 if (dada[i].local.notifications != null) {
+                    // console.log(dada[i]);
                     res.locals.dadabaru[i] = dada[i];
                 }
             }
+            // res.locals.dadabaru[0] = dada[0];
+
         } catch (err) {
             console.log(err.message);
         }

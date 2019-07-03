@@ -99,6 +99,21 @@ exports.create = middleware.asyncMiddleware(async (req, res, next) => {
     });
 })
 
+exports.cari_laporan = middleware.asyncMiddleware(async (req, res, next) => {
+    const start = req.body.tgl_awal;
+    const end = req.body.tgl_akhir;
+    const cari_data = await Pendaftaran.find({
+        createdAt: {
+            $gte: new Date(start),
+            $lt: new Date(end)
+        }
+    }).populate("id_dokter_penanggung_jawab").populate("id_pasien");
+
+    res.render('v_pendaftaran/laporan', {
+        cari_data: cari_data
+    })
+})
+
 exports.post = middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({
         ...req.body

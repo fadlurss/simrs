@@ -15,6 +15,8 @@ exports.notifications = middleware.asyncMiddleware(async (req, res, next) => {
         }
     }).exec();
     const allnotif = user.notification;
+    console.log("Log");
+    console.log(allnotif);
     res.render("notifications/index", {
         allnotif
     });
