@@ -48,17 +48,6 @@
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="/pendaftaran/<%= hasil._id %>/detail"><i
                                             class="fa fa-eye"></i></a>
-                                    <a class="btn btn-warning btn-sm" href="/pendaftaran/<%= hasil._id %>/edit"><i
-                                            class="fa fa-pencil-square-o"></i></a>
-                                    <a class="btn btn-white btn-sm" href="">
-                                        <form action="/pendaftaran/<%= hasil._id %>?_method=DELETE" method="POST"
-                                            class="delete-form">
-                                            <button class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Apakah Kamu Yakin Ingin Menghapus Data <%= hasil.no_registrasi %> ?')"><i
-                                                    class="fa fa-trash-o"></i></button>
-                                        </form>
-                                    </a>
-
                                 </td>
                             </tr>
                             <% }); %>
@@ -90,9 +79,6 @@
                 <p>Tanggal akhir <input type="date" name="tgl_akhir"></p>
                 <button class="btn btn-sm btn-info">Cetak laporan per tanggal</button>
         </form><br><br>
-        <form class="form-horizontal" role="form" action="/pendaftaran/hasil_laporan_tahunan" method="POST">
-            <button class="btn btn-sm btn-info">Cetak laporan per tahun</button>
-        </form>
     </div>
 
 
