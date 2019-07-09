@@ -11,6 +11,38 @@
             <li>
                 <a href="/pasien"><i class="fa fa-user fa-fw"></i> Data Pasien</a>
             </li>
+            <li>
+                <a href="#"><i class="fa fa-navicon fa-fw"></i> Data Master<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+
+                    <li>
+                        <a href="/jadwalpraktek"><i class="fa fa-calendar-check-o fa-fw"></i> Data Jadwal Praktek
+                            Dokter</a>
+                    </li>
+                    <li>
+                        <a href="/spesialis"><i class="fa fa-heartbeat fa-fw"></i> Data Spesialis</a>
+                    </li>
+                    <li>
+                        <a href="/poliklinik"><i class="fa fa-heartbeat fa-fw"></i> Data Poliklinik</a>
+                    </li>
+                    <li>
+                        <a href="/agama"><i class="fa fa-heartbeat fa-fw"></i> Data Agama</a>
+                    </li>
+                    <!-- <li>
+                            <a href="/pegawai"><i class="fa fa-user fa-fw"></i> Data Pegawai</a>
+                        </li>
+                        <li>
+                            <a href="/jabatan"><i class="fa fa-heartbeat fa-fw"></i> Data Jabatan</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/statusmenikah"><i class="fa fa-heartbeat fa-fw"></i> Data Status Menikah</a>
+                        </li> -->
+
+                </ul>
+            </li>
             <% } else if (currentUser.local.level === "Dokter") { %>
             <li>
                 <a href="/index"><i class="fa fa-home"></i> Halaman Utama</a>
@@ -61,35 +93,7 @@
             </li>
             <% } %>
 
-            <li>
-                <a href="#"><i class="fa fa-navicon fa-fw"></i> Data Master<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
 
-                    <li>
-                        <a href="/jadwalpraktek"><i class="fa fa-calendar-check-o fa-fw"></i> Data Jadwal Praktek
-                            Dokter</a>
-                    </li>
-                    <!-- <li>
-                        <a href="/pegawai"><i class="fa fa-user fa-fw"></i> Data Pegawai</a>
-                    </li>
-                    <li>
-                        <a href="/jabatan"><i class="fa fa-heartbeat fa-fw"></i> Data Jabatan</a>
-                    </li>
-                    <li>
-                        <a href="/poliklinik"><i class="fa fa-heartbeat fa-fw"></i> Data Poliklinik</a>
-                    </li>
-                    <li>
-                        <a href="/spesialis"><i class="fa fa-heartbeat fa-fw"></i> Data Spesialis</a>
-                    </li>
-                    <li>
-                        <a href="/agama"><i class="fa fa-heartbeat fa-fw"></i> Data Agama</a>
-                    </li>
-                    <li>
-                        <a href="/statusmenikah"><i class="fa fa-heartbeat fa-fw"></i> Data Status Menikah</a>
-                    </li> -->
-
-                </ul>
-            </li>
 
 
             <!-- <a href="#"><i class="fa fa-navicon fa-fw"></i> MENU APOTEK<span class="fa arrow"></span></a>

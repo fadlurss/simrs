@@ -41,9 +41,9 @@ router.post('/new', middleware.asyncMiddleware(async (req, res, next) => {
 }))
 
 router.get("/:id/edit", middleware.asyncMiddleware(async (req, res, next) => {
-    const cari_jabatan = await Agama.findById(req.params.id);
+    const editagama = await Agama.findById(req.params.id);
     res.render("v_agama/edit", {
-        jabatan_edit_id: cari_jabatan
+        agama_edit_id: editagama
     });
 }))
 
@@ -51,19 +51,19 @@ router.put("/:id", middleware.asyncMiddleware(async (req, res, next) => {
     const result = Joi.validate({
         ...req.body
     }, schema);
-    const hasilUpdate = await Jabatan.findOneAndUpdate({
+    const hasilUpdate = await Agama.findOneAndUpdate({
         _id: req.params.id
     }, {
         $set: {
             ...req.body
         }
     });
-    res.redirect("/jabatan");
+    res.redirect("/agama");
 }))
 
 router.delete("/:id", middleware.asyncMiddleware(async (req, res, next) => {
-    const delete_jabatan = await Jabatan.findByIdAndRemove(req.params.id);
-    res.redirect("/jabatan");
+    const delete_jabatan = await Agama.findByIdAndRemove(req.params.id);
+    res.redirect("/agama");
 }))
 
 module.exports = router;
