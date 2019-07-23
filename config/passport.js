@@ -231,13 +231,13 @@ module.exports = function (passport) {
                                 host: "smtp.gmail.com",
                                 secure: false,
                                 auth: {
-                                    user: 'jhieber7@gmail.com',
-                                    pass: 'xtcbandung97' // GMAILPW=your password in terminal node app.js
+                                    user: 'kitaklinikdokter@gmail.com',
+                                    pass: 'xtcbandung' // GMAILPW=your password in terminal node app.js
                                 }
                             });
 
                             var mailOptions = {
-                                from: 'jhieber7@gmail.com',
+                                from: 'kitaklinikdokter@gmail.com',
                                 to: newUser.local.email,
                                 subject: 'Verifikasi akun anda',
                                 text: 'Hai, ' + newUser.local.username + '. Terima kasih sudah menjadi anggota Klinik Dokter Kita, silakan verifikasi terlebih dengan klik link ini .\n\n' +
