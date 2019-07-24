@@ -119,10 +119,9 @@ exports.hasil_laporan_bulanan = middleware.asyncMiddleware(async (req, res, next
 
     var cari_tanggal_sekarang = Date.now();
     const nowmoment = moment(cari_tanggal_sekarang).format('l');
-    console.log(nowmoment);
-
     const bulan_ini = nowmoment.slice(3, 4) - 1; //mencari bulan dalam
-    console.log(bulan_ini);
+    // const bulan_ini = nowmoment.slice(2, 3) - 1; 
+    // console.log(bulan_ini);
 
 
     // BULANAN
@@ -154,7 +153,8 @@ exports.hasil_laporan_tahunan = middleware.asyncMiddleware(async (req, res, next
     var cari_tanggal_sekarang = Date.now();
     const nowmoment = moment(cari_tanggal_sekarang).format('l');
     const tahun_ini = nowmoment.slice(5); // mencari tahun sekarangå , angka 4 atau 5 (kadang gaberes)
-    console.log(tahun_ini);
+    // const tahun_ini = nowmoment.slice(4);
+    // console.log(tahun_ini);
 
 
     var mulai = new Date();
