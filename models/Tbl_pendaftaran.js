@@ -11,6 +11,10 @@ var tbl_pendaftaranSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tbl_pasien'
     },
+    status: {
+        type: Boolean,
+        default: false
+    },
     tanggal_daftar: {
         type: String
     },

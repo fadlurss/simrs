@@ -11,6 +11,7 @@
     <div class="help-block">
         <a href="/pendaftaran/new" class="btn btn-info">Tambah pendaftaran baru</a>
     </div>
+
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -27,6 +28,7 @@
                                 <th>No Rawat</th>
                                 <th>No RM</th>
                                 <th>Nama pasien</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -44,6 +46,13 @@
                                 </td>
                                 <td>
                                     <%= hasil.id_pasien.nama_pasien %>
+                                </td>
+                                <td>
+                                    <% if(hasil.status == true){ %>
+                                    <p>Sudah diperiksa</p>
+                                    <% } else { %>
+                                    <p>Belum</p>
+                                    <% } %>
                                 </td>
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="/pendaftaran/<%= hasil._id %>/detail"><i
@@ -74,7 +83,16 @@
     <div class="help-block">
         <a href="/pendaftaran/new" class="btn btn-info">Tambah pendaftaran baru</a>
     </div>
-
+    <form class="form-horizontal" role="form" action="/pendaftaran/hasil_laporan" method="POST">
+        <div class="col-lg-12">
+            <p>Tanggal awal <input type="date" name="tgl_awal"></p>
+            <p>Tanggal akhir <input type="date" name="tgl_akhir"></p>
+            <button class="btn btn-sm btn-info">Cari</button>
+        </div>
+    </form><br><br>
+    <form class="form-horizontal" role="form" action="/pendaftaran/hasil_laporan_bulanan" method="POST">
+        <button class="btn btn-sm btn-info">Cetak laporan per tahun</button>
+    </form>
 
     <!-- /.row -->
     <div class="row">
@@ -94,6 +112,7 @@
                                 <th>No RM</th>
                                 <th>Nama pasien</th>
                                 <th>Dokter</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -114,6 +133,13 @@
                                 </td>
                                 <td>
                                     <%= hasil.id_dokter_penanggung_jawab.nama_dokter %>
+                                </td>
+                                <td>
+                                    <% if(hasil.status == true){ %>
+                                    <p>Sudah diperiksa</p>
+                                    <% } else { %>
+                                    <p>Belum</p>
+                                    <% } %>
                                 </td>
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="/pendaftaran/<%= hasil._id %>/detail"><i

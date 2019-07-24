@@ -119,7 +119,11 @@ exports.hasil_laporan_bulanan = middleware.asyncMiddleware(async (req, res, next
 
     var cari_tanggal_sekarang = Date.now();
     const nowmoment = moment(cari_tanggal_sekarang).format('l');
-    const bulan_ini = nowmoment.slice(2, 3) - 1; //mencari bulan dalam
+    console.log(nowmoment);
+
+    const bulan_ini = nowmoment.slice(3, 4) - 1; //mencari bulan dalam
+    console.log(bulan_ini);
+
 
     // BULANAN
     var mulai = new Date();
@@ -149,7 +153,9 @@ exports.hasil_laporan_tahunan = middleware.asyncMiddleware(async (req, res, next
 
     var cari_tanggal_sekarang = Date.now();
     const nowmoment = moment(cari_tanggal_sekarang).format('l');
-    const tahun_ini = nowmoment.slice(4); // mencari tahun sekarangå
+    const tahun_ini = nowmoment.slice(5); // mencari tahun sekarangå , angka 4 atau 5 (kadang gaberes)
+    console.log(tahun_ini);
+
 
     var mulai = new Date();
     mulai.setFullYear(tahun_ini, 0, 1);
@@ -201,6 +207,7 @@ exports.post_riwayat_tindakan = middleware.asyncMiddleware(async (req, res, next
     Pendaftaran.findById(req.params.id, async (err, hasil_pendaftaran) => {
         const newR = await Riwayattindakan.create(req.body);
         hasil_pendaftaran.id_riwayattindakan.push(newR);
+        hasil_pendaftaran.status = true;
         hasil_pendaftaran.save();
         const id_riwayat_tindakan = newR.id;
         const id_dokter = req.body.id_dokter;
