@@ -22,7 +22,7 @@ middleware = require("../middleware")
 Joi = require("joi")
 asyncMiddleware = require("../middleware");
 var moment = require('moment');
-
+var phantom = require('phantom');
 const storage = multer.diskStorage({
     filename: function (req, file, callback) {
         callback(null, Date.now() + file.originalname);
@@ -104,10 +104,36 @@ exports.create = middleware.asyncMiddleware(async (req, res, next) => {
         data_jadwal_praktek_dokter: data_jadwal_praktek_dokter
     });
 })
+exports.hasil_laporan_gen = middleware.asyncMiddleware(async (req, res, next) => {
+    const start = req.query.tgl_awal;
+    const end = req.query.tgl_akhir;
+    var url = "/pendaftaran/hasil_laporan?tgl_awal=" + start + "&tgl_akhir=" + end;
+    phantom.create().then(function (ph) {
+        ph.createPage().then(function (page) {
+            page.open("http://www.google.com").then(function (status) {
+                if (status !== 'success') {
+                    console.log('Unable to load the address!');
+                    phantom.exit(1);
+                } else {
+                    // res.json([]);
+                    // page.render("laporan.pdf", function () {
+                    //     var gf = fs.createReadStream("laporan.pdf");
+                    //     res.setHeader('Content-Type', 'application/pdf');
+                    //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+                    //     gf.pipe(res);
+                    // });
+                }
+                // phantom.exit();
+            });
+        });
+    });
+    res.json([]);
 
+
+})
 exports.hasil_laporan = middleware.asyncMiddleware(async (req, res, next) => {
-    const start = req.body.tgl_awal;
-    const end = req.body.tgl_akhir;
+    const start = req.query.tgl_awal;
+    const end = req.query.tgl_akhir;
 
     const cari_data = await Pendaftaran.find({
         createdAt: {
@@ -117,7 +143,9 @@ exports.hasil_laporan = middleware.asyncMiddleware(async (req, res, next) => {
     }).populate("id_dokter_penanggung_jawab").populate("id_pasien");
 
     res.render('v_pendaftaran/laporan', {
-        cari_data: cari_data
+        cari_data: cari_data,
+        start: req.query.tgl_akhir,
+        end: req.query.tgl_akhir
     })
 })
 
