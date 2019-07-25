@@ -56,14 +56,20 @@ exports.read = middleware.asyncMiddleware(async (req, res, next) => {
         null, {
             id_users: req.user._id
         }
-    ).populate("id_pasien");
+    ).populate("id_pasien").sort({
+        no_rawat: -1
+    });
     dadabaru = [];
     for (var i = 0; i < dada.length; i++) {
         if (dada[i].id_dokter_penanggung_jawab != null) {
             dadabaru[i] = dada[i];
         }
     }
-    const data_pendaftaran = await Pendaftaran.find({}).populate("id_dokter_penanggung_jawab").populate("id_pasien");
+    const data_pendaftaran = await Pendaftaran.find({}).sort({
+        no_rawat: -1
+        // const data_pendaftaran = await Pendaftaran.find({}).sort({
+        //     no_rawat: -1  BUAT SORTING DATA
+    }).populate("id_dokter_penanggung_jawab").populate("id_pasien");
     res.render('v_pendaftaran/index', {
         databaru: dadabaru,
         data_pendaftaran: data_pendaftaran
@@ -260,6 +266,7 @@ exports.detail = middleware.asyncMiddleware(async (req, res, next) => {
                 path: "id_tindakan"
             }
         });
+    const data_tindakan = await Tindakan.find({});
     const data_riwayat_diagnosa_pakar = await Riwayat_diagnosa_pakar.find({
         id_pasien: data_pendaftaran.id_pasien
     });
@@ -275,7 +282,8 @@ exports.detail = middleware.asyncMiddleware(async (req, res, next) => {
         data_pendaftaran: data_pendaftaran,
         data_riwayat_diagnosa_pakar: data_riwayat_diagnosa_pakar,
         total: total,
-        subtotal: subtotal
+        subtotal: subtotal,
+        data_tindakan: data_tindakan
     });
 })
 

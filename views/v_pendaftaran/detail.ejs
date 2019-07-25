@@ -338,9 +338,13 @@
           <tr>
             <td>Nama Tindakan</td>
             <td>
-              <input type="text" required placeholder="Masukan Nama Tindakan" name="nama_tindakan" id="cari_tindakan"
-                class="form-control ui-autocomplete-input"><input type="hidden" name="id_tindakan" id="id_tindakan"
-                class="form-control ui-autocomplete-input">
+              <select name="id_tindakan" class="js-example-basic-single form-control" name="state">
+                <option value="">-- Cari atau pilih tindakan --</option>
+                <% data_tindakan.forEach(function(hasil){ %>
+                <option value="<%= hasil.id %>"><%= hasil.nama_tindakan %></option>
+                <% }) %>
+              </select>
+
             </td>
           </tr>
           <tr>

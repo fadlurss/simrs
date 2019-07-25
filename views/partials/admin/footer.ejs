@@ -21,7 +21,12 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
 
+
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+    });
+
     $(document).ready(function () {
         var table = $('#datatable').DataTable({
             fixedColumns: true,
