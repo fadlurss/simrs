@@ -455,8 +455,7 @@
                 maxlength: 30
             },
             no_rm: {
-                required: true,
-                number: true,
+                required: true
             },
             no_hp: {
                 number: true,
@@ -564,7 +563,6 @@
                 required: "Tanggal lahir wajib diisi !"
             },
             no_rm: {
-                number: "Masukkan angka dengan benar !",
                 required: "No Rekamedis wajib diisi !"
             },
             nama_penanggung_jawab: {
@@ -1069,6 +1067,20 @@
             console.log(r);
             if (r.length > 0) {
                 $("#nama_pasien").val(r[0].nama_pasien);
+            } else {
+                alert("Nama Tidak Ditemukan");
+            }
+        });
+    });
+
+    $("#cari_id_obat").on("change", function () {
+        np = $(this).val();
+        $.post("http://klinikdokterkita.web.id/pendaftaran/cari_obat", {
+            np: np
+        }).then((r) => {
+            console.log(r);
+            if (r.length > 0) {
+                $("#harga").val(r[0].nama_barang);
             } else {
                 alert("Nama Tidak Ditemukan");
             }

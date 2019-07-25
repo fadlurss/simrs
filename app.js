@@ -22,6 +22,8 @@ const express = require('express'),
     jpdRoutes = require("./routes/routes_jpd"),
     agamaRoutes = require("./routes/routes_agama"),
     statusmenikahRoutes = require("./routes/routes_status_menikah"),
+    dataobatRoutes = require("./routes/routes_obat_alkes_bhp"),
+    kategoribarangRoutes = require("./routes/routes_kategori_barang"),
     dokterRoutes = require("./routes/routes_dokter"),
     pegawaiRoutes = require("./routes/routes_pegawai"),
     pasienRoutes = require("./routes/routes_pasien"),
@@ -117,6 +119,8 @@ app.use("/dokter", dokterRoutes);
 app.use("/pegawai", pegawaiRoutes);
 app.use("/pasien", pasienRoutes);
 app.use("/pendaftaran", pendaftaranRoutes);
+app.use("/kategoribarang", kategoribarangRoutes);
+app.use("/dataobat", dataobatRoutes);
 app.use("/diagnosapenyakit", diagnosapenyakitRoutes);
 app.use("/diagnosapakar", diagnosapakarRoutes);
 app.use("/gejalapakar", gejalapakarRoutes);

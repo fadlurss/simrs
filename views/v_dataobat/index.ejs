@@ -1,0 +1,70 @@
+<% include ../partials/admin/header %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Data Obat</h1>
+            <br><br>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="help-block">
+        <a href="/dataobat/new" class="btn btn-info">Tambah obat baru</a>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Data Obat Tables
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body table-responsive">
+                    <table width="100%" class="table table-striped table-bordered table-hover js-serial" id="datatable">
+                        <thead>
+                            <tr>
+                                <th>Nama Barang</th>
+                                <th>Stok</th>
+                                <th>Harga Barang</th>
+                                <th width="120px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data_obat.forEach(function(hasil){ %>
+                            <tr>
+                                <td>
+                                    <%= hasil.nama_barang %>
+                                </td>
+                                <td>
+                                    <%= hasil.stok %>
+                                </td>
+                                <td>
+                                    Rp
+                                    <%= hasil.harga %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning btn-sm" href="/dataobat/<%= hasil._id %>/edit"><i
+                                            class="fa fa-pencil-square-o"></i></a>
+                                    <a class="btn btn-white btn-sm" href="">
+                                        <form action="/dataobat/<%= hasil._id %>?_method=DELETE" method="POST"
+                                            class="delete-form">
+                                            <button class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah Kamu Yakin Ingin Menghapus Data <%= hasil.nama_barang  %> ?')"><i
+                                                    class="fa fa-trash-o"></i></button>
+                                        </form>
+                                    </a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<!-- /#page-wrapper -->
+<% include ../partials/admin/footer %>

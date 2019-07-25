@@ -6,6 +6,7 @@ User = require("../models/user")
 Pendaftaran = require("../models/Tbl_pendaftaran")
 Tindakan = require("../models/Tbl_tindakan")
 Obat = require("../models/Tbl_obat_alkes_bhp")
+Kategori_obat = require("../models/Tbl_kategori_barang")
 Jenis_bayar = require("../models/Tbl_jenis_bayar")
 Dokter = require("../models/Tbl_dokter")
 Jadwal_praktek_dokter = require("../models/Tbl_jadwal_praktek_dokter")
@@ -293,8 +294,17 @@ exports.detail = middleware.asyncMiddleware(async (req, res, next) => {
             populate: {
                 path: "id_tindakan"
             }
+        }).populate({
+            path: "id_riwayatobat",
+            populate: {
+                path: "id_obat"
+            }
         });
     const data_tindakan = await Tindakan.find({});
+    const data_obat = await Obat.find({}).populate("id_kategori_barang");
+    console.log(data_obat);
+
+    const data_obat_kategori = await Kategori_obat.find({});
     const data_riwayat_diagnosa_pakar = await Riwayat_diagnosa_pakar.find({
         id_pasien: data_pendaftaran.id_pasien
     });
@@ -311,7 +321,8 @@ exports.detail = middleware.asyncMiddleware(async (req, res, next) => {
         data_riwayat_diagnosa_pakar: data_riwayat_diagnosa_pakar,
         total: total,
         subtotal: subtotal,
-        data_tindakan: data_tindakan
+        data_tindakan: data_tindakan,
+        data_obat: data_obat
     });
 })
 
