@@ -146,7 +146,7 @@ exports.hasil_laporan = middleware.asyncMiddleware(async (req, res, next) => {
 
     res.render('v_pendaftaran/laporan', {
         cari_data: cari_data,
-        start: req.query.tgl_akhir,
+        start: req.query.tgl_awal,
         end: req.query.tgl_akhir
     })
 })
