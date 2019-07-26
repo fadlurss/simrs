@@ -1048,7 +1048,7 @@
 
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
-        $.get("http://klinikdokterkitaweb.id/pendaftaran/cariibu/" + np).then((r) => {
+        $.get("http://klinikdokterkita.web.id/pendaftaran/cariibu/" + np).then((r) => {
             console.log(r);
             if (r.length > 0) {
                 $("#nama_pasien").val(r[0].nama_pasien);
