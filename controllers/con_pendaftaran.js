@@ -510,7 +510,7 @@ exports.cari_ibu = (req, res) => {
 exports.cariobat = (req, res) => {
     //    console.log(req.body.np);
     Obat.find({
-        'no_rm': req.body.np
+        '_id': req.params.id
     }, (e, r) => {
         res.json(r);
     });
