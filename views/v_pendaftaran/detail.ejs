@@ -165,7 +165,6 @@
                 <th>Hasil Periksa</th>
                 <th>Perkembangan</th>
                 <th>Tanggal</th>
-                <th>Resep Obat</th>
                 <th>Tarif</th>
               </tr>
             </thead>
@@ -184,7 +183,6 @@
                 <td>
                   <%= moment(comment.tanggal).format('LL') %>
                 </td>
-                <td><%= comment.resep_obat %></td>
                 <td id="tarif">
                   <%= comment.id_tindakan.tarif %>
                 </td>
