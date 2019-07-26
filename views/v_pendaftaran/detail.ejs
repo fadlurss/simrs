@@ -371,45 +371,6 @@
     </div>
 
 
-    <div>
-      <form class="form-horizontal" role="form" action="/pendaftaran/<%= data_pendaftaran._id %>/new_riwayatobat"
-        method="POST" id="tambah_pendaftaran">
-        <table class="table table-bordered">
-
-          <input value="<%= data_pendaftaran.id %>" type="hidden" name="id_pendaftaran">
-          <tr>
-            <td colspan="2">
-              <center>Input Obat</center>
-            </td>
-          </tr>
-          <tr>
-            <td width="200">Nama obat</td>
-            <td>
-              <select name="id_obat" id="id_obat" class="js-example-basic-single form-control" name="state">
-                <option value="">-- Cari atau pilih obat --</option>
-                <% data_obat.forEach(function(hasil){ %>
-                <option value="<%= hasil.id %>"><%= hasil.nama_barang %> - <%= hasil.stok %> -
-                  <%= hasil.id_kategori_barang.nama_kategori %>
-                </option>
-                <% }) %>
-              </select>
-
-            </td>
-          </tr>
-          <tr>
-            <td>Harga obat</td>
-            <td>
-              <input type="text" name="nama_barang" id="nama_barang" readonly class="form-control">
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <center><button type="submit" class="btn btn-primary">Simpan Data</button></center>
-            </td>
-          </tr>
-        </table>
-      </form>
-    </div>
 
     <% } %>
 
