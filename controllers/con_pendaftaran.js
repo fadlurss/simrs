@@ -15,6 +15,7 @@ Poliklinik = require("../models/Tbl_poliklinik")
 Riwayattindakan = require("../models/Tbl_riwayattindakan")
 PJRiwayattindakan = require("../models/Tbl_pj_riwayattindakan")
 Riwayatdiagnosa = require("../models/Tbl_riwayatdiagnosa")
+Riwayatobat = require("../models/Tbl_riwayatberiobat")
 PJRiwayatdiagnosa = require("../models/Tbl_pj_riwayatdiagnosa")
 Riwayat_diagnosa_pakar = require("../models/Tbl_riwayat_diagnosa")
 Riwayat_periksa_lab = require("../models/Tbl_hasil_periksa_lab")
@@ -277,6 +278,19 @@ exports.post_riwayat_diagnosa = middleware.asyncMiddleware(async (req, res, next
     });
 })
 
+exports.post_riwayat_obat = middleware.asyncMiddleware(async (req, res, next) => {
+    Pendaftaran.findById(req.params.id, async (err, hasil_pendaftaran) => {
+        const input_riwayat_obat = await Riwayatobat.create(req.body);
+        const input_data_riwayat_obat = {
+            ...req.body
+        };
+        const newR = await Riwayatobat.create(input_data_riwayat_obat);
+        hasil_pendaftaran.id_riwayatobat.push(newR);
+        hasil_pendaftaran.save();
+        res.redirect("/pendaftaran/" + req.params.id + "/detail");
+    });
+})
+
 exports.detail = middleware.asyncMiddleware(async (req, res, next) => {
     const data_pendaftaran = await Pendaftaran.findById(req.params.id)
         .populate({
@@ -493,6 +507,15 @@ exports.cari_ibu = (req, res) => {
     });
 }
 
+exports.cariobat = (req, res) => {
+    //    console.log(req.body.np);
+    Obat.find({
+        'no_rm': req.body.np
+    }, (e, r) => {
+        res.json(r);
+    });
+}
+
 exports.tindakan_oleh = (req, res) => {
     //    console.log(req.body.np);
     Pasien.find({
@@ -533,12 +556,17 @@ exports.cari_tindakan = (req, res) => {
 }
 
 exports.cari_obat = (req, res) => {
-    Obat.find({}, function (err, re) {
-        d = [];
-        for (let ix = 0; ix < re.length; ix++) {
-            d[ix] = re[ix].nama_barang;
-        }
-        res.json(d);
+    // Obat.find({}, function (err, re) {
+    //     d = [];
+    //     for (let ix = 0; ix < re.length; ix++) {
+    //         d[ix] = re[ix].nama_barang;
+    //     }
+    //     res.json(d);
+    // });
+    Obat.find({
+        'no_rm': req.body.np
+    }, (e, r) => {
+        res.json(r);
     });
 }
 

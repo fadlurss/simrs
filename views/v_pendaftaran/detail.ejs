@@ -385,12 +385,13 @@
           <tr>
             <td width="200">Nama obat</td>
             <td>
-              <select name="id_obat" id="cari_id_obat" class="js-example-basic-single form-control" name="state">
+              <select name="id_obat" id="id_obat" class="js-example-basic-single form-control" name="state">
                 <option value="">-- Cari atau pilih obat --</option>
                 <% data_obat.forEach(function(hasil){ %>
                 <option value="<%= hasil.id %>"><%= hasil.nama_barang %> - <%= hasil.stok %> -
                   <%= hasil.id_kategori_barang.nama_kategori %>
                 </option>
+                <input type="text" name="harga" value="<%= hasil.harga %>">
                 <% }) %>
               </select>
 
@@ -399,10 +400,23 @@
           <tr>
             <td>Harga obat</td>
             <td>
-              <input type="text" name="harga" id="harga" readonly class="form-control">
+              <input type="text" name="nama_barang" id="nama_barang" readonly class="form-control">
             </td>
           </tr>
           <tr>
+            <div class="form-group">
+              <label for="" class="col-sm-3">No Rekamedis<span style="color:red"> *</span></label>
+              <div class="col-sm-9">
+                <input type="number" name="no_rm" id="cari_no_rm" required class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="" class="col-sm-3">Nama Pasien <span style="color:red"> *</span></label>
+              <div class="col-sm-9">
+                <input type="text" name="nama_pasien" id="nama_pasien" required class="form-control">
+                <input type="text" hidden name="id_pasien" id="id_pasien" required class="form-control">
+              </div>
+            </div>
             <td colspan="2">
               <center><button type="submit" class="btn btn-primary">Simpan Data</button></center>
             </td>

@@ -3,7 +3,7 @@ var moment = require('moment');
 
 var tbl_pasienSchema = mongoose.Schema({
     no_rm: {
-        type: Number
+        type: String
     },
     no_rm_lama: {
         type: Number
