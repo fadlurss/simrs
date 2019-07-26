@@ -499,9 +499,9 @@ exports.post_daftarantrian = middleware.asyncMiddleware(async (req, res, next) =
 
 
 exports.cari_ibu = (req, res) => {
-    //    console.log(req.body.np);
+    console.log(req.params.id);
     Pasien.find({
-        'no_rm': req.body.np
+        'no_rm': req.params.id
     }, (e, r) => {
         res.json(r);
     });
@@ -612,6 +612,8 @@ exports.contoh = (req, res) => {
         for (let ix = 0; ix < re.length; ix++) {
             d[ix] = re[ix].no_rm;
         }
+        console.log(d);
+
         res.json(d);
     });
 }

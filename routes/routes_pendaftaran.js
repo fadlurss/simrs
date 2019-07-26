@@ -22,7 +22,7 @@ router.get("/:id/edit", middleware.Admin, pendaftaran.edit)
 router.put("/:id", middleware.Admin, pendaftaran.update)
 router.delete("/:id", middleware.Admin, pendaftaran.delete)
 router.get('/contoh', pendaftaran.contoh);
-router.post('/cariibu', pendaftaran.cari_ibu);
+router.get('/cariibu/:id', pendaftaran.cari_ibu);
 router.post('/cariobat', pendaftaran.cariobat);
 router.post('/tindakan_oleh', pendaftaran.tindakan_oleh);
 router.get('/cari_dokter', pendaftaran.cari_dokter);

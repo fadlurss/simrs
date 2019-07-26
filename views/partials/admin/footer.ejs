@@ -1045,87 +1045,14 @@
         });
     });
 
-    $("#cari_no_rm").on("change", function () {
-        np = $(this).val();
-        $.post("http://klinikdokterkita.web.id/pendaftaran/cariibu", {
-            np: np
-        }).then((r) => {
-            console.log(r);
-            if (r.length > 0) {
-                $("#id_pasien").val(r[0]._id);
-            } else {
-                alert("Nama Tidak Ditemukan");
-            }
-        });
-    });
 
     $("#cari_no_rm").on("change", function () {
         np = $(this).val();
-        $.post("http://klinikdokterkita.web.id/pendaftaran/cariibu", {
-            np: np
-        }).then((r) => {
+        $.get("http://klinikdokterkitaweb.id/pendaftaran/cariibu/" + np).then((r) => {
             console.log(r);
             if (r.length > 0) {
                 $("#nama_pasien").val(r[0].nama_pasien);
-            } else {
-                alert("Nama Tidak Ditemukan");
-            }
-        });
-    });
-
-    $("#cari_obat").on("change", function () {
-        np = $(this).val();
-        $.post("http://localhost:4000/pendaftaran/cariibu", {
-            np: np
-        }).then((r) => {
-            console.log(r);
-            if (r.length > 0) {
-                $("#nama_barang").val(r[0].nama_pasien);
-            } else {
-                alert("Nama Tidak Ditemukan");
-            }
-        });
-    });
-
-    $("#cari_no_rm").on("change", function () {
-        np = $(this).val();
-        $.post("http://klinikdokterkita.web.id/pendaftaran/cariibu", {
-            np: np
-        }).then((r) => {
-            console.log(r);
-            if (r.length > 0) {
-                $("#no_bpjs").val(r[0].no_bpjs);
-            } else {
-                alert("Nama Tidak Ditemukan");
-            }
-        });
-    });
-
-
-    $("#cari_no_rm").on("change", function () {
-        np = $(this).val();
-
-        $.post("http://klinikdokterkita.web.id/pendaftaran/cariibu", {
-            np: np
-        }).then((r) => {
-            console.log(r);
-            if (r.length > 0) {
-                $("#tanggal_lahir").val(r[0].tanggal_lahir);
-                // const moment = moment("2013-03-10T02:00:00Z").format("YYYY-MM-DD") //"2013-03-10"
-            } else {
-                alert("Nama Tidak Ditemukan");
-            }
-        });
-    });
-
-    $("#cari_no_rm").on("change", function () {
-        np = $(this).val();
-        $.post("http://klinikdokterkita.web.id/pendaftaran/cariibu", {
-            np: np
-        }).then((r) => {
-            console.log(r);
-            if (r.length > 0) {
-                $("#alamat").val(r[0].alamat);
+                $("#id_pasien").val(r[0]._id);
             } else {
                 alert("Nama Tidak Ditemukan");
             }
