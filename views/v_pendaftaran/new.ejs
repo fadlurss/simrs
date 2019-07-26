@@ -71,20 +71,7 @@
                                 <input type="text" hidden name="id_pasien" id="id_pasien" required class="form-control">
                             </div>
                         </div>
-                        <tr>
-                            <td width="200">No RM</td>
-                            <td>
-                                <select name="no_rm" id="no_rm" class="js-example-basic-single form-control"
-                                    name="state">
-                                    <option value="">-- Cari atau pilih --</option>
-                                    <% data_pasien.forEach(function(hasil){ %>
-                                    <option value="<%= hasil.id %>"><%= hasil.no_rm %>
-                                    </option>
-                                    <% }) %>
-                                </select>
 
-                            </td>
-                        </tr>
                         <div class="form-group">
                             <!-- <label for="" class="col-sm-3">Tanggal lahir<span style="color:red"> *</span></label> -->
                             <div class="col-sm-9">
