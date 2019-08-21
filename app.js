@@ -42,7 +42,9 @@ app = express();
 
 mongoose
     .connect(configDB.url, {
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false
     }) // Let us remove that nasty deprecation warrning :)
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));

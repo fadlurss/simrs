@@ -43,6 +43,10 @@ SARAN
 2. Saat proses upload ke server, kalau verifikasi email via smptp tidak jalan, maka yang perlu dilakukan adalah mengetik GMAILPW di terminal web server nya, atau mengetik nama variabel ENV di terminal servernya
 
 
+var aso = await m_campground.findOne({
+        "bookings": {"5d5506debe1e89362622bb6b"}
+    });
+
 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         Pasien masuk <span class="badge"><%= x %></span></i>
                         <ul class="dropdown-menu">
