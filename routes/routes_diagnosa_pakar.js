@@ -13,7 +13,11 @@ const schema = Joi.object().keys({
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const alldiagnosa_pakar = await Diagnosa_pakar.find({});
+    const alldiagnosa_pakar = await Diagnosa_pakar.find({
+        'bobot': {
+            $lt: 0.8
+        }
+    });
     res.render('v_diagnosapakar/index', {
         alldiagnosa_pakar: alldiagnosa_pakar
     });

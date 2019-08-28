@@ -41,7 +41,11 @@ const schema = Joi.object().keys({
 })
 
 router.get('/', middleware.asyncMiddleware(async (req, res, next) => {
-    const allgejala_pakar = await Gejala_pakar.find({});
+    const allgejala_pakar = await Gejala_pakar.find({
+        'bobot': {
+            $lt: 0.8
+        }
+    });
     res.render('v_gejalapakar/index', {
         allgejala_pakar: allgejala_pakar
     });

@@ -9,6 +9,15 @@ exports.read_pasien = middleware.asyncMiddleware(async (req, res, next) => {
     const allpasien = await Pasien.find({})
         .populate('status_menikah')
         .populate('agama');
+    const custom = await Pasien.find({
+            'umur': {
+                $gt: 21
+            }
+        })
+        .populate('status_menikah')
+        .populate('agama');
+    console.log("custom " + custom);
+
     res.render('v_pasien/index', {
         data_pasien: allpasien,
     });

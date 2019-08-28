@@ -71,10 +71,29 @@ exports.read = middleware.asyncMiddleware(async (req, res, next) => {
         no_rawat: -1
         // const data_pendaftaran = await Pendaftaran.find({}).sort({
         //     no_rawat: -1  BUAT SORTING DATA
-    }).populate("id_dokter_penanggung_jawab").populate("id_pasien");
+    }).populate("id_dokter_penanggung_jawab").populate("id_pasien").populate({
+        path: "id_riwayattindakan",
+        populate: {
+            path: "id_tindakan"
+        }
+    });
+
+    const sudahperiksa = await Pendaftaran.find({
+        'status': true
+    }).sort({
+        no_rawat: -1
+        // const data_pendaftaran = await Pendaftaran.find({}).sort({
+        //     no_rawat: -1  BUAT SORTING DATA
+    }).populate("id_dokter_penanggung_jawab").populate("id_pasien").populate({
+        path: "id_riwayattindakan",
+        populate: {
+            path: "id_tindakan"
+        }
+    });
     res.render('v_pendaftaran/index', {
         databaru: dadabaru,
-        data_pendaftaran: data_pendaftaran
+        data_pendaftaran: data_pendaftaran,
+        sudahperiksa: sudahperiksa
     });
 
 })
@@ -141,7 +160,8 @@ exports.hasil_laporan = middleware.asyncMiddleware(async (req, res, next) => {
         createdAt: {
             $gte: new Date(start),
             $lt: new Date(end)
-        }
+        },
+        status: true
     }).populate("id_dokter_penanggung_jawab").populate("id_pasien");
 
     res.render('v_pendaftaran/laporan', {
@@ -183,6 +203,9 @@ exports.hasil_laporan_bulanan = middleware.asyncMiddleware(async (req, res, next
         cari_data: cari_data
     })
 })
+
+// exports.dfdfd = async(req,res,next) => {
+// };
 
 exports.hasil_laporan_tahunan = middleware.asyncMiddleware(async (req, res, next) => {
 

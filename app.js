@@ -80,7 +80,21 @@ app.use(express.static(__dirname + "/public")); // jangan pakai koma seperti con
 app.use(express.static(__dirname, +"/config"));
 
 app.use(async function (req, res, next) { //buat melihat siapa yang login, ada di header welcome back!! semacam session bisa mengeluarkan email
-    res.locals.currentUser = req.user;
+    const a = res.locals.currentUser = req.user;
+    // const alpha = res.locals.currentUser;
+    // console.log("alpha " + alpha);
+    // const beta = req.user;
+    // console.log(beta);
+
+
+    // console.log(a);
+    // const b = res.locals.session = req.session;
+    // console.log(b);
+    // const c = res.locals.session = req.session;
+    // console.log("get data id user" + c.passport.user);
+
+
+
     if (req.user) {
         try {
             let dada = await User.findById(req.user._id).populate('notifications', null, {

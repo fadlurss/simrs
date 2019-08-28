@@ -47,12 +47,16 @@
                                 <td>
                                     <%= hasil.id_pasien.nama_pasien %>
                                 </td>
+
                                 <td>
                                     <% if(hasil.status == true){ %>
                                     <p>Sudah diperiksa</p>
                                     <% } else { %>
                                     <p>Belum diperiksa</p>
                                     <% } %>
+                                </td>
+                                <td>
+                                    <%= hasil.id_riwayattindakan %>
                                 </td>
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="/pendaftaran/<%= hasil._id %>/detail"><i

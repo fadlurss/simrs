@@ -31,6 +31,15 @@ cara export from mlab to json :
 2.  cd bin
 3.  contoh mau export collection users, maka mongoexport -h ds213896.mlab.com:13896 -d simrs -c NAMATABELNYA -u fadlurss -p Xtcbandung97 -o NAMAEXPORTNYA.json
 
+mongoexport -h ds213896.mlab.com:13896 -d simrs -c users -u fadlurss -p Xtcbandung97 -o tbl_user.json
+mongoexport -h ds213896.mlab.com:13896 -d simrs -c tbl_pendaftaran -u fadlurss -p Xtcbandung97 -o tbl_pendaftarab.json
+mongoexport -h ds213896.mlab.com:13896 -d simrs -c tbl_pasien -u fadlurss -p Xtcbandung97 -o tbl_pasien.json
+mongorestore -h ds213896.mlab.com:13896 -d simrs -u fadlurss -p Xtcbandung97 simrs
+mongodump -d simrs -o simrs
+mongodump --host ds213896.mlab.com:13896 --db simrs --username fadlurss --password Xtcbandung97 --out /target/folder/path
+
+udo mongodump --host ds213896.mlab.com:13896 --db simrs --username fadlurss --password Xtcbandung97 --out /target/folder/path WORK
+
 git pull
 
 REVISI
